@@ -20,11 +20,13 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
 
   // Only use scroll when mounted and not loading
   const scrollConfig = useMemo(() => ({
@@ -83,6 +85,18 @@ export default function Home() {
     setIsMounted(true);
   }, []);
 
+  // Mouse tracking for eye-tracking effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    if (isMounted && !isLoading) {
+      window.addEventListener('mousemove', handleMouseMove);
+      return () => window.removeEventListener('mousemove', handleMouseMove);
+    }
+  }, [isMounted, isLoading]);
+
   // Loading effect - show terminal first, then main content
   useEffect(() => {
     // Start transition after 5.5s (3.5s animation + 2s pause)
@@ -117,6 +131,24 @@ export default function Home() {
   const scrollToSection = (section: number) => {
     const sections = [aboutRef, skillsRef, projectsRef, contactRef];
     sections[section]?.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Calculate eye-tracking rotation based on mouse position
+  const calculateEyeTracking = (imageRef: React.RefObject<HTMLDivElement | null>) => {
+    if (!imageRef.current) return { rotateX: 0, rotateY: 0 };
+    
+    const rect = imageRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const deltaX = mousePosition.x - centerX;
+    const deltaY = mousePosition.y - centerY;
+    
+    // Calculate rotation angles (limited to prevent over-rotation)
+    const rotateY = Math.max(-15, Math.min(15, deltaX / 10));
+    const rotateX = Math.max(-10, Math.min(10, -deltaY / 15));
+    
+    return { rotateX, rotateY };
   };
 
   // Loading Screen Component
@@ -468,57 +500,158 @@ export default function Home() {
                       </motion.div>
                     </div>
 
-                    {/* Right Side - Profile Image */}
+                    {/* Right Side - 3D Profile Image */}
                     <motion.div
                       initial={{ opacity: 0, x: 40, scale: 0.9 }}
                       animate={{ opacity: 1, x: 0, scale: 1 }}
                       transition={{ duration: 0.8, delay: 0.6 }}
                       className="relative flex justify-center lg:justify-end"
                     >
-                      <div className="relative group">
-                        {/* Image Container */}
-                        <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-3xl overflow-hidden">
-                          {/* Your actual photo */}
+                      <div className="relative group perspective-1000">
+                        {/* 3D Image Container with Eye Tracking */}
+                        <motion.div
+                          ref={imageRef}
+                          className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-3xl overflow-hidden cursor-pointer"
+                          style={{
+                            transformStyle: "preserve-3d",
+                            ...calculateEyeTracking(imageRef)
+                          }}
+                          whileHover={{ 
+                            scale: 1.05,
+                            z: 50
+                          }}
+                          whileTap={{ 
+                            scale: 0.98
+                          }}
+                          transition={{ 
+                            type: "spring", 
+                            stiffness: 200, 
+                            damping: 25 
+                          }}
+                        >
+                          {/* Your actual photo (default) */}
                           <img 
                             src="/profile.jpg" 
                             alt="Manohar Gali" 
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover transition-all duration-300 group-hover:opacity-0"
+                            style={{ objectPosition: 'center 20%' }}
+                          />
+                          {/* Hover photo with specs */}
+                          <img
+                            src="/profile-specs.jpg"
+                            alt="Manohar Gali with specs"
+                            className="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-300 group-hover:opacity-100"
                             style={{ objectPosition: 'center 20%' }}
                           />
                           
-                          {/* Gradient overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-                        </div>
+                          {/* Gradient overlay with depth */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                          
+                          {/* Eye tracking highlight effect */}
+                          <motion.div
+                            className="absolute inset-0 pointer-events-none"
+                            style={{
+                              background: `radial-gradient(circle at ${mousePosition.x - (imageRef.current?.getBoundingClientRect().left || 0)}px ${mousePosition.y - (imageRef.current?.getBoundingClientRect().top || 0)}px, rgba(255,255,255,0.1) 0%, transparent 50%)`
+                            }}
+                          />
+
+                          {/* Removed vector specs overlay in favor of hover image swap */}
+                          
+                          {/* 3D Shadow effect */}
+                          <div className="absolute inset-0 rounded-3xl shadow-2xl shadow-blue-500/20 group-hover:shadow-blue-500/40 transition-shadow duration-300" />
+                        </motion.div>
                         
-                        {/* Floating elements around image */}
+                        {/* 3D Floating elements around image */}
                         <motion.div
                           animate={{ 
-                            y: [0, -10, 0],
-                            rotate: [0, 2, 0]
+                            y: [0, -15, 0],
+                            rotateY: [0, 180, 360],
+                            rotateX: [0, 10, 0]
                           }}
                           transition={{ 
-                            duration: 4, 
+                            duration: 6, 
                             repeat: Infinity, 
                             ease: "easeInOut" 
                           }}
-                          className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-blue-500/30 to-purple-500/30 rounded-2xl blur-xl"
+                          className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-blue-500/40 to-purple-500/40 rounded-2xl blur-xl"
+                          style={{
+                            transformStyle: "preserve-3d",
+                            transform: "translateZ(20px)"
+                          }}
                         />
                         <motion.div
                           animate={{ 
-                            y: [0, 10, 0],
-                            rotate: [0, -2, 0]
+                            y: [0, 15, 0],
+                            rotateY: [360, 180, 0],
+                            rotateX: [0, -10, 0]
                           }}
                           transition={{ 
-                            duration: 5, 
+                            duration: 7, 
                             repeat: Infinity, 
                             ease: "easeInOut",
                             delay: 1
                           }}
-                          className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-purple-500/30 to-pink-500/30 rounded-2xl blur-xl"
+                          className="absolute -bottom-6 -left-6 w-20 h-20 bg-gradient-to-br from-purple-500/40 to-pink-500/40 rounded-2xl blur-xl"
+                          style={{
+                            transformStyle: "preserve-3d",
+                            transform: "translateZ(15px)"
+                          }}
                         />
                         
-                        {/* Border glow effect */}
-                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-indigo-500/20 blur-sm -z-10 scale-105" />
+                        {/* Additional 3D floating element */}
+                        <motion.div
+                          animate={{ 
+                            y: [0, -8, 0],
+                            rotateZ: [0, 90, 180, 270, 360],
+                            scale: [1, 1.1, 1]
+                          }}
+                          transition={{ 
+                            duration: 8, 
+                            repeat: Infinity, 
+                            ease: "easeInOut",
+                            delay: 2
+                          }}
+                          className="absolute top-1/2 -right-8 w-16 h-16 bg-gradient-to-br from-indigo-500/30 to-cyan-500/30 rounded-full blur-lg"
+                          style={{
+                            transformStyle: "preserve-3d",
+                            transform: "translateZ(10px)"
+                          }}
+                        />
+                        
+                        {/* 3D Border glow effect with depth */}
+                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-indigo-500/30 blur-sm -z-10 scale-110 group-hover:scale-115 transition-transform duration-300" />
+                        
+                        {/* 3D Reflection effect */}
+                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-transparent via-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        
+                        {/* Eye tracking indicator */}
+                        <motion.div
+                          className="absolute -top-2 -right-2 w-6 h-6 bg-blue-400 rounded-full flex items-center justify-center"
+                          animate={{ 
+                            scale: [1, 1.1, 1],
+                            opacity: [0.7, 1, 0.7]
+                          }}
+                          transition={{ 
+                            duration: 2, 
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          <motion.div
+                            className="w-2 h-2 bg-white rounded-full"
+                            animate={{ 
+                              scale: [1, 1.3, 1],
+                              opacity: [0.8, 1, 0.8]
+                            }}
+                            transition={{ 
+                              duration: 1.5, 
+                              repeat: Infinity,
+                              ease: "easeInOut"
+                            }}
+                          />
+                        </motion.div>
+                        
+                        
                       </div>
                     </motion.div>
                   </div>
@@ -707,8 +840,8 @@ export default function Home() {
                     </h2>
                     <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                       Ready to work together? Let's discuss your next project
-                    </p>
-                  </div>
+          </p>
+        </div>
 
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -728,8 +861,8 @@ export default function Home() {
 
                     <a
                       href="https://github.com/Manugali"
-                      target="_blank"
-                      rel="noopener noreferrer"
+            target="_blank"
+            rel="noopener noreferrer"
                       className="group relative p-6 rounded-2xl border border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_60%,transparent)] backdrop-blur hover:border-[--ring] transition-all duration-300"
                     >
                       <Github className="h-8 w-8 text-[--primary] mb-4" />
@@ -739,8 +872,8 @@ export default function Home() {
 
                     <a
                       href="https://linkedin.com/in/manu"
-                      target="_blank"
-                      rel="noopener noreferrer"
+            target="_blank"
+            rel="noopener noreferrer"
                       className="group relative p-6 rounded-2xl border border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_60%,transparent)] backdrop-blur hover:border-[--ring] transition-all duration-300"
                     >
                       <Linkedin className="h-8 w-8 text-[--primary] mb-4" />
@@ -773,10 +906,10 @@ export default function Home() {
                 </motion.div>
               </div>
             </motion.section>
-          </div>
+        </div>
 
           <CommandPalette open={open} onOpenChange={setOpen} />
-      </div>
+    </div>
     </motion.div>
   );
 }

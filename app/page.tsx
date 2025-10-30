@@ -4,7 +4,7 @@ import { CommandPalette } from "@/components/CommandPalette";
 import { Topbar } from "@/components/Topbar";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { ChevronDown, ArrowRight, Github, Mail, Linkedin, ExternalLink, MapPin } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { SkillBadge } from "@/components/SkillBadge";
 import { ActivityCard } from "@/components/ActivityCard";
 import { AIDevConsole } from "@/components/AIDevConsole";
@@ -17,58 +17,94 @@ import projects from "@/data/projects.json";
 export default function Home() {
   const [open, setOpen] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
+  // Only use scroll when mounted and not loading
+  const scrollConfig = useMemo(() => ({
+    target: isMounted && !isLoading ? containerRef : undefined,
+    offset: ["start start", "end end"] as ["start start", "end end"]
+  }), [isMounted, isLoading]);
 
-  // Section progress tracking
-  const aboutProgress = useScroll({
-    target: aboutRef,
-    offset: ["start center", "end center"]
-  });
+  const { scrollYProgress } = useScroll(scrollConfig);
 
-  const skillsProgress = useScroll({
-    target: skillsRef,
-    offset: ["start center", "end center"]
-  });
+  // Section progress tracking - only when mounted and not loading
+  const aboutScrollConfig = useMemo(() => ({
+    target: isMounted && !isLoading ? aboutRef : undefined,
+    offset: ["start center", "end center"] as ["start center", "end center"]
+  }), [isMounted, isLoading]);
 
-  const projectsProgress = useScroll({
-    target: projectsRef,
-    offset: ["start center", "end center"]
-  });
+  const skillsScrollConfig = useMemo(() => ({
+    target: isMounted && !isLoading ? skillsRef : undefined,
+    offset: ["start center", "end center"] as ["start center", "end center"]
+  }), [isMounted, isLoading]);
 
-  const contactProgress = useScroll({
-    target: contactRef,
-    offset: ["start center", "end center"]
-  });
+  const projectsScrollConfig = useMemo(() => ({
+    target: isMounted && !isLoading ? projectsRef : undefined,
+    offset: ["start center", "end center"] as ["start center", "end center"]
+  }), [isMounted, isLoading]);
 
-  // Transform values for cinematic effects
-  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -200]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
+  const contactScrollConfig = useMemo(() => ({
+    target: isMounted && !isLoading ? contactRef : undefined,
+    offset: ["start center", "end center"] as ["start center", "end center"]
+  }), [isMounted, isLoading]);
 
-  const skillsY = useTransform(skillsProgress.scrollYProgress, [0, 1], [100, -100]);
-  const skillsOpacity = useTransform(skillsProgress.scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const aboutProgress = useScroll(aboutScrollConfig);
+  const skillsProgress = useScroll(skillsScrollConfig);
+  const projectsProgress = useScroll(projectsScrollConfig);
+  const contactProgress = useScroll(contactScrollConfig);
 
-  const projectsY = useTransform(projectsProgress.scrollYProgress, [0, 1], [100, -100]);
-  const projectsOpacity = useTransform(projectsProgress.scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  // Transform values for cinematic effects with fallbacks
+  const heroY = useTransform(scrollYProgress || 0, [0, 0.3], [0, -200]);
+  const heroOpacity = useTransform(scrollYProgress || 0, [0, 0.2], [1, 0]);
+  const heroScale = useTransform(scrollYProgress || 0, [0, 0.3], [1, 0.8]);
 
-  const contactY = useTransform(contactProgress.scrollYProgress, [0, 1], [100, -100]);
-  const contactOpacity = useTransform(contactProgress.scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const skillsY = useTransform(skillsProgress.scrollYProgress || 0, [0, 1], [100, -100]);
+  const skillsOpacity = useTransform(skillsProgress.scrollYProgress || 0, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
+  const projectsY = useTransform(projectsProgress.scrollYProgress || 0, [0, 1], [100, -100]);
+  const projectsOpacity = useTransform(projectsProgress.scrollYProgress || 0, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
+  const contactY = useTransform(contactProgress.scrollYProgress || 0, [0, 1], [100, -100]);
+  const contactOpacity = useTransform(contactProgress.scrollYProgress || 0, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   // Additional parallax layers for hero
-  const layer1Y = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const layer2Y = useTransform(scrollYProgress, [0, 1], [0, 250]);
+  const layer1Y = useTransform(scrollYProgress || 0, [0, 1], [0, 150]);
+  const layer2Y = useTransform(scrollYProgress || 0, [0, 1], [0, 250]);
+
+  // Mount effect
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Loading effect - show terminal first, then main content
+  useEffect(() => {
+    // Start transition after 5.5s (3.5s animation + 2s pause)
+    const transitionTimer = setTimeout(() => {
+      setIsTransitioning(true);
+    }, 5500);
+    
+    // Hide loading screen after 6s (2s pause + 0.5s transition)
+    const loadingTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 6000);
+    
+    return () => {
+      clearTimeout(transitionTimer);
+      clearTimeout(loadingTimer);
+    };
+  }, []);
 
   // Update current section based on scroll
   useEffect(() => {
+    if (!isMounted || isLoading || !scrollYProgress) return;
+    
     const unsubscribe = scrollYProgress.onChange((latest) => {
       if (latest < 0.25) setCurrentSection(0);
       else if (latest < 0.5) setCurrentSection(1);
@@ -76,39 +112,227 @@ export default function Home() {
       else setCurrentSection(3);
     });
     return unsubscribe;
-  }, [scrollYProgress]);
+  }, [scrollYProgress, isMounted, isLoading]);
 
   const scrollToSection = (section: number) => {
     const sections = [aboutRef, skillsRef, projectsRef, contactRef];
     sections[section]?.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  return (
-    <div className="min-h-screen bg-[--background] overflow-x-hidden">
-      {/* Fixed Navigation */}
-      <div className="fixed top-20 left-6 z-50 hidden lg:block">
-        <div className="flex flex-col gap-2">
-          {['About', 'Skills', 'Projects', 'Contact'].map((section, index) => (
-            <motion.button
-              key={section}
-              onClick={() => scrollToSection(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                currentSection === index 
-                  ? 'bg-[--primary] scale-125' 
-                  : 'bg-[--muted-foreground] hover:bg-[--foreground]'
-              }`}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-            />
-          ))}
+  // Loading Screen Component
+  if (isLoading) {
+    return (
+      <motion.div 
+        className="min-h-screen bg-[--background] flex items-center justify-center overflow-hidden"
+        animate={{ 
+          opacity: isTransitioning ? 0 : 1,
+          scale: isTransitioning ? 0.95 : 1
+        }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+      >
+        {/* Background Effects */}
+        <div className="absolute inset-0">
+          <ParticleField />
+          <div className="pointer-events-none absolute -inset-32 bg-[radial-gradient(400px_200px_at_20%_30%,rgba(59,130,246,0.15),transparent_70%),radial-gradient(400px_200px_at_80%_20%,rgba(147,51,234,0.12),transparent_70%),radial-gradient(300px_150px_at_50%_80%,rgba(99,102,241,0.08),transparent_60%)]" />
         </div>
-      </div>
+        
+        {/* Loading Terminal */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ 
+            opacity: 1, 
+            scale: 1,
+            y: isTransitioning ? -20 : 0
+          }}
+          transition={{ duration: 0.5 }}
+          className="relative z-10 w-full max-w-4xl mx-auto px-6"
+        >
+          <div className="relative rounded-2xl border border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_30%,transparent)] backdrop-blur-sm overflow-hidden">
+            {/* Terminal Header */}
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-[--border] bg-[color-mix(in_oklch,oklch(var(--muted))_50%,transparent)]">
+              <div className="flex gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="flex-1 text-center">
+                <span className="text-sm font-mono text-muted-foreground">manohar@portfolio:~$</span>
+              </div>
+            </div>
+            
+            {/* Terminal Content */}
+            <div className="p-6 font-mono text-sm">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-green-400">$</span>
+                  <span className="text-blue-400">npm</span>
+                  <span className="text-white">create</span>
+                  <span className="text-yellow-400">next-app</span>
+                  <span className="text-white">my-portfolio</span>
+                </div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.5 }}
+                  className="text-gray-400 text-xs ml-4"
+                >
+                  ✓ Creating a new Next.js app...
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.8 }}
+                  className="text-gray-400 text-xs ml-4"
+                >
+                  ✓ Installing dependencies...
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 1.1 }}
+                  className="text-gray-400 text-xs ml-4"
+                >
+                  ✓ Setting up TypeScript...
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 1.4 }}
+                  className="text-gray-400 text-xs ml-4"
+                >
+                  ✓ Configuring Tailwind CSS...
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 1.7 }}
+                  className="text-gray-400 text-xs ml-4"
+                >
+                  ✓ Adding Framer Motion animations...
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 2.0 }}
+                  className="text-gray-400 text-xs ml-4"
+                >
+                  ✓ Setting up ShadCN/UI components...
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 2.3 }}
+                  className="text-gray-400 text-xs ml-4"
+                >
+                  ✓ Configuring theme system...
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 2.6 }}
+                  className="text-gray-400 text-xs ml-4"
+                >
+                  ✓ Adding particle effects...
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 2.9 }}
+                  className="text-green-400 text-xs ml-4"
+                >
+                  ✓ Portfolio ready! 🚀
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.4, delay: 3.2 }}
+                  className="flex items-center gap-2 mt-4"
+                >
+                  <span className="text-green-400">$</span>
+                  <span className="text-blue-400">npm</span>
+                  <span className="text-white">run</span>
+                  <span className="text-yellow-400">dev</span>
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 3.3 }}
+                  className="text-gray-400 text-xs ml-4"
+                >
+                  Live: https://manohargali.dev
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 3.4 }}
+                  className="text-blue-400 text-xs ml-4"
+                >
+                  🎉 Loading portfolio...
+                </motion.div>
+              </div>
+              
+              {/* Animated cursor */}
+              <motion.span
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{ duration: 1, repeat: Infinity }}
+                className="text-green-400 ml-1"
+              >
+                _
+              </motion.span>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div 
+      className="min-h-screen bg-[--background] overflow-x-hidden"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      {/* Fixed Navigation */}
+      {isMounted && !isLoading && (
+        <div className="fixed top-20 left-6 z-50 hidden lg:block">
+          <div className="flex flex-col gap-2">
+            {['About', 'Skills', 'Projects', 'Contact'].map((section, index) => (
+              <motion.button
+                key={section}
+                onClick={() => scrollToSection(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  currentSection === index 
+                    ? 'bg-[--primary] scale-125' 
+                    : 'bg-[--muted-foreground] hover:bg-[--foreground]'
+                }`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Scroll Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 z-50 origin-left"
-        style={{ scaleX: scrollYProgress }}
-      />
+      {isMounted && !isLoading && (
+        <motion.div
+          className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 z-50 origin-left"
+          style={{ scaleX: scrollYProgress || 0 }}
+        />
+      )}
 
       <Topbar onOpenCommand={() => setOpen(true)} />
       <div className="h-16" />
@@ -298,6 +522,7 @@ export default function Home() {
                       </div>
                     </motion.div>
                   </div>
+
 
                 </motion.div>
               </div>
@@ -552,6 +777,6 @@ export default function Home() {
 
           <CommandPalette open={open} onOpenChange={setOpen} />
       </div>
-    </div>
+    </motion.div>
   );
 }

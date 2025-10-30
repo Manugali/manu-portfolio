@@ -16,6 +16,20 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+### GitHub live stats
+
+The dashboard reads your GitHub stars and 24h commits via `/api/github/stats`.
+
+Configure your username via env var (optional, defaults to `Manugali`):
+
+```
+NEXT_PUBLIC_GITHUB_USER=Manugali
+# Optional for higher rate limits
+# GITHUB_TOKEN=ghp_xxx
+```
+
+Create a `.env.local` with the above and restart the server.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

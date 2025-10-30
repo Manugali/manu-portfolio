@@ -1,0 +1,26 @@
+[
+  {
+    "company": "Acme Corp",
+    "role": "Senior Full-Stack Developer",
+    "period": "2022 — Present",
+    "summary": "Led development of a SaaS platform serving 50k+ users.",
+    "highlights": [
+      "Shipped multi-tenant RBAC and billing",
+      "Improved TTFB by 35% via perf tuning",
+      "Built CI/CD with preview environments"
+    ]
+  },
+  {
+    "company": "Tech Labs",
+    "role": "Software Engineer",
+    "period": "2019 — 2022",
+    "summary": "Worked across frontend and backend delivering product features.",
+    "highlights": [
+      "Migrated SPA to Next.js App Router",
+      "Introduced e2e tests and observability",
+      "Mentored junior engineers"
+    ]
+  }
+]
+
+

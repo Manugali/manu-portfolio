@@ -1,0 +1,27 @@
+[
+  {
+    "title": "SaaS Analytics Dashboard",
+    "description": "A multi-tenant analytics platform with role-based access and realtime charts.",
+    "image": "/window.svg",
+    "stack": ["Next.js", "tRPC", "Prisma", "Postgres"],
+    "demo": "https://example.com",
+    "repo": "https://github.com/example/saas-analytics"
+  },
+  {
+    "title": "AI Code Reviewer",
+    "description": "PR assistant that annotates diffs, enforces conventions, and suggests changes.",
+    "image": "/globe.svg",
+    "stack": ["Next.js", "OpenAI", "Supabase"],
+    "demo": "https://example.com",
+    "repo": "https://github.com/example/ai-reviewer"
+  },
+  {
+    "title": "Personal Finance App",
+    "description": "Track spending, budgets, and investments with bank syncing.",
+    "image": "/file.svg",
+    "stack": ["Next.js", "NestJS", "MongoDB"],
+    "demo": "https://example.com"
+  }
+]
+
+

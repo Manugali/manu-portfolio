@@ -137,11 +137,11 @@ export default function Home() {
         onSelectSection={(i) => scrollToSection(i)}
       />
 
-      <main className="pt-24">
+      <main className="pt-16 md:pt-24">
         {/* Hero Section */}
         <section
           ref={aboutRef}
-          className="min-h-screen flex items-center justify-center py-20 px-6"
+          className="min-h-screen flex items-center justify-center py-12 md:py-20 px-4 md:px-6"
         >
           <div className="max-w-7xl mx-auto w-full">
             <div className="flex flex-col items-center text-center gap-12 lg:gap-16">
@@ -151,21 +151,21 @@ export default function Home() {
                 <img
                   src="/profile.jpg"
                   alt="Manohar Gali"
-                  className="w-48 h-48 lg:w-64 lg:h-64 rounded-full object-cover border-2 border-[--border] transition-all duration-500 group-hover:opacity-0 absolute"
+                  className="w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 rounded-full object-cover border-2 border-[--border] transition-all duration-500 group-hover:opacity-0 absolute"
                   style={{ objectPosition: 'center 15%' }}
                 />
                 {/* Color version (on hover) */}
                 <img
                   src="/profilecolor.jpg"
                   alt="Manohar Gali"
-                  className="w-48 h-48 lg:w-64 lg:h-64 rounded-full object-cover border-2 border-[--border] transition-all duration-500 opacity-0 group-hover:opacity-100"
+                  className="w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 rounded-full object-cover border-2 border-[--border] transition-all duration-500 opacity-0 group-hover:opacity-100"
                   style={{ objectPosition: 'center 15%' }}
                 />
               </div>
 
               {/* Hero Content */}
               <div className="flex-1 max-w-3xl mx-auto">
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 leading-tight px-2">
                   <motion.span
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -178,7 +178,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.15 }}
-                    className="block bg-gradient-to-r from-white via-white to-gray-200 bg-clip-text text-transparent font-extrabold text-5xl md:text-6xl lg:text-7xl mt-2"
+                    className="block bg-gradient-to-r from-white via-white to-gray-200 bg-clip-text text-transparent font-extrabold text-4xl md:text-5xl lg:text-6xl xl:text-7xl mt-1 md:mt-2"
                   >
                     Manohar Gali
                   </motion.span>
@@ -196,7 +196,7 @@ export default function Home() {
                     />
                   </motion.span>
                 </h1>
-                <p className="text-sm md:text-base text-[--muted-foreground] mb-8 leading-relaxed max-w-2xl mx-auto">
+                <p className="text-xs md:text-sm lg:text-base text-[--muted-foreground] mb-6 md:mb-8 leading-relaxed max-w-2xl mx-auto px-2">
                   I transform complex business challenges into elegant digital solutions. Specializing in enterprise-grade applications, 
                   I architect systems that drive operational efficiency, reduce costs, and deliver measurable ROI. 
                   From legacy system modernization to building next-generation platforms, I combine technical depth with business acumen 
@@ -219,7 +219,7 @@ export default function Home() {
         {/* What I can offer Section */}
         <section
           ref={skillsRef}
-          className="py-20 px-6"
+          className="py-12 md:py-20 px-4 md:px-6"
         >
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
@@ -254,14 +254,14 @@ export default function Home() {
         {/* Experience Section */}
         <section
           ref={experienceRef}
-          className="py-20 px-6"
+          className="py-12 md:py-20 px-4 md:px-6"
         >
           <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent">
+            <div className="text-center mb-8 md:mb-16">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent px-2">
                 Experience
               </h2>
-              <p className="text-lg text-[--muted-foreground] max-w-2xl mx-auto">
+              <p className="text-sm md:text-base lg:text-lg text-[--muted-foreground] max-w-2xl mx-auto px-2">
                 Building solutions that drive digital transformation and deliver measurable impact
               </p>
             </div>
@@ -270,14 +270,14 @@ export default function Home() {
               {experience.map((item, index) => (
                 <div
                   key={`${item.company}-${item.role}-${index}`}
-                  className="p-6 rounded-lg border border-[--border] bg-[--card] hover:border-[--muted-foreground] transition-colors"
+                  className="p-4 md:p-6 rounded-lg border border-[--border] bg-[--card] hover:border-[--muted-foreground] transition-colors"
                 >
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
                     <div>
-                      <h3 className="text-xl md:text-2xl font-bold mb-1 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">
+                      <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-1 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">
                         {item.role}
                       </h3>
-                      <p className="text-lg text-[--muted-foreground]">{item.company}</p>
+                      <p className="text-base md:text-lg text-[--muted-foreground]">{item.company}</p>
                       {item.location && (
                         <p className="text-sm text-[--muted-foreground] mt-1">{item.location}</p>
                       )}
@@ -286,13 +286,13 @@ export default function Home() {
                       {item.period}
                     </div>
                   </div>
-                  <p className="text-[--muted-foreground] mb-4 leading-relaxed">
+                  <p className="text-sm md:text-base text-[--muted-foreground] mb-4 leading-relaxed">
                     {item.summary}
                   </p>
                   <ul className="space-y-2">
                     {item.highlights.map((highlight: string, idx: number) => (
-                      <li key={idx} className="text-sm text-[--muted-foreground] flex items-start gap-3">
-                        <span className="text-white mt-1.5">•</span>
+                      <li key={idx} className="text-xs md:text-sm text-[--muted-foreground] flex items-start gap-3">
+                        <span className="text-white mt-1.5 flex-shrink-0">•</span>
                         <span className="leading-relaxed">{highlight}</span>
                       </li>
                     ))}
@@ -306,7 +306,7 @@ export default function Home() {
         {/* Contact Section */}
         <section
           ref={contactRef}
-          className="py-20 px-6"
+          className="py-12 md:py-20 px-4 md:px-6"
         >
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -319,11 +319,11 @@ export default function Home() {
             </div>
 
             {/* Contact Cards */}
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="p-6 rounded-lg border border-[--border] bg-[--card] hover:border-[--muted-foreground] transition-colors">
-                <Mail className="h-8 w-8 text-white mb-4" strokeWidth={1.5} />
-                <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">Get in Touch</h3>
-                <p className="text-[--muted-foreground] mb-4">
+            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+              <div className="p-4 md:p-6 rounded-lg border border-[--border] bg-[--card] hover:border-[--muted-foreground] transition-colors">
+                <Mail className="h-6 w-6 md:h-8 md:w-8 text-white mb-3 md:mb-4" strokeWidth={1.5} />
+                <h3 className="text-lg md:text-xl font-bold mb-2 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">Get in Touch</h3>
+                <p className="text-sm md:text-base text-[--muted-foreground] mb-3 md:mb-4">
                   Have a project in mind or want to discuss opportunities? Feel free to reach out.
                 </p>
                 <div className="space-y-2">

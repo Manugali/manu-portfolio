@@ -36,11 +36,11 @@ export function Topbar({ sections = ["About", "Skills", "Projects", "Contact"], 
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[60] w-full pt-6 px-6">
-      <div className="w-full flex items-center">
-        {/* Logo - Center between left and middle */}
+    <header className="fixed top-0 left-0 right-0 z-[60] w-full pt-3 md:pt-6 px-3 md:px-6">
+      <div className="w-full flex items-center justify-between">
+        {/* Logo - Responsive positioning */}
         <div 
-          className="font-bold text-3xl md:text-4xl lowercase bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent absolute left-[18%] -translate-x-1/2" 
+          className="font-bold text-2xl md:text-3xl lg:text-4xl lowercase bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent relative md:absolute md:left-[18%] md:-translate-x-1/2" 
           style={{ 
             fontFamily: '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif', 
             fontWeight: 700, 
@@ -52,7 +52,7 @@ export function Topbar({ sections = ["About", "Skills", "Projects", "Contact"], 
         </div>
 
         {/* Navigation Container - Top Right */}
-        <div className="rounded-2xl border border-[--border] bg-[--card] px-6 py-4 flex items-center gap-6 ml-auto mr-16">
+        <div className="rounded-xl md:rounded-2xl border border-[--border] bg-[--card] px-3 md:px-6 py-2 md:py-4 flex items-center gap-3 md:gap-6 ml-auto md:mr-16">
           {/* Navigation + More Button */}
           <div className="flex items-center gap-6">
             {/* Navigation Links Container */}

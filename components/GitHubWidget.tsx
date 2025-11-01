@@ -7,12 +7,16 @@ type Stats = { user: string; stars: number; commits24h: number };
 export function GitHubWidget({ user }: { user?: string }) {
   const [stats, setStats] = React.useState<Stats | null>(null);
   const [error, setError] = React.useState<string | null>(null);
+  const hasFetchedRef = React.useRef(false);
 
   async function load() {
     try {
       setError(null);
       const res = await fetch(`/api/github/stats?user=${encodeURIComponent(user || "")}`, { cache: "no-store" });
-      const json = await res.json();
+      if (!res.ok) {
+        throw new Error(`Request failed: ${res.status}`);
+      }
+      const json = (await res.json()) as Stats;
       setStats(json);
     } catch (e: any) {
       setError(e?.message || "Failed to load");
@@ -20,9 +24,9 @@ export function GitHubWidget({ user }: { user?: string }) {
   }
 
   React.useEffect(() => {
-    load();
-    const id = setInterval(load, 60_000);
-    return () => clearInterval(id);
+    if (hasFetchedRef.current) return;
+    hasFetchedRef.current = true;
+    void load();
   }, [user]);
 
   return (

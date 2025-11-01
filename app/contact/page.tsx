@@ -24,16 +24,17 @@ export default function ContactPage() {
                   I’m open to interesting projects and opportunities.
                 </p>
                 <div className="mt-4 space-y-2 text-sm">
-                  <a className="block hover:underline" href="mailto:hello@manu.dev">hello@manu.dev</a>
-                  <a className="block hover:underline" href="https://github.com/your-github" target="_blank" rel="noreferrer">GitHub</a>
-                  <a className="block hover:underline" href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noreferrer">LinkedIn</a>
+                  <a className="block hover:underline" href="mailto:manoharreddygali19061999@gmail.com">manoharreddygali19061999@gmail.com</a>
+                  <a className="block hover:underline" href="tel:8067019862">806-701-9862</a>
+                  <a className="block hover:underline" href="https://github.com/Manugali" target="_blank" rel="noopener noreferrer">GitHub</a>
+                  <a className="block hover:underline" href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 </div>
               </div>
               <form className="rounded-2xl border border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_70%,transparent)] p-5 backdrop-blur space-y-3" action="/api/contact" method="post">
                 <input className="w-full rounded-xl border border-[--border] bg-transparent px-3 py-2 text-sm" name="name" placeholder="Your name" required />
                 <input className="w-full rounded-xl border border-[--border] bg-transparent px-3 py-2 text-sm" type="email" name="email" placeholder="Email" required />
                 <textarea className="w-full rounded-xl border border-[--border] bg-transparent px-3 py-2 text-sm" name="message" placeholder="Message" rows={5} required />
-                <button className="rounded-xl bg-[--primary] text-[--primary-foreground] px-4 py-2 text-sm">Send</button>
+                <button type="submit" className="rounded-xl bg-[--primary] text-[--primary-foreground] px-4 py-2 text-sm">Send</button>
               </form>
             </div>
           </main>

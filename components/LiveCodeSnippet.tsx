@@ -50,7 +50,7 @@ export function LiveCodeSnippet() {
           <div className="flex gap-1.5">
             <div className="w-2 h-2 rounded-full bg-red-400" />
             <div className="w-2 h-2 rounded-full bg-yellow-400" />
-            <div className="w-2 h-2 rounded-full bg-green-400" />
+            <div className="w-2 h-2 rounded-full bg-purple-400" />
           </div>
           <span className="text-muted-foreground text-xs">portfolio.js</span>
         </div>
@@ -66,7 +66,7 @@ export function LiveCodeSnippet() {
               {line === "" ? <br /> : (
                 <span>
                   {line.startsWith("//") ? (
-                    <span className="text-green-400">{line}</span>
+                    <span className="text-purple-400">{line}</span>
                   ) : line.includes("const") || line.includes("=") ? (
                     <>
                       <span className="text-blue-400">const</span>

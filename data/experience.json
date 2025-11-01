@@ -1,26 +1,19 @@
 [
   {
-    "company": "Acme Corp",
-    "role": "Senior Full-Stack Developer",
-    "period": "2022 — Present",
-    "summary": "Led development of a SaaS platform serving 50k+ users.",
+    "company": "Farm Bureau Financial Services",
+    "role": "Applications Engineer",
+    "period": "Jun 2023 — Present",
+    "location": "West Des Moines, Iowa",
+    "summary": "Leading the digital transformation of financial processes, building modern web applications that streamline operations and enhance customer experience. Specialized in developing scalable .NET solutions and seamless system integrations.",
     "highlights": [
-      "Shipped multi-tenant RBAC and billing",
-      "Improved TTFB by 35% via perf tuning",
-      "Built CI/CD with preview environments"
-    ]
-  },
-  {
-    "company": "Tech Labs",
-    "role": "Software Engineer",
-    "period": "2019 — 2022",
-    "summary": "Worked across frontend and backend delivering product features.",
-    "highlights": [
-      "Migrated SPA to Next.js App Router",
-      "Introduced e2e tests and observability",
-      "Mentored junior engineers"
+      "Architected and developed MVC Models and View Models for efficient data management across multiple modules",
+      "Built and maintained Task, Employee, Projects, and Status Modules, ensuring seamless workflow integration",
+      "Integrated Payout Project with legacy financial systems, enabling real-time data synchronization and improved processing",
+      "Optimized database operations through complex SQL queries and stored procedures, improving query performance",
+      "Designed intuitive user interfaces for both internal teams and customers, resulting in improved usability and adoption",
+      "Maintained high code quality through rigorous debugging and systematic bug resolution processes",
+      "Enhanced user experience with clear error handling and intuitive interface design patterns",
+      "Orchestrated end-to-end software delivery pipeline, managing builds, releases, and deployments"
     ]
   }
 ]
-
-

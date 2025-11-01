@@ -1,8 +1,49 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import LightRays from "@/components/LightRays";
+
+// Optimized wave clip path component for better mobile performance
+function WaveClipPath({ progress, isMobile, children }: { progress: number; isMobile: boolean; children: React.ReactNode }) {
+  const clipPath = useMemo(() => {
+    const baseY = 100 - progress;
+    const wavePoints = [];
+    
+    // Use fewer points on mobile for better performance (every 2% vs 1%)
+    const pointInterval = isMobile ? 2 : 1;
+    
+    // Generate smooth wave points
+    for (let x = 0; x <= 100; x += pointInterval) {
+      // Use multiple sine waves with different frequencies for organic feel
+      const wave1 = Math.sin(progress * 0.07 + x * 0.15) * 10;
+      const wave2 = Math.sin(progress * 0.05 + x * 0.12) * 4;
+      const wave3 = Math.sin(progress * 0.03 + x * 0.08) * 2;
+      
+      // Combine waves for smooth, organic effect
+      const waveOffset = wave1 + wave2 + wave3;
+      const y = Math.max(0, baseY + waveOffset);
+      wavePoints.push(`${x}% ${y}%`);
+    }
+    
+    // Complete the polygon
+    wavePoints.push('100% 100%');
+    wavePoints.push('0% 100%');
+    
+    return `polygon(${wavePoints.join(', ')})`;
+  }, [progress, isMobile]);
+
+  return (
+    <div
+      style={{
+        clipPath,
+        transition: 'clip-path 0.1s cubic-bezier(0.4, 0, 0.2, 1)',
+      }}
+    >
+      {children}
+    </div>
+  );
+}
 
 export function InitialLoader() {
   const [isLoading, setIsLoading] = useState(true);
@@ -11,7 +52,7 @@ export function InitialLoader() {
   const [targetPosition, setTargetPosition] = useState({ x: 0, y: 0 });
   const [targetScale, setTargetScale] = useState(0.12);
   const [isMobile, setIsMobile] = useState(false);
-  const ANIMATION_DURATION = 6000; // 6 seconds for slower, smoother animation
+  const [loadingMessage, setLoadingMessage] = useState("Initializing systems...");
 
   useEffect(() => {
     // Detect mobile vs desktop
@@ -76,22 +117,55 @@ export function InitialLoader() {
   }, []);
 
   useEffect(() => {
+    // Deployment-style loading messages - fewer messages with constant timing
+    const loadingMessages = [
+      { threshold: 0, message: "Initializing systems..." },
+      { threshold: 20, message: "Building assets..." },
+      { threshold: 40, message: "Optimizing performance..." },
+      { threshold: 60, message: "Deploying application..." },
+      { threshold: 80, message: "Finalizing setup..." },
+    ];
+
     const startTime = Date.now();
     let animationFrame: number;
     let animationComplete = false;
+    let lastUpdateTime = 0;
+    
+    // Animation duration for all devices
+    const animationDuration = 6000; // 6 seconds
+    
+    // Calculate constant time per message (equal duration for each)
+    const messageInterval = animationDuration / loadingMessages.length; // Equal time for each message
+    let currentMessageIndex = 0;
+    
+    // Throttle updates on mobile for better performance (every ~16ms = ~60fps, vs every frame)
+    const throttleInterval = isMobile ? 16 : 0; // 16ms = ~60fps
 
     const updateProgress = () => {
-      const elapsed = Date.now() - startTime;
-      const t = Math.min(elapsed / ANIMATION_DURATION, 1); // Normalized time (0 to 1)
+      const now = Date.now();
+      const elapsed = now - startTime;
+      const t = Math.min(elapsed / animationDuration, 1); // Normalized time (0 to 1)
       
       if (t < 1) {
-        // Ease-in-out cubic for smooth animation
-        const eased = t < 0.5 
-          ? 4 * t * t * t 
-          : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        // Update message based on constant timing (not progress-based)
+        const expectedIndex = Math.floor(elapsed / messageInterval);
+        if (expectedIndex < loadingMessages.length && expectedIndex !== currentMessageIndex) {
+          currentMessageIndex = expectedIndex;
+          setLoadingMessage(loadingMessages[currentMessageIndex].message);
+        }
         
-        const calculatedProgress = eased * 100;
-        setProgress(calculatedProgress);
+        // Throttle updates on mobile
+        if (!isMobile || (now - lastUpdateTime) >= throttleInterval) {
+          // Ease-in-out cubic for smooth animation
+          const eased = t < 0.5 
+            ? 4 * t * t * t 
+            : 1 - Math.pow(-2 * t + 2, 3) / 2;
+          
+          const calculatedProgress = eased * 100;
+          setProgress(calculatedProgress);
+          
+          lastUpdateTime = now;
+        }
         
         animationFrame = requestAnimationFrame(updateProgress);
       } else {
@@ -130,13 +204,13 @@ export function InitialLoader() {
           }, 800);
         }, 500);
       }
-    }, ANIMATION_DURATION + 500);
+    }, animationDuration + 500);
     
     return () => {
       cancelAnimationFrame(animationFrame);
       clearTimeout(maxTimeout);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <AnimatePresence>
@@ -215,55 +289,49 @@ export function InitialLoader() {
                    lineHeight: '1',
                  }}
                >
-                 <div
-                   style={{
-                     clipPath: (() => {
-                       const baseY = 100 - progress;
-                       const wavePoints = [];
-                       
-                       // Generate smooth wave points every 1% for ultra-smooth curves
-                       for (let x = 0; x <= 100; x += 1) {
-                         // Use multiple sine waves with different frequencies for organic feel
-                         const wave1 = Math.sin(progress * 0.07 + x * 0.15) * 10;
-                         const wave2 = Math.sin(progress * 0.05 + x * 0.12) * 4;
-                         const wave3 = Math.sin(progress * 0.03 + x * 0.08) * 2;
-                         
-                         // Combine waves for smooth, organic effect
-                         const waveOffset = wave1 + wave2 + wave3;
-                         const y = Math.max(0, baseY + waveOffset);
-                         wavePoints.push(`${x}% ${y}%`);
-                       }
-                       
-                       // Complete the polygon
-                       wavePoints.push('100% 100%');
-                       wavePoints.push('0% 100%');
-                       
-                       return `polygon(${wavePoints.join(', ')})`;
-                     })(),
-                     transition: 'clip-path 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
-                   }}
-                 >
+                 <WaveClipPath progress={progress} isMobile={isMobile}>
                    manu
-                 </div>
+                 </WaveClipPath>
                </div>
              </div>
 
-            {/* Percentage Counter - Synced with white fill animation */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ 
-                opacity: animationPhase === 'zoomOut' ? 0 : 1,
-                scale: animationPhase === 'zoomOut' ? 0 : 1,
-              }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-2xl md:text-3xl font-bold text-white tabular-nums"
-              style={{
-                fontFamily: '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif',
-                letterSpacing: '-0.02em'
-              }}
-            >
-              {Math.round(progress)}%
-            </motion.div>
+            {/* Percentage Counter and Loading Message */}
+            <div className="flex flex-col items-center gap-3">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ 
+                  opacity: animationPhase === 'zoomOut' ? 0 : 1,
+                  scale: animationPhase === 'zoomOut' ? 0 : 1,
+                }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="text-2xl md:text-3xl font-bold text-white tabular-nums"
+                style={{
+                  fontFamily: '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif',
+                  letterSpacing: '-0.02em'
+                }}
+              >
+                {Math.round(progress)}%
+              </motion.div>
+              
+              {/* Loading Message */}
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={loadingMessage}
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: animationPhase === 'zoomOut' ? 0 : 1, y: 0 }}
+                  exit={{ opacity: 0, y: -5 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-sm md:text-base text-gray-400 tracking-wider uppercase"
+                  style={{
+                    fontFamily: '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif',
+                    letterSpacing: '0.15em',
+                    fontSize: '0.75rem',
+                  }}
+                >
+                  {loadingMessage}
+                </motion.p>
+              </AnimatePresence>
+            </div>
 
           </motion.div>
         </motion.div>

@@ -55,6 +55,17 @@ export function InitialLoader() {
   const [loadingMessage, setLoadingMessage] = useState("Initializing systems...");
 
   useEffect(() => {
+    // Prevent scroll restoration
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    // Reset scroll position to top when loader appears
+    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
     // Detect mobile vs desktop
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);

@@ -70,34 +70,22 @@ export function Topbar({ sections = ["About", "Skills", "Experience", "Contact"]
                     scale: 0.98,
                     transition: { duration: 0.1, ease: "easeOut" }
                   }}
-                  className={`group relative px-3 py-2 text-sm font-medium transition-colors duration-200 ease-out overflow-hidden cursor-pointer ${
+                  className={`group relative px-3 py-2 text-sm font-medium transition-all duration-200 ease-out cursor-pointer ${
                     currentSection === idx
                       ? 'text-white'
                       : 'text-[--muted-foreground] hover:text-white'
                   }`}
                 >
-                  <span className="relative z-10">
-                    {section}
-                  </span>
-                  
-                  {/* Animated gradient underline */}
-                  {currentSection === idx && (
-                    <motion.div
-                      layoutId="activeUnderline"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent"
-                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    />
-                  )}
-                  
-                  {/* Hover underline effect for inactive items */}
-                  {currentSection !== idx && (
-                    <motion.div
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                      initial={{ scaleX: 0, opacity: 0 }}
-                      whileHover={{ scaleX: 1, opacity: 1 }}
-                      transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-                    />
-                  )}
+                  {/* Glow effect on hover - behind text */}
+                  <span
+                    className="absolute inset-0 rounded-lg pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"
+                    style={{
+                      background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, transparent 70%)',
+                      filter: 'blur(12px)',
+                      zIndex: 0,
+                    }}
+                  />
+                  <span className="relative z-10">{section}</span>
                 </motion.button>
               ))}
             </nav>
@@ -152,16 +140,27 @@ export function Topbar({ sections = ["About", "Skills", "Experience", "Contact"]
                             x: 4,
                             transition: { duration: 0.15, ease: [0.4, 0, 0.2, 1] }
                           }}
-                          className="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[--foreground] hover:bg-[--muted] hover:text-white transition-all duration-150 ease-out cursor-pointer"
+                          className="group relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[--foreground] hover:bg-[--muted] hover:text-white transition-all duration-150 ease-out cursor-pointer overflow-hidden"
                           onClick={() => setIsMenuOpen(false)}
                         >
+                          {/* Glow effect on hover - behind content */}
+                          <span
+                            className="absolute inset-0 rounded-lg pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"
+                            style={{
+                              background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, transparent 70%)',
+                              filter: 'blur(12px)',
+                              zIndex: 0,
+                            }}
+                          />
                           <motion.div
+                            className="relative z-10"
                             whileHover={{ scale: 1.15, rotate: 5 }}
                             transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
                           >
                             <Icon className="h-4 w-4 transition-colors duration-150" />
                           </motion.div>
                           <motion.span
+                            className="relative z-10"
                             whileHover={{ x: 2 }}
                             transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
                           >
@@ -200,7 +199,7 @@ export function Topbar({ sections = ["About", "Skills", "Experience", "Contact"]
                               transition: { duration: 0.15, ease: [0.4, 0, 0.2, 1] }
                             }}
                             whileTap={{ scale: 0.9 }}
-                            className={`p-2 rounded-lg transition-all duration-150 ease-out cursor-pointer ${
+                            className={`group relative p-2 rounded-lg transition-all duration-150 ease-out cursor-pointer overflow-hidden ${
                               isActive
                                 ? 'bg-[--muted] text-white'
                                 : 'text-[--muted-foreground] hover:bg-[--muted] hover:text-white'
@@ -208,7 +207,17 @@ export function Topbar({ sections = ["About", "Skills", "Experience", "Contact"]
                             aria-label={themeOption.label}
                             title={themeOption.label}
                           >
+                            {/* Glow effect on hover - behind icon */}
+                            <span
+                              className="absolute inset-0 rounded-lg pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"
+                              style={{
+                                background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, transparent 70%)',
+                                filter: 'blur(12px)',
+                                zIndex: 0,
+                              }}
+                            />
                             <motion.div
+                              className="relative z-10"
                               animate={isActive ? { rotate: 360 } : { rotate: 0 }}
                               transition={{ duration: 0.3, ease: "easeOut" }}
                             >

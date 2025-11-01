@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { InitialLoader } from "@/components/InitialLoader";
 
 export const metadata: Metadata = {
   title: "Manohar Gali - Software Engineer",
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased min-h-screen bg-[--background] text-[--foreground]">
         <ThemeProvider>
+          <InitialLoader />
           {children}
         </ThemeProvider>
       </body>

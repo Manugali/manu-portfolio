@@ -12,7 +12,7 @@ type TopbarProps = {
   onOpenCommand?: () => void;
 };
 
-export function Topbar({ sections = ["About", "Skills", "Projects", "Contact"], currentSection = 0, onSelectSection, onOpenCommand }: TopbarProps) {
+export function Topbar({ sections = ["About", "Skills", "Experience", "Contact"], currentSection = 0, onSelectSection, onOpenCommand }: TopbarProps) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);

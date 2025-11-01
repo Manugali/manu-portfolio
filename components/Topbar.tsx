@@ -9,9 +9,10 @@ type TopbarProps = {
   sections?: string[];
   currentSection?: number;
   onSelectSection?: (index: number) => void;
+  onOpenCommand?: () => void;
 };
 
-export function Topbar({ sections = ["About", "Skills", "Projects", "Contact"], currentSection = 0, onSelectSection }: TopbarProps) {
+export function Topbar({ sections = ["About", "Skills", "Projects", "Contact"], currentSection = 0, onSelectSection, onOpenCommand }: TopbarProps) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);

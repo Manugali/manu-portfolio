@@ -2,14 +2,12 @@
 
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-
-const CONTENT_WIDTH =
-  "mx-auto w-full max-w-lg lg:max-w-5xl xl:max-w-6xl";
+import { SITE_CONTAINER, SITE_PADDING } from "@/lib/layout";
 
 export function Topbar() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-[60] w-full pt-3 px-3 lg:px-6">
-      <div className={cn(CONTENT_WIDTH, "flex items-center justify-between gap-3")}>
+    <header className="fixed top-0 left-0 right-0 z-[60] w-full pt-3">
+      <div className={cn(SITE_CONTAINER, SITE_PADDING, "flex items-center justify-center")}>
         <Link
           href="/"
           className="font-bold text-2xl lowercase bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent shrink-0"
@@ -26,5 +24,3 @@ export function Topbar() {
     </header>
   );
 }
-
-export { CONTENT_WIDTH };

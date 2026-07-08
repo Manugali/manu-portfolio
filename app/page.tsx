@@ -9,6 +9,8 @@ import { SiteBackground } from "@/components/SiteBackground";
 import { TechStack } from "@/components/TechStack";
 import { MobileNav } from "@/components/MobileNav";
 import { forwardRef } from "react";
+import { cn } from "@/lib/utils";
+import { PAGE_VERTICAL, SITE_CONTAINER, SITE_PADDING } from "@/lib/layout";
 
 // Scroll-driven section wrapper component with creative transitions
 const ScrollSection = forwardRef<
@@ -176,17 +178,22 @@ export default function Home() {
   ];
 
   return (
-    <div className="relative mx-auto min-h-screen w-full max-w-lg lg:max-w-5xl xl:max-w-6xl text-[--foreground]" style={{
-      background: 'linear-gradient(135deg, #0A0A0A 0%, #0F0F0F 25%, #111111 50%, #0F0F0F 75%, #0A0A0A 100%)',
-      backgroundAttachment: 'fixed'
-    }}>
+    <div
+      className="relative min-h-screen w-full text-[--foreground]"
+      style={{
+        background:
+          "linear-gradient(135deg, #0A0A0A 0%, #0F0F0F 25%, #111111 50%, #0F0F0F 75%, #0A0A0A 100%)",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 1 }}>
         <SiteBackground />
       </div>
 
-      <Topbar />
+      <div className={cn(SITE_CONTAINER, SITE_PADDING, "relative z-10")}>
+        <Topbar />
 
-      <main className="px-3 pt-[4.5rem] pb-24">
+        <main className={cn("mx-auto w-full", PAGE_VERTICAL)}>
         {/* Hero Section */}
         <ScrollSection
           ref={aboutRef}
@@ -378,18 +385,20 @@ export default function Home() {
                 <p className="section-label mb-3">Toolbox</p>
                 <h3 className="text-2xl font-bold gradient-text">Tech Stack</h3>
               </div>
+            <div className="mx-auto w-full max-w-2xl">
               <TechStack />
             </div>
+          </div>
 
-            <div className="grid grid-cols-1 gap-4">
+            <div className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-4">
               {services.map((service, index) => {
                 const Icon = service.icon;
                 return (
                   <div
                     key={index}
-                    className="glass-card p-6"
+                    className="glass-card p-6 text-center"
                   >
-                    <Icon className="h-10 w-10 text-white mb-4" strokeWidth={1.5} />
+                    <Icon className="mx-auto h-10 w-10 text-white mb-4" strokeWidth={1.5} />
                     <h3 className="text-xl font-bold mb-3 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">{service.title}</h3>
                     <p className="text-sm text-[--muted-foreground] leading-relaxed">
                       {service.description}
@@ -417,11 +426,11 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="mx-auto w-full max-w-2xl space-y-4">
               {experience.map((item, index) => (
                 <div
                   key={`${item.company}-${item.role}-${index}`}
-                  className="glass-card p-4"
+                  className="glass-card p-4 text-center"
                 >
                   <div className="flex flex-col gap-3 mb-4">
                     <div>
@@ -440,7 +449,7 @@ export default function Home() {
                   <p className="text-sm text-[--muted-foreground] mb-4 leading-relaxed">
                     {item.summary}
                   </p>
-                  <ul className="space-y-2">
+                  <ul className="space-y-2 text-left">
                     {item.highlights.map((highlight: string, idx: number) => (
                       <li key={idx} className="text-xs text-[--muted-foreground] flex items-start gap-3">
                         <span className="text-white mt-1.5 flex-shrink-0">•</span>
@@ -470,20 +479,20 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-4">
-              <div className="glass-card p-4">
-                <Mail className="h-6 w-6 text-white mb-3" strokeWidth={1.5} />
+            <div className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-4">
+              <div className="glass-card p-4 text-center">
+                <Mail className="mx-auto h-6 w-6 text-white mb-3" strokeWidth={1.5} />
                 <h3 className="text-lg font-bold mb-2 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">Get in Touch</h3>
                 <p className="text-sm text-[--muted-foreground] mb-3">
                   Have a project in mind or want to discuss opportunities? Feel free to reach out.
                 </p>
-                <div className="space-y-2">
+                <div className="flex flex-col items-center space-y-2">
                   <a 
-                    href="mailto:manoharreddygali19061999@gmail.com" 
-                    className="flex items-center gap-2 text-sm text-[--muted-foreground] hover:text-white transition-colors"
+                    href="mailto:manoharreddygali@gmail.com" 
+                    className="flex min-w-0 max-w-full items-center gap-2 text-sm text-[--muted-foreground] hover:text-white transition-colors"
                   >
-                    <Mail className="h-4 w-4" />
-                    <span>manoharreddygali19061999@gmail.com</span>
+                    <Mail className="h-4 w-4 shrink-0" />
+                    <span className="min-w-0 break-all">manoharreddygali@gmail.com</span>
                   </a>
                   <a 
                     href="tel:8067019862" 
@@ -495,14 +504,14 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="glass-card p-4">
-                <Lightbulb className="h-6 w-6 text-white mb-3" strokeWidth={1.5} />
+              <div className="glass-card p-4 text-center">
+                <Lightbulb className="mx-auto h-6 w-6 text-white mb-3" strokeWidth={1.5} />
                 <h3 className="text-lg font-bold mb-2 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">Let&apos;s Build Together</h3>
                 <p className="text-sm text-[--muted-foreground] mb-4">
                   I&apos;m open to interesting projects and opportunities. Let&apos;s discuss how we can work together to bring your ideas to life.
                 </p>
                 <motion.button
-                  onClick={() => window.location.href = 'mailto:manoharreddygali19061999@gmail.com'}
+                  onClick={() => window.location.href = 'mailto:manoharreddygali@gmail.com'}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="relative inline-flex items-center gap-2 px-4 py-2 border border-[--border] rounded-lg text-white overflow-hidden group text-sm"
@@ -522,7 +531,8 @@ export default function Home() {
             </div>
           </div>
         </ScrollSection>
-      </main>
+        </main>
+      </div>
 
       <MobileNav />
     </div>

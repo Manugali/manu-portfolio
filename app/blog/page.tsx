@@ -26,7 +26,7 @@ export default function BlogPage() {
         />
         <div className="grid gap-4">
           {posts.map((post) => (
-            <article key={post.title} className="glass-card p-6 opacity-80">
+            <article key={post.title} className="glass-card p-6 text-center opacity-80">
               <p className="section-label mb-3">{post.date}</p>
               <h2 className="text-lg font-bold gradient-text">{post.title}</h2>
               <p className="mt-3 text-sm text-[--muted-foreground] leading-relaxed">

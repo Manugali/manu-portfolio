@@ -4,6 +4,8 @@ import { Topbar } from "@/components/Topbar";
 import { PageWrapper } from "@/components/PageWrapper";
 import { SiteBackground } from "@/components/SiteBackground";
 import { MobileNav } from "@/components/MobileNav";
+import { cn } from "@/lib/utils";
+import { PAGE_VERTICAL, SITE_CONTAINER, SITE_PADDING } from "@/lib/layout";
 
 type AppShellProps = {
   children: React.ReactNode;
@@ -11,12 +13,14 @@ type AppShellProps = {
 
 export function AppShell({ children }: AppShellProps) {
   return (
-    <div className="relative min-h-screen text-[--foreground]">
+    <div className="relative min-h-screen w-full overflow-x-hidden text-[--foreground]">
       <SiteBackground subtle />
-      <div className="relative z-10 mx-auto w-full max-w-lg lg:max-w-5xl xl:max-w-6xl">
+      <div className={cn(SITE_CONTAINER, SITE_PADDING, "relative z-10 min-w-0")}>
         <Topbar />
         <PageWrapper>
-          <div className="px-4 pt-[4.5rem] pb-24">{children}</div>
+          <main className={cn("mx-auto min-w-0 w-full max-w-2xl lg:max-w-3xl", PAGE_VERTICAL)}>
+            {children}
+          </main>
         </PageWrapper>
       </div>
       <MobileNav />

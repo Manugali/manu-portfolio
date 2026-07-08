@@ -1,0 +1,20 @@
+{
+  "categories": [
+    {
+      "name": "Backend",
+      "skills": ["C#", ".NET", "ASP.NET Core", "MVC", "REST APIs", "SQL Server"]
+    },
+    {
+      "name": "Frontend",
+      "skills": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"]
+    },
+    {
+      "name": "Data & Ops",
+      "skills": ["SQL", "Stored Procedures", "Git", "CI/CD", "Azure"]
+    },
+    {
+      "name": "Practices",
+      "skills": ["System Integration", "Legacy Modernization", "Agile", "Code Review"]
+    }
+  ]
+}

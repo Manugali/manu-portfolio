@@ -3,10 +3,13 @@
 import { Topbar } from "@/components/Topbar";
 import { ArrowRight, Brain, Rocket, Wrench, Users, Lightbulb, Mail, Phone, Mouse } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import experience from "@/data/experience.json";
 import { Footer } from "@/components/Footer";
-import LightRays from "@/components/LightRays";
+import { SiteBackground } from "@/components/SiteBackground";
+import { TechStack } from "@/components/TechStack";
+import { MobileNav } from "@/components/MobileNav";
+import { CommandPalette } from "@/components/CommandPalette";
 import { forwardRef } from "react";
 
 // Scroll-driven section wrapper component with creative transitions
@@ -14,37 +17,34 @@ const ScrollSection = forwardRef<
   HTMLDivElement,
   { children: React.ReactNode; className?: string; sectionIndex: number }
 >(({ children, className = "", sectionIndex }, ref) => {
+  const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref as React.RefObject<HTMLDivElement>,
     offset: ["start 0.8", "end 0.2"]
   });
 
-  // Blur effect - sections blur as they enter/leave viewport (smooth focus effect)
   const blur = useTransform(
     scrollYProgress,
     [0, 0.25, 0.75, 1],
-    [10, 0, 0, 10]
+    prefersReducedMotion ? [0, 0, 0, 0] : [10, 0, 0, 10]
   );
 
-  // Opacity fade - sections fade in smoothly
   const opacity = useTransform(
     scrollYProgress,
     [0, 0.2, 0.8, 1],
-    [0, 1, 1, 0]
+    prefersReducedMotion ? [1, 1, 1, 1] : [0, 1, 1, 0]
   );
 
-  // Scale effect - subtle zoom when in focus
   const scale = useTransform(
     scrollYProgress,
     [0, 0.5, 1],
-    [0.9, 1, 0.9]
+    prefersReducedMotion ? [1, 1, 1] : [0.9, 1, 0.9]
   );
 
-  // Parallax Y movement - alternating directions for visual interest
   const y = useTransform(
     scrollYProgress,
     [0, 1],
-    sectionIndex % 2 === 0 ? [100, -100] : [-100, 100]
+    prefersReducedMotion ? [0, 0] : sectionIndex % 2 === 0 ? [100, -100] : [-100, 100]
   );
 
   return (
@@ -52,7 +52,7 @@ const ScrollSection = forwardRef<
       ref={ref}
       className={className}
       style={{
-        filter: `blur(${blur}px)`,
+        filter: prefersReducedMotion ? undefined : `blur(${blur}px)`,
         opacity,
         scale,
         y,
@@ -66,6 +66,7 @@ const ScrollSection = forwardRef<
 ScrollSection.displayName = "ScrollSection";
 
 export default function Home() {
+  const [commandOpen, setCommandOpen] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
@@ -198,26 +199,16 @@ export default function Home() {
       background: 'linear-gradient(135deg, #0A0A0A 0%, #0F0F0F 25%, #111111 50%, #0F0F0F 75%, #0A0A0A 100%)',
       backgroundAttachment: 'fixed'
     }}>
-      {/* Light Rays Background Effect */}
-      <div className="fixed inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#ffffff"
-          raysSpeed={1.5}
-          lightSpread={0.8}
-          rayLength={1.2}
-          followMouse={true}
-          mouseInfluence={0.1}
-          noiseAmount={0}
-          distortion={0}
-          className="custom-rays"
-        />
+      <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 1 }}>
+        <SiteBackground />
       </div>
 
       <Topbar
+        variant="home"
         sections={['About', 'Skills', 'Experience', 'Contact']}
         currentSection={currentSection}
         onSelectSection={(i) => scrollToSection(i)}
+        onOpenCommand={() => setCommandOpen(true)}
       />
 
       {/* Scroll Progress Indicator - Compact Left Side Design */}
@@ -271,7 +262,7 @@ export default function Home() {
         />
       </div>
 
-      <main className="pt-16 md:pt-24">
+      <main className="pt-16 md:pt-24 pb-20 md:pb-0">
         {/* Hero Section */}
         <ScrollSection
           ref={aboutRef}
@@ -460,13 +451,21 @@ export default function Home() {
               </p>
             </div>
 
+            <div className="mb-16 md:mb-24">
+              <div className="text-center mb-10">
+                <p className="section-label mb-3">Toolbox</p>
+                <h3 className="text-2xl md:text-3xl font-bold gradient-text">Tech Stack</h3>
+              </div>
+              <TechStack />
+            </div>
+
             <div className="grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto">
               {services.map((service, index) => {
                 const Icon = service.icon;
                 return (
                   <div
                     key={index}
-                    className="p-8 md:p-10 rounded-lg border border-[--border] bg-[--card] hover:border-[--muted-foreground] transition-all duration-300 hover:scale-[1.02]"
+                    className="glass-card p-8 md:p-10 hover:scale-[1.02] transition-transform duration-300"
                   >
                     <Icon className="h-10 w-10 md:h-12 md:w-12 text-white mb-6" strokeWidth={1.5} />
                     <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">{service.title}</h3>
@@ -500,7 +499,7 @@ export default function Home() {
               {experience.map((item, index) => (
                 <div
                   key={`${item.company}-${item.role}-${index}`}
-                  className="p-4 md:p-6 rounded-lg border border-[--border] bg-[--card] hover:border-[--muted-foreground] transition-colors"
+                  className="glass-card p-4 md:p-6"
                 >
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
                     <div>
@@ -551,7 +550,7 @@ export default function Home() {
 
             {/* Contact Cards */}
             <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-              <div className="p-4 md:p-6 rounded-lg border border-[--border] bg-[--card] hover:border-[--muted-foreground] transition-colors">
+              <div className="glass-card p-4 md:p-6">
                 <Mail className="h-6 w-6 md:h-8 md:w-8 text-white mb-3 md:mb-4" strokeWidth={1.5} />
                 <h3 className="text-lg md:text-xl font-bold mb-2 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">Get in Touch</h3>
                 <p className="text-sm md:text-base text-[--muted-foreground] mb-3 md:mb-4">
@@ -575,7 +574,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="p-6 rounded-lg border border-[--border] bg-[--card] hover:border-[--muted-foreground] transition-colors">
+              <div className="glass-card p-6">
                 <Lightbulb className="h-8 w-8 text-white mb-4" strokeWidth={1.5} />
                 <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">Let's Build Together</h3>
                 <p className="text-[--muted-foreground] mb-4">
@@ -605,6 +604,8 @@ export default function Home() {
       </main>
 
       <Footer />
+      <MobileNav />
+      <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
     </div>
   );
 }

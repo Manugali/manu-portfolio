@@ -1,32 +1,67 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { Moon, Sun, MoreVertical, Github, Linkedin, Monitor, Twitter, Dribbble } from "lucide-react";
+import {
+  Moon,
+  Sun,
+  MoreVertical,
+  Github,
+  Linkedin,
+  Monitor,
+  Menu,
+  X,
+  Search,
+} from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
+
+const siteLinks = [
+  { href: "/projects", label: "Projects" },
+  { href: "/experience", label: "Experience" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
+] as const;
+
+const socialLinks = [
+  { href: "https://github.com/Manugali", icon: Github, label: "GitHub" },
+  { href: "https://linkedin.com/in/manu", icon: Linkedin, label: "LinkedIn" },
+] as const;
 
 type TopbarProps = {
+  variant?: "home" | "site";
   sections?: string[];
   currentSection?: number;
   onSelectSection?: (index: number) => void;
   onOpenCommand?: () => void;
 };
 
-export function Topbar({ sections = ["About", "Skills", "Experience", "Contact"], currentSection = 0, onSelectSection, onOpenCommand }: TopbarProps) {
+export function Topbar({
+  variant = "home",
+  sections = ["About", "Skills", "Experience", "Contact"],
+  currentSection = 0,
+  onSelectSection,
+  onOpenCommand,
+}: TopbarProps) {
+  const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Menu now opens/closes on hover, no need for click outside handler
+  useEffect(() => {
+    setIsMobileNavOpen(false);
+  }, [pathname]);
 
   const setThemeMode = (mode: "dark" | "light" | "system") => {
     if (mode === "system") {
-      // For system theme, detect and set
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       setTheme(prefersDark ? "dark" : "light");
     } else {
@@ -35,64 +70,95 @@ export function Topbar({ sections = ["About", "Skills", "Experience", "Contact"]
     setIsMenuOpen(false);
   };
 
-  return (
-    <header className="fixed top-0 left-0 right-0 z-[60] w-full pt-3 md:pt-6 px-3 md:px-6">
-      <div className="w-full flex items-center justify-between">
-        {/* Logo - Responsive positioning */}
-        <div 
-          className="font-bold text-2xl md:text-3xl lg:text-4xl lowercase bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent relative md:absolute md:left-[18%] md:-translate-x-1/2" 
-          style={{ 
-            fontFamily: '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif', 
-            fontWeight: 700, 
-            letterSpacing: '-0.02em',
-            backgroundImage: 'linear-gradient(to right, #ffffff, #e5e7eb, #ffffff)'
-          }}
-        >
-          manu
-        </div>
+  const navItems =
+    variant === "home"
+      ? sections.map((section, idx) => ({
+          key: section,
+          label: section,
+          active: currentSection === idx,
+          onClick: () => onSelectSection?.(idx),
+        }))
+      : siteLinks.map((link) => ({
+          key: link.href,
+          label: link.label,
+          active: pathname === link.href,
+          href: link.href,
+        }));
 
-        {/* Navigation Container - Top Right */}
-        <div className="rounded-xl md:rounded-2xl border border-[--border] bg-[--card] px-3 md:px-6 py-2 md:py-4 flex items-center gap-3 md:gap-6 ml-auto md:mr-16">
-          {/* Navigation + More Button */}
-          <div className="flex items-center gap-6">
-            {/* Navigation Links Container */}
-            <nav className="hidden md:flex items-center gap-6 px-4 py-2 rounded-lg bg-[--muted]/30 backdrop-blur-sm">
-              {sections.map((section, idx) => (
-                <motion.button
-                  key={section}
-                  onClick={() => onSelectSection && onSelectSection(idx)}
-                  whileHover={{ 
-                    scale: 1.05, 
-                    y: -2,
-                    transition: { duration: 0.15, ease: [0.4, 0, 0.2, 1] }
-                  }}
-                  whileTap={{ 
-                    scale: 0.98,
-                    transition: { duration: 0.1, ease: "easeOut" }
-                  }}
-                  className={`group relative px-3 py-2 text-sm font-medium transition-all duration-200 ease-out cursor-pointer ${
-                    currentSection === idx
-                      ? 'text-white'
-                      : 'text-[--muted-foreground] hover:text-white'
-                  }`}
-                >
-                  {/* Glow effect on hover - behind text */}
-                  <span
-                    className="absolute inset-0 rounded-lg pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"
-                    style={{
-                      background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, transparent 70%)',
-                      filter: 'blur(12px)',
-                      zIndex: 0,
-                    }}
-                  />
-                  <span className="relative z-10">{section}</span>
-                </motion.button>
-              ))}
+  return (
+    <>
+      <header className="fixed top-0 left-0 right-0 z-[60] w-full pt-3 md:pt-6 px-3 md:px-6">
+        <div className="w-full flex items-center justify-between">
+          <Link
+            href="/"
+            className="font-bold text-2xl md:text-3xl lg:text-4xl lowercase bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent relative md:absolute md:left-[18%] md:-translate-x-1/2"
+            style={{
+              fontFamily:
+                '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif',
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            manu
+          </Link>
+
+          <div className="rounded-xl md:rounded-2xl border border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_85%,transparent)] backdrop-blur-md px-3 md:px-6 py-2 md:py-4 flex items-center gap-2 md:gap-4 ml-auto md:mr-16">
+            <nav className="hidden md:flex items-center gap-1 px-2 py-1 rounded-lg bg-[--muted]/30">
+              {navItems.map((item) =>
+                "href" in item && item.href ? (
+                  <Link
+                    key={item.key}
+                    href={item.href}
+                    className={cn(
+                      "relative px-3 py-2 text-sm font-medium transition-colors rounded-lg",
+                      item.active
+                        ? "text-white"
+                        : "text-[--muted-foreground] hover:text-white"
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <motion.button
+                    key={item.key}
+                    onClick={"onClick" in item ? item.onClick : undefined}
+                    whileHover={{ scale: 1.03, y: -1 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={cn(
+                      "relative px-3 py-2 text-sm font-medium transition-colors cursor-pointer",
+                      item.active
+                        ? "text-white"
+                        : "text-[--muted-foreground] hover:text-white"
+                    )}
+                  >
+                    {item.label}
+                  </motion.button>
+                )
+              )}
             </nav>
 
-            {/* More Button (Circular) */}
-            <div 
-              className="relative" 
+            {onOpenCommand && (
+              <button
+                onClick={onOpenCommand}
+                className="hidden md:flex items-center gap-2 rounded-lg border border-[--border] px-2.5 py-1.5 text-xs text-[--muted-foreground] hover:text-white hover:border-[--muted-foreground] transition-colors"
+                aria-label="Open command palette"
+              >
+                <Search className="h-3.5 w-3.5" />
+                <span>⌘K</span>
+              </button>
+            )}
+
+            <button
+              onClick={() => setIsMobileNavOpen((open) => !open)}
+              className="md:hidden h-8 w-8 rounded-full flex items-center justify-center text-[--muted-foreground] hover:text-white hover:bg-[--muted] transition-colors"
+              aria-label={isMobileNavOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileNavOpen}
+            >
+              {isMobileNavOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            </button>
+
+            <div
+              className="relative hidden md:block"
               ref={menuRef}
               onMouseEnter={() => setIsMenuOpen(true)}
               onMouseLeave={() => setIsMenuOpen(false)}
@@ -102,13 +168,12 @@ export function Topbar({ sections = ["About", "Skills", "Experience", "Contact"]
                 whileTap={{ scale: 0.9 }}
                 animate={{ rotate: isMenuOpen ? 90 : 0 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
-                className="h-8 w-8 rounded-full flex items-center justify-center text-[--muted-foreground] hover:text-white hover:bg-[--muted] transition-colors relative cursor-pointer"
+                className="h-8 w-8 rounded-full flex items-center justify-center text-[--muted-foreground] hover:text-white hover:bg-[--muted] transition-colors cursor-pointer"
                 aria-label="More options"
               >
                 <MoreVertical className="h-4 w-4" />
               </motion.button>
 
-              {/* Dropdown Menu */}
               <AnimatePresence>
                 {isMenuOpen && (
                   <motion.div
@@ -118,125 +183,126 @@ export function Topbar({ sections = ["About", "Skills", "Experience", "Contact"]
                     transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
                     className="absolute right-0 mt-2 w-52 rounded-xl border border-[--border] bg-[--card] shadow-xl py-2 z-50 backdrop-blur-md"
                   >
-                  {/* Social Links Section */}
-                  <div className="px-2">
-                    {[
-                      { href: "https://github.com/Manugali", icon: Github, label: "Github" },
-                      { href: "https://twitter.com", icon: Twitter, label: "Twitter" },
-                      { href: "https://dribbble.com", icon: Dribbble, label: "Dribbble" },
-                      { href: "https://linkedin.com/in/manu", icon: Linkedin, label: "LinkedIn" }
-                    ].map((link, index) => {
-                      const Icon = link.icon;
-                      return (
-                        <motion.a
-                          key={link.label}
-                          href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          initial={{ opacity: 0, x: -8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.03, duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-                          whileHover={{ 
-                            x: 4,
-                            transition: { duration: 0.15, ease: [0.4, 0, 0.2, 1] }
-                          }}
-                          className="group relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[--foreground] hover:bg-[--muted] hover:text-white transition-all duration-150 ease-out cursor-pointer overflow-hidden"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          {/* Glow effect on hover - behind content */}
-                          <span
-                            className="absolute inset-0 rounded-lg pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"
-                            style={{
-                              background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, transparent 70%)',
-                              filter: 'blur(12px)',
-                              zIndex: 0,
-                            }}
-                          />
-                          <motion.div
-                            className="relative z-10"
-                            whileHover={{ scale: 1.15, rotate: 5 }}
-                            transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
-                          >
-                            <Icon className="h-4 w-4 transition-colors duration-150" />
-                          </motion.div>
-                          <motion.span
-                            className="relative z-10"
-                            whileHover={{ x: 2 }}
-                            transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
-                          >
-                            {link.label}
-                          </motion.span>
-                        </motion.a>
-                      );
-                    })}
-                  </div>
-
-                  {/* Divider */}
-                  <div className="h-px bg-[--border] my-2" />
-
-                  {/* Theme Options Section */}
-                  {mounted && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.2 }}
-                      className="px-2 flex items-center justify-around py-2 border-t border-[--border] mt-2 pt-2"
-                    >
-                      {[
-                        { mode: "dark" as const, icon: Moon, label: "Dark mode" },
-                        { mode: "system" as const, icon: Monitor, label: "System theme" },
-                        { mode: "light" as const, icon: Sun, label: "Light mode" }
-                      ].map((themeOption) => {
-                        const Icon = themeOption.icon;
-                        const isActive = theme === themeOption.mode || (!theme && themeOption.mode === "system");
+                    <div className="px-2">
+                      {socialLinks.map((link, index) => {
+                        const Icon = link.icon;
                         return (
-                          <motion.button
-                            key={themeOption.mode}
-                            onClick={() => setThemeMode(themeOption.mode)}
-                            whileHover={{ 
-                              scale: 1.2,
-                              rotate: 8,
-                              transition: { duration: 0.15, ease: [0.4, 0, 0.2, 1] }
-                            }}
-                            whileTap={{ scale: 0.9 }}
-                            className={`group relative p-2 rounded-lg transition-all duration-150 ease-out cursor-pointer overflow-hidden ${
-                              isActive
-                                ? 'bg-[--muted] text-white'
-                                : 'text-[--muted-foreground] hover:bg-[--muted] hover:text-white'
-                            }`}
-                            aria-label={themeOption.label}
-                            title={themeOption.label}
+                          <motion.a
+                            key={link.label}
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.03, duration: 0.2 }}
+                            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[--foreground] hover:bg-[--muted] hover:text-white transition-colors"
                           >
-                            {/* Glow effect on hover - behind icon */}
-                            <span
-                              className="absolute inset-0 rounded-lg pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"
-                              style={{
-                                background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.6) 0%, transparent 70%)',
-                                filter: 'blur(12px)',
-                                zIndex: 0,
-                              }}
-                            />
-                            <motion.div
-                              className="relative z-10"
-                              animate={isActive ? { rotate: 360 } : { rotate: 0 }}
-                              transition={{ duration: 0.3, ease: "easeOut" }}
-                            >
-                              <Icon className="h-4 w-4" />
-                            </motion.div>
-                          </motion.button>
+                            <Icon className="h-4 w-4" />
+                            <span>{link.label}</span>
+                          </motion.a>
                         );
                       })}
-                    </motion.div>
-                  )}
-                </motion.div>
+                    </div>
+
+                    {mounted && (
+                      <>
+                        <div className="h-px bg-[--border] my-2" />
+                        <div className="px-2 flex items-center justify-around py-2">
+                          {[
+                            { mode: "dark" as const, icon: Moon, label: "Dark mode" },
+                            { mode: "system" as const, icon: Monitor, label: "System theme" },
+                            { mode: "light" as const, icon: Sun, label: "Light mode" },
+                          ].map((themeOption) => {
+                            const Icon = themeOption.icon;
+                            const isActive =
+                              theme === themeOption.mode ||
+                              (!theme && themeOption.mode === "system");
+                            return (
+                              <button
+                                key={themeOption.mode}
+                                onClick={() => setThemeMode(themeOption.mode)}
+                                className={cn(
+                                  "p-2 rounded-lg transition-colors",
+                                  isActive
+                                    ? "bg-[--muted] text-white"
+                                    : "text-[--muted-foreground] hover:bg-[--muted] hover:text-white"
+                                )}
+                                aria-label={themeOption.label}
+                                title={themeOption.label}
+                              >
+                                <Icon className="h-4 w-4" />
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </>
+                    )}
+                  </motion.div>
                 )}
               </AnimatePresence>
             </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      <AnimatePresence>
+        {isMobileNavOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-x-3 top-[4.5rem] z-[59] md:hidden rounded-2xl border border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_95%,transparent)] backdrop-blur-xl p-4 shadow-2xl"
+          >
+            <nav className="flex flex-col gap-1">
+              {variant === "home"
+                ? sections.map((section, idx) => (
+                    <button
+                      key={section}
+                      onClick={() => {
+                        onSelectSection?.(idx);
+                        setIsMobileNavOpen(false);
+                      }}
+                      className={cn(
+                        "rounded-xl px-4 py-3 text-left text-sm font-medium transition-colors",
+                        currentSection === idx
+                          ? "bg-[--muted] text-white"
+                          : "text-[--muted-foreground] hover:bg-[--muted]/50 hover:text-white"
+                      )}
+                    >
+                      {section}
+                    </button>
+                  ))
+                : siteLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={cn(
+                        "rounded-xl px-4 py-3 text-sm font-medium transition-colors",
+                        pathname === link.href
+                          ? "bg-[--muted] text-white"
+                          : "text-[--muted-foreground] hover:bg-[--muted]/50 hover:text-white"
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+            </nav>
+            {onOpenCommand && (
+              <button
+                onClick={() => {
+                  onOpenCommand();
+                  setIsMobileNavOpen(false);
+                }}
+                className="mt-3 w-full flex items-center justify-center gap-2 rounded-xl border border-[--border] px-4 py-3 text-sm text-[--muted-foreground] hover:text-white transition-colors"
+              >
+                <Search className="h-4 w-4" />
+                Search (⌘K)
+              </button>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
-
-

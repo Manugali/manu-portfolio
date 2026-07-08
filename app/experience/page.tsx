@@ -1,53 +1,51 @@
 "use client";
-import { useState } from "react";
-import { Sidebar } from "@/components/Sidebar";
-import { Topbar } from "@/components/Topbar";
+
+import { AppShell } from "@/components/AppShell";
+import { PageHeader } from "@/components/PageHeader";
 import experience from "@/data/experience.json";
-import { CommandPalette } from "@/components/CommandPalette";
-import { PageWrapper } from "@/components/PageWrapper";
-import { Footer } from "@/components/Footer";
 
 export default function ExperiencePage() {
-  const [open, setOpen] = useState(false);
   return (
-    <div className="min-h-screen">
-      <div className="mx-auto flex max-w-7xl">
-        <Sidebar />
-        <div className="flex-1">
-          <Topbar onOpenCommand={() => setOpen(true)} />
-          <PageWrapper>
-            <main className="p-4 md:p-6 space-y-6">
-              <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Experience</h1>
-              <div className="space-y-4">
-                {experience.map((item) => (
-                  <div
-                    key={`${item.company}-${item.role}`}
-                    className="rounded-2xl border border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_70%,transparent)] p-5 backdrop-blur"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="text-lg font-semibold">{item.role}</div>
-                        <div className="text-sm text-muted-foreground">{item.company}</div>
-                      </div>
-                      <div className="text-sm text-muted-foreground">{item.period}</div>
-                    </div>
-                    <p className="mt-3 text-sm text-muted-foreground">{item.summary}</p>
-                    <ul className="mt-3 list-disc space-y-1 pl-5 text-sm">
-                      {item.highlights.map((h: string) => (
-                        <li key={h}>{h}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+    <AppShell>
+      <main className="space-y-8">
+        <PageHeader
+          title="Experience"
+          description="Building solutions that drive digital transformation and deliver measurable impact."
+        />
+        <div className="space-y-6 max-w-4xl">
+          {experience.map((item, index) => (
+            <article
+              key={`${item.company}-${item.role}-${index}`}
+              className="glass-card p-6 md:p-8"
+            >
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+                <div>
+                  <h2 className="text-xl md:text-2xl font-bold gradient-text">{item.role}</h2>
+                  <p className="text-base text-[--muted-foreground] mt-1">{item.company}</p>
+                  {item.location && (
+                    <p className="text-sm text-[--muted-foreground] mt-1">{item.location}</p>
+                  )}
+                </div>
+                <p className="text-sm text-[--muted-foreground] whitespace-nowrap">{item.period}</p>
               </div>
-            </main>
-          </PageWrapper>
-          <CommandPalette open={open} onOpenChange={setOpen} />
-          <Footer />
+              <p className="text-sm md:text-base text-[--muted-foreground] mb-5 leading-relaxed">
+                {item.summary}
+              </p>
+              <ul className="space-y-2.5">
+                {item.highlights.map((highlight: string, idx: number) => (
+                  <li
+                    key={idx}
+                    className="text-sm text-[--muted-foreground] flex items-start gap-3"
+                  >
+                    <span className="text-white mt-1.5 flex-shrink-0">•</span>
+                    <span className="leading-relaxed">{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
         </div>
-      </div>
-    </div>
+      </main>
+    </AppShell>
   );
 }
-
-

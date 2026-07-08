@@ -1,50 +1,94 @@
 "use client";
-import { useState } from "react";
-import { Sidebar } from "@/components/Sidebar";
-import { Topbar } from "@/components/Topbar";
-import { PageWrapper } from "@/components/PageWrapper";
-import { Footer } from "@/components/Footer";
-import { CommandPalette } from "@/components/CommandPalette";
+
+import { AppShell } from "@/components/AppShell";
+import { PageHeader } from "@/components/PageHeader";
+import { Github, Linkedin, Mail, Phone } from "lucide-react";
 
 export default function ContactPage() {
-  const [open, setOpen] = useState(false);
   return (
-    <div className="min-h-screen">
-      <div className="mx-auto flex max-w-7xl">
-        <Sidebar />
-        <div className="flex-1">
-          <Topbar onOpenCommand={() => setOpen(true)} />
-          <PageWrapper>
-          <main className="p-4 md:p-6 space-y-6">
-            <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Contact</h1>
-            <div className="grid gap-6 md:grid-cols-2">
-              <div className="rounded-2xl border border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_70%,transparent)] p-5 backdrop-blur">
-                <h2 className="text-lg font-semibold">Say hello</h2>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  I’m open to interesting projects and opportunities.
-                </p>
-                <div className="mt-4 space-y-2 text-sm">
-                  <a className="block hover:underline" href="mailto:manoharreddygali19061999@gmail.com">manoharreddygali19061999@gmail.com</a>
-                  <a className="block hover:underline" href="tel:8067019862">806-701-9862</a>
-                  <a className="block hover:underline" href="https://github.com/Manugali" target="_blank" rel="noopener noreferrer">GitHub</a>
-                  <a className="block hover:underline" href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                </div>
-              </div>
-              <form className="rounded-2xl border border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_70%,transparent)] p-5 backdrop-blur space-y-3" action="/api/contact" method="post">
-                <input className="w-full rounded-xl border border-[--border] bg-transparent px-3 py-2 text-sm" name="name" placeholder="Your name" required />
-                <input className="w-full rounded-xl border border-[--border] bg-transparent px-3 py-2 text-sm" type="email" name="email" placeholder="Email" required />
-                <textarea className="w-full rounded-xl border border-[--border] bg-transparent px-3 py-2 text-sm" name="message" placeholder="Message" rows={5} required />
-                <button type="submit" className="rounded-xl bg-[--primary] text-[--primary-foreground] px-4 py-2 text-sm">Send</button>
-              </form>
+    <AppShell>
+      <main className="space-y-8">
+        <PageHeader
+          title="Contact"
+          description="Have a problem to solve or a product to ship? I'd love to hear from you."
+        />
+        <div className="grid gap-6 md:grid-cols-2 max-w-4xl">
+          <div className="glass-card p-6 md:p-8 space-y-5">
+            <h2 className="text-lg font-bold gradient-text">Say hello</h2>
+            <p className="text-sm text-[--muted-foreground] leading-relaxed">
+              I&apos;m open to interesting projects, collaborations, and full-time opportunities.
+            </p>
+            <div className="space-y-3">
+              <a
+                className="flex items-center gap-3 text-sm text-[--muted-foreground] hover:text-white transition-colors"
+                href="mailto:manoharreddygali19061999@gmail.com"
+              >
+                <Mail className="h-4 w-4 shrink-0" />
+                manoharreddygali19061999@gmail.com
+              </a>
+              <a
+                className="flex items-center gap-3 text-sm text-[--muted-foreground] hover:text-white transition-colors"
+                href="tel:8067019862"
+              >
+                <Phone className="h-4 w-4 shrink-0" />
+                806-701-9862
+              </a>
+              <a
+                className="flex items-center gap-3 text-sm text-[--muted-foreground] hover:text-white transition-colors"
+                href="https://github.com/Manugali"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github className="h-4 w-4 shrink-0" />
+                GitHub
+              </a>
+              <a
+                className="flex items-center gap-3 text-sm text-[--muted-foreground] hover:text-white transition-colors"
+                href="https://linkedin.com/in/manu"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Linkedin className="h-4 w-4 shrink-0" />
+                LinkedIn
+              </a>
             </div>
-          </main>
-          </PageWrapper>
-          <CommandPalette open={open} onOpenChange={setOpen} />
-          <Footer />
+          </div>
+
+          <form
+            className="glass-card p-6 md:p-8 space-y-4"
+            action="/api/contact"
+            method="post"
+          >
+            <h2 className="text-lg font-bold gradient-text">Send a message</h2>
+            <input
+              className="w-full rounded-xl border border-[--border] bg-[--muted]/30 px-4 py-2.5 text-sm text-[--foreground] placeholder:text-[--muted-foreground] focus:border-[--muted-foreground] outline-none transition-colors"
+              name="name"
+              placeholder="Your name"
+              required
+            />
+            <input
+              className="w-full rounded-xl border border-[--border] bg-[--muted]/30 px-4 py-2.5 text-sm text-[--foreground] placeholder:text-[--muted-foreground] focus:border-[--muted-foreground] outline-none transition-colors"
+              type="email"
+              name="email"
+              placeholder="Email"
+              required
+            />
+            <textarea
+              className="w-full rounded-xl border border-[--border] bg-[--muted]/30 px-4 py-2.5 text-sm text-[--foreground] placeholder:text-[--muted-foreground] focus:border-[--muted-foreground] outline-none transition-colors resize-none"
+              name="message"
+              placeholder="Message"
+              rows={5}
+              required
+            />
+            <button
+              type="submit"
+              className="w-full rounded-xl border border-[--border] bg-white text-[--primary-foreground] px-4 py-2.5 text-sm font-medium hover:bg-gray-100 transition-colors"
+            >
+              Send message
+            </button>
+          </form>
         </div>
-      </div>
-    </div>
+      </main>
+    </AppShell>
   );
 }
-
-

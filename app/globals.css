@@ -168,3 +168,28 @@ body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
 
+/* Shared design utilities */
+.gradient-text {
+  @apply bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent;
+}
+
+.glass-card {
+  @apply rounded-xl border border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_75%,transparent)] backdrop-blur-sm transition-colors duration-300 hover:border-[--muted-foreground];
+}
+
+.section-label {
+  @apply text-xs font-semibold uppercase tracking-[0.15em] text-[--muted-foreground];
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

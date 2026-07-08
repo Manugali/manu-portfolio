@@ -1,13 +1,45 @@
+import Link from "next/link";
+import { Github, Linkedin, Mail } from "lucide-react";
+
+const socialLinks = [
+  { href: "https://github.com/Manugali", icon: Github, label: "GitHub" },
+  { href: "https://linkedin.com/in/manu", icon: Linkedin, label: "LinkedIn" },
+  { href: "mailto:manoharreddygali19061999@gmail.com", icon: Mail, label: "Email" },
+] as const;
+
 export function Footer() {
   return (
-    <footer className="relative mt-20 py-6 px-6 border-t border-[--border]">
-      <div className="max-w-7xl mx-auto flex flex-col items-center justify-center">
-        <div className="text-xs text-[--muted-foreground]">
-          © {new Date().getFullYear()} All rights reserved.
+    <footer className="relative mt-16 md:mt-24 py-8 px-6 border-t border-[--border]/60">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="text-center md:text-left">
+          <p
+            className="text-lg font-bold lowercase gradient-text"
+            style={{
+              fontFamily:
+                '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif',
+            }}
+          >
+            manu
+          </p>
+          <p className="mt-1 text-xs text-[--muted-foreground]">
+            © {new Date().getFullYear()} Manohar Gali. All rights reserved.
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          {socialLinks.map(({ href, icon: Icon, label }) => (
+            <Link
+              key={label}
+              href={href}
+              target={href.startsWith("mailto") ? undefined : "_blank"}
+              rel={href.startsWith("mailto") ? undefined : "noopener noreferrer"}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-[--border] text-[--muted-foreground] hover:text-white hover:border-[--muted-foreground] transition-colors"
+              aria-label={label}
+            >
+              <Icon className="h-4 w-4" />
+            </Link>
+          ))}
         </div>
       </div>
     </footer>
   );
 }
-
-

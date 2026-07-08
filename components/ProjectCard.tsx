@@ -16,26 +16,27 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <div className="group rounded-lg border border-[--border] bg-[--card] overflow-hidden hover:border-[--muted-foreground] transition-colors">
+    <article className="group glass-card overflow-hidden hover:scale-[1.01] transition-transform duration-300">
       <div className="relative aspect-video overflow-hidden bg-[--muted]">
         <Image
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover"
+          className="object-cover opacity-60 transition-all duration-500 group-hover:opacity-80 group-hover:scale-105"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-[--card] via-transparent to-transparent" />
       </div>
-      <div className="p-5 space-y-3">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="text-xl font-bold bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">{project.title}</h3>
-          <div className="flex items-center gap-2">
+      <div className="p-5 md:p-6 space-y-4">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="text-lg md:text-xl font-bold gradient-text">{project.title}</h3>
+          <div className="flex items-center gap-1 shrink-0">
             {project.repo && (
               <a
                 href={project.repo}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 text-[--muted-foreground] hover:text-white transition-colors"
-                aria-label="GitHub"
+                className="p-2 rounded-lg text-[--muted-foreground] hover:text-white hover:bg-[--muted] transition-colors"
+                aria-label={`${project.title} on GitHub`}
               >
                 <Github className="h-4 w-4" />
               </a>
@@ -45,28 +46,28 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 href={project.demo}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 text-[--muted-foreground] hover:text-white transition-colors"
-                aria-label="Live demo"
+                className="p-2 rounded-lg text-[--muted-foreground] hover:text-white hover:bg-[--muted] transition-colors"
+                aria-label={`${project.title} live demo`}
               >
                 <ExternalLink className="h-4 w-4" />
               </a>
             )}
           </div>
         </div>
-        <p className="text-sm text-[--muted-foreground] leading-relaxed">{project.description}</p>
+        <p className="text-sm text-[--muted-foreground] leading-relaxed line-clamp-3">
+          {project.description}
+        </p>
         <div className="flex flex-wrap gap-2">
           {project.stack.map((s) => (
             <span
               key={s}
-              className="rounded-full bg-[--muted] text-[--muted-foreground] px-2.5 py-1 text-xs"
+              className="rounded-full border border-[--border] bg-[--muted]/40 px-2.5 py-1 text-xs text-[--muted-foreground] group-hover:text-[--foreground] transition-colors"
             >
               {s}
             </span>
           ))}
         </div>
       </div>
-    </div>
+    </article>
   );
 }
-
-

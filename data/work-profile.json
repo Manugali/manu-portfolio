@@ -1,0 +1,10 @@
+{
+  "headline": "Applications Engineer · Enterprise Software",
+  "summary": "Software engineer with a track record of delivering enterprise-grade web applications in regulated financial services environments. I specialize in full-stack .NET development, legacy system integration, and building internal platforms that improve operational efficiency, data accuracy, and team productivity.",
+  "stats": [
+    { "label": "Industry Experience", "value": "3+ years" },
+    { "label": "Domain", "value": "Financial Services" },
+    { "label": "Specialization", "value": "Full-Stack .NET" },
+    { "label": "Based In", "value": "West Des Moines, IA" }
+  ]
+}

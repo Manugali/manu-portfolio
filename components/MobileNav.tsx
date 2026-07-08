@@ -21,7 +21,7 @@ export function MobileNav() {
       className="fixed bottom-0 left-0 right-0 z-[60] border-t border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_90%,transparent)] backdrop-blur-xl"
       aria-label="Main navigation"
     >
-      <div className="mx-auto flex max-w-lg items-center justify-around px-2 py-2">
+      <div className="mx-auto flex w-full max-w-lg lg:max-w-5xl xl:max-w-6xl items-center justify-around px-2 py-2 lg:px-6">
         {links.map(({ href, label, icon: Icon }) => {
           const active = pathname === href;
           return (

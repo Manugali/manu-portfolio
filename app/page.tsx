@@ -9,7 +9,6 @@ import { Footer } from "@/components/Footer";
 import { SiteBackground } from "@/components/SiteBackground";
 import { TechStack } from "@/components/TechStack";
 import { MobileNav } from "@/components/MobileNav";
-import { CommandPalette } from "@/components/CommandPalette";
 import { forwardRef } from "react";
 
 // Scroll-driven section wrapper component with creative transitions
@@ -73,12 +72,10 @@ const TITLES = [
 ] as const;
 
 export default function Home() {
-  const [commandOpen, setCommandOpen] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [scrollY, setScrollY] = useState(0);
   const aboutRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
@@ -125,26 +122,15 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, [displayedText, isDeleting, currentTitleIndex]);
 
-  // Update scroll progress and scroll position
+  // Update scroll position for hero scroll hint
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      setScrollY(scrollTop);
-      
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const totalScrollable = documentHeight - windowHeight;
-      const progress = totalScrollable > 0 ? (scrollTop / totalScrollable) * 100 : 0;
-      setScrollProgress(Math.min(100, Math.max(0, progress)));
+      setScrollY(window.scrollY || document.documentElement.scrollTop);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
-    handleScroll(); // Initial call
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-    };
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Update current section based on scroll
@@ -191,7 +177,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="relative mx-auto min-h-screen w-full max-w-lg text-[--foreground]" style={{
+    <div className="relative mx-auto min-h-screen w-full max-w-lg lg:max-w-5xl xl:max-w-6xl text-[--foreground]" style={{
       background: 'linear-gradient(135deg, #0A0A0A 0%, #0F0F0F 25%, #111111 50%, #0F0F0F 75%, #0A0A0A 100%)',
       backgroundAttachment: 'fixed'
     }}>
@@ -199,64 +185,7 @@ export default function Home() {
         <SiteBackground />
       </div>
 
-      <Topbar
-        variant="home"
-        sections={['About', 'Skills', 'Experience', 'Contact']}
-        currentSection={currentSection}
-        onSelectSection={(i) => scrollToSection(i)}
-        onOpenCommand={() => setCommandOpen(true)}
-      />
-
-      {/* Scroll Progress Indicator - Compact Left Side Design */}
-      <div className="fixed left-3 top-1/2 z-[70] h-60 w-px -translate-y-1/2 bg-gray-800/30 pointer-events-none">
-        {/* Static dots along the line - including start and end */}
-        <div className="absolute inset-0">
-          {[...Array(6)].map((_, i) => {
-            // Dots at 0%, 20%, 40%, 60%, 80%, 100% - perfectly evenly spaced
-            const dotProgress = i * 20;
-            const isActive = scrollProgress >= dotProgress;
-            // Perfectly even spacing: 0%, 20%, 40%, 60%, 80%, 100%
-            const dotPosition = i === 0 ? '0%' : i === 5 ? '100%' : `${i * 20}%`;
-            const brightness = isActive ? 1 : 0.2;
-            const glowIntensity = isActive ? 0.8 : 0;
-            
-            return (
-              <motion.div
-                key={i}
-                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full"
-                style={{
-                  top: dotPosition,
-                  backgroundColor: `rgba(255, 255, 255, ${brightness})`,
-                  boxShadow: `0 0 ${4 * glowIntensity}px rgba(255, 255, 255, ${0.3 * glowIntensity})`,
-                }}
-                animate={{
-                  opacity: brightness,
-                  scale: isActive ? [1, 1.4, 1.2] : 1,
-                }}
-                transition={{
-                  duration: 0.6,
-                  ease: [0.4, 0, 0.2, 1],
-                }}
-              />
-            );
-          })}
-        </div>
-        
-        {/* Falling light - gradient line that flows down */}
-        <motion.div
-          className="absolute top-0 left-0 w-full bg-gradient-to-b from-white via-gray-300 to-white"
-          style={{
-            height: `${scrollProgress}%`,
-            maxHeight: '100%',
-            opacity: 0.7,
-            boxShadow: '0 0 8px rgba(255, 255, 255, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1)',
-            filter: 'blur(0.2px)',
-          }}
-          initial={{ height: 0 }}
-          animate={{ height: `${scrollProgress}%` }}
-          transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
-        />
-      </div>
+      <Topbar />
 
       <main className="px-3 pt-[4.5rem] pb-24">
         {/* Hero Section */}
@@ -598,7 +527,6 @@ export default function Home() {
 
       <Footer />
       <MobileNav />
-      <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
     </div>
   );
 }

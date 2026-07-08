@@ -2,9 +2,12 @@
 
 import { AppShell } from "@/components/AppShell";
 import { PageHeader } from "@/components/PageHeader";
+import { getSocialLinks } from "@/lib/social";
 import { Github, Linkedin, Mail, Phone } from "lucide-react";
 
 export default function ContactPage() {
+  const { email, phone, github, linkedin } = getSocialLinks();
+
   return (
     <AppShell>
       <main className="space-y-8">
@@ -21,36 +24,38 @@ export default function ContactPage() {
             <div className="space-y-3">
               <a
                 className="flex items-center gap-3 text-sm text-[--muted-foreground] hover:text-white transition-colors"
-                href="mailto:manoharreddygali19061999@gmail.com"
+                href={`mailto:${email}`}
               >
                 <Mail className="h-4 w-4 shrink-0" />
-                manoharreddygali19061999@gmail.com
+                {email}
               </a>
               <a
                 className="flex items-center gap-3 text-sm text-[--muted-foreground] hover:text-white transition-colors"
-                href="tel:8067019862"
+                href={`tel:${phone}`}
               >
                 <Phone className="h-4 w-4 shrink-0" />
-                806-701-9862
+                {phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}
               </a>
               <a
                 className="flex items-center gap-3 text-sm text-[--muted-foreground] hover:text-white transition-colors"
-                href="https://github.com/Manugali"
+                href={github}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Github className="h-4 w-4 shrink-0" />
                 GitHub
               </a>
-              <a
-                className="flex items-center gap-3 text-sm text-[--muted-foreground] hover:text-white transition-colors"
-                href="https://linkedin.com/in/manu"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Linkedin className="h-4 w-4 shrink-0" />
-                LinkedIn
-              </a>
+              {linkedin ? (
+                <a
+                  className="flex items-center gap-3 text-sm text-[--muted-foreground] hover:text-white transition-colors"
+                  href={linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Linkedin className="h-4 w-4 shrink-0" />
+                  LinkedIn
+                </a>
+              ) : null}
             </div>
           </div>
 

@@ -1,0 +1,32 @@
+[
+  {
+    "title": "The kind of engineer I want to be",
+    "excerpt": "Not the loudest in the room — the one who ships things that actually work for real people.",
+    "date": "Coming soon",
+    "tags": ["opinions", "building"]
+  },
+  {
+    "title": "What enterprise work taught me that bootcamps don't",
+    "excerpt": "Legacy systems, stakeholder politics, and why \"it works on my machine\" isn't enough.",
+    "date": "Coming soon",
+    "tags": ["learning", "tech"]
+  },
+  {
+    "title": "What I'm curious about right now",
+    "excerpt": "AI agents, system design, and a few rabbit holes I'm happily lost in.",
+    "date": "Coming soon",
+    "tags": ["learning", "life"]
+  },
+  {
+    "title": "Why I still enjoy building with .NET",
+    "excerpt": "A personal take — not a framework war, just what keeps me productive.",
+    "date": "Coming soon",
+    "tags": ["tech", "opinions"]
+  },
+  {
+    "title": "Notes from a week of real integration work",
+    "excerpt": "Messy data, tight deadlines, and the small wins that made it worth it.",
+    "date": "Coming soon",
+    "tags": ["building", "tech"]
+  }
+]

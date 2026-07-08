@@ -6,8 +6,6 @@ import {
   ArrowRight,
   Brain,
   Rocket,
-  Wrench,
-  Users,
   Mouse,
   FolderKanban,
   BookText,
@@ -26,8 +24,14 @@ import { PAGE_VERTICAL, SITE_CONTAINER, SITE_PADDING } from "@/lib/layout";
 
 const ScrollSection = forwardRef<
   HTMLDivElement,
-  { children: React.ReactNode; className?: string; sectionIndex: number }
->(({ children, className = "", sectionIndex }, ref) => {
+  {
+    children: React.ReactNode;
+    className?: string;
+    sectionIndex: number;
+    /** Hero stays fully visible on first paint — no scroll-driven fade/slide */
+    pinned?: boolean;
+  }
+>(({ children, className = "", sectionIndex, pinned = false }, ref) => {
   const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref as React.RefObject<HTMLDivElement>,
@@ -37,25 +41,29 @@ const ScrollSection = forwardRef<
   const blur = useTransform(
     scrollYProgress,
     [0, 0.25, 0.75, 1],
-    prefersReducedMotion ? [0, 0, 0, 0] : [10, 0, 0, 10]
+    prefersReducedMotion || pinned ? [0, 0, 0, 0] : [10, 0, 0, 10]
   );
 
   const opacity = useTransform(
     scrollYProgress,
     [0, 0.2, 0.8, 1],
-    prefersReducedMotion ? [1, 1, 1, 1] : [0, 1, 1, 0]
+    prefersReducedMotion || pinned ? [1, 1, 1, 1] : [0, 1, 1, 0]
   );
 
   const scale = useTransform(
     scrollYProgress,
     [0, 0.5, 1],
-    prefersReducedMotion ? [1, 1, 1] : [0.9, 1, 0.9]
+    prefersReducedMotion || pinned ? [1, 1, 1] : [0.9, 1, 0.9]
   );
 
   const y = useTransform(
     scrollYProgress,
     [0, 1],
-    prefersReducedMotion ? [0, 0] : sectionIndex % 2 === 0 ? [100, -100] : [-100, 100]
+    prefersReducedMotion || pinned
+      ? [0, 0]
+      : sectionIndex % 2 === 0
+        ? [100, -100]
+        : [-100, 100]
   );
 
   return (
@@ -195,11 +203,12 @@ export default function Home() {
         <main className={cn("mx-auto w-full", PAGE_VERTICAL)}>
           <ScrollSection
             ref={aboutRef}
-            className="flex min-h-screen items-center justify-center py-12"
+            className="flex min-h-[calc(100dvh-9rem)] flex-col items-center justify-start pt-2 pb-8 sm:pt-4"
             sectionIndex={0}
+            pinned
           >
             <div className="w-full">
-              <div className="flex flex-col items-center gap-10 text-center">
+              <div className="flex flex-col items-center gap-6 text-center sm:gap-8">
                 <div className="group relative shrink-0">
                   <img
                     src="/profile.jpg"
@@ -281,7 +290,7 @@ export default function Home() {
                         opacity: { duration: 0.5, ease: "easeOut" },
                       }}
                       style={{
-                        marginTop: "3rem",
+                        marginTop: "1.5rem",
                         pointerEvents: scrollY < 150 ? "auto" : "none",
                       }}
                     >

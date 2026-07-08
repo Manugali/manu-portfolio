@@ -5,12 +5,12 @@ type PageHeaderProps = {
 
 export function PageHeader({ title, description }: PageHeaderProps) {
   return (
-    <header className="mb-8">
+    <header className="mb-8 text-center">
       <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent">
         {title}
       </h1>
       {description && (
-        <p className="mt-3 text-sm text-[--muted-foreground] leading-relaxed">
+        <p className="mx-auto mt-3 max-w-2xl text-sm text-[--muted-foreground] leading-relaxed">
           {description}
         </p>
       )}

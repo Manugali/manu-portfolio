@@ -16,7 +16,7 @@ export default function ExperiencePage() {
           {experience.map((item, index) => (
             <article
               key={`${item.company}-${item.role}-${index}`}
-              className="glass-card p-6"
+              className="glass-card p-6 text-center"
             >
               <div className="flex flex-col gap-2 mb-4">
                 <div>
@@ -31,7 +31,7 @@ export default function ExperiencePage() {
               <p className="text-sm text-[--muted-foreground] mb-4 leading-relaxed">
                 {item.summary}
               </p>
-              <ul className="space-y-2">
+              <ul className="space-y-2 text-left">
                 {item.highlights.map((highlight: string, idx: number) => (
                   <li
                     key={idx}

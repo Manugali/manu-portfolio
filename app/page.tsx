@@ -488,11 +488,11 @@ export default function Home() {
                 </p>
                 <div className="flex flex-col items-center space-y-2">
                   <a 
-                    href="mailto:manoharreddygali19061999@gmail.com" 
+                    href="mailto:manoharreddygali@gmail.com" 
                     className="flex min-w-0 max-w-full items-center gap-2 text-sm text-[--muted-foreground] hover:text-white transition-colors"
                   >
                     <Mail className="h-4 w-4 shrink-0" />
-                    <span className="min-w-0 break-all">manoharreddygali19061999@gmail.com</span>
+                    <span className="min-w-0 break-all">manoharreddygali@gmail.com</span>
                   </a>
                   <a 
                     href="tel:8067019862" 
@@ -511,7 +511,7 @@ export default function Home() {
                   I&apos;m open to interesting projects and opportunities. Let&apos;s discuss how we can work together to bring your ideas to life.
                 </p>
                 <motion.button
-                  onClick={() => window.location.href = 'mailto:manoharreddygali19061999@gmail.com'}
+                  onClick={() => window.location.href = 'mailto:manoharreddygali@gmail.com'}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="relative inline-flex items-center gap-2 px-4 py-2 border border-[--border] rounded-lg text-white overflow-hidden group text-sm"

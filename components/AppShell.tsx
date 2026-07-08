@@ -2,7 +2,6 @@
 
 import { Topbar } from "@/components/Topbar";
 import { PageWrapper } from "@/components/PageWrapper";
-import { Footer } from "@/components/Footer";
 import { SiteBackground } from "@/components/SiteBackground";
 import { MobileNav } from "@/components/MobileNav";
 
@@ -19,7 +18,6 @@ export function AppShell({ children }: AppShellProps) {
         <PageWrapper>
           <div className="px-4 pt-[4.5rem] pb-24">{children}</div>
         </PageWrapper>
-        <Footer />
       </div>
       <MobileNav />
     </div>

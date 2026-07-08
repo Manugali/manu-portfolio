@@ -1,31 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { Moon, Sun, Monitor } from "lucide-react";
-import { useSyncExternalStore } from "react";
 import { cn } from "@/lib/utils";
 
 const CONTENT_WIDTH =
   "mx-auto w-full max-w-lg lg:max-w-5xl xl:max-w-6xl";
 
 export function Topbar() {
-  const { theme, setTheme } = useTheme();
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  );
-
-  const setThemeMode = (mode: "dark" | "light" | "system") => {
-    if (mode === "system") {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      setTheme(prefersDark ? "dark" : "light");
-    } else {
-      setTheme(mode);
-    }
-  };
-
   return (
     <header className="fixed top-0 left-0 right-0 z-[60] w-full pt-3 px-3 lg:px-6">
       <div className={cn(CONTENT_WIDTH, "flex items-center justify-between gap-3")}>
@@ -41,39 +22,6 @@ export function Topbar() {
         >
           manu
         </Link>
-
-        <div className="flex items-center gap-2">
-          {mounted && (
-            <div className="flex items-center rounded-full border border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_85%,transparent)] backdrop-blur-md p-0.5">
-              {[
-                { mode: "dark" as const, icon: Moon, label: "Dark mode" },
-                { mode: "system" as const, icon: Monitor, label: "System theme" },
-                { mode: "light" as const, icon: Sun, label: "Light mode" },
-              ].map((themeOption) => {
-                const Icon = themeOption.icon;
-                const isActive =
-                  theme === themeOption.mode ||
-                  (!theme && themeOption.mode === "system");
-                return (
-                  <button
-                    key={themeOption.mode}
-                    onClick={() => setThemeMode(themeOption.mode)}
-                    className={cn(
-                      "h-8 w-8 rounded-full flex items-center justify-center transition-colors",
-                      isActive
-                        ? "bg-[--muted] text-white"
-                        : "text-[--muted-foreground] hover:text-white"
-                    )}
-                    aria-label={themeOption.label}
-                    title={themeOption.label}
-                  >
-                    <Icon className="h-3.5 w-3.5" />
-                  </button>
-                );
-              })}
-            </div>
-          )}
-        </div>
       </div>
     </header>
   );

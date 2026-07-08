@@ -489,10 +489,10 @@ export default function Home() {
                 <div className="flex flex-col items-center space-y-2">
                   <a 
                     href="mailto:manoharreddygali19061999@gmail.com" 
-                    className="flex items-center gap-2 text-sm text-[--muted-foreground] hover:text-white transition-colors"
+                    className="flex min-w-0 max-w-full items-center gap-2 text-sm text-[--muted-foreground] hover:text-white transition-colors"
                   >
-                    <Mail className="h-4 w-4" />
-                    <span>manoharreddygali19061999@gmail.com</span>
+                    <Mail className="h-4 w-4 shrink-0" />
+                    <span className="min-w-0 break-all">manoharreddygali19061999@gmail.com</span>
                   </a>
                   <a 
                     href="tel:8067019862" 

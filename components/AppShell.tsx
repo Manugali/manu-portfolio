@@ -13,12 +13,12 @@ type AppShellProps = {
 
 export function AppShell({ children }: AppShellProps) {
   return (
-    <div className="relative min-h-screen w-full text-[--foreground]">
+    <div className="relative min-h-screen w-full overflow-x-hidden text-[--foreground]">
       <SiteBackground subtle />
-      <div className={cn(SITE_CONTAINER, SITE_PADDING, "relative z-10")}>
+      <div className={cn(SITE_CONTAINER, SITE_PADDING, "relative z-10 min-w-0")}>
         <Topbar />
         <PageWrapper>
-          <main className={cn("mx-auto w-full max-w-2xl lg:max-w-3xl", PAGE_VERTICAL)}>
+          <main className={cn("mx-auto min-w-0 w-full max-w-2xl lg:max-w-3xl", PAGE_VERTICAL)}>
             {children}
           </main>
         </PageWrapper>

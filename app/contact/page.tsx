@@ -10,24 +10,24 @@ export default function ContactPage() {
 
   return (
     <AppShell>
-      <main className="space-y-8">
+      <main className="min-w-0 w-full space-y-8">
         <PageHeader
           title="Contact"
           description="Have a problem to solve or a product to ship? I'd love to hear from you."
         />
-        <div className="grid gap-4">
-          <div className="glass-card p-6 space-y-5 text-center">
+        <div className="grid min-w-0 gap-4">
+          <div className="glass-card min-w-0 p-6 space-y-5 text-center">
             <h2 className="text-lg font-bold gradient-text">Say hello</h2>
             <p className="text-sm text-[--muted-foreground] leading-relaxed">
               I&apos;m open to interesting projects, collaborations, and full-time opportunities.
             </p>
             <div className="space-y-3">
               <a
-                className="flex items-center justify-center gap-3 text-sm text-[--muted-foreground] hover:text-white transition-colors"
+                className="flex min-w-0 items-center justify-center gap-3 text-sm text-[--muted-foreground] hover:text-white transition-colors"
                 href={`mailto:${email}`}
               >
                 <Mail className="h-4 w-4 shrink-0" />
-                {email}
+                <span className="min-w-0 break-all">{email}</span>
               </a>
               <a
                 className="flex items-center justify-center gap-3 text-sm text-[--muted-foreground] hover:text-white transition-colors"
@@ -59,7 +59,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <form className="glass-card p-6 space-y-4 text-center" action="/api/contact" method="post">
+          <form className="glass-card min-w-0 p-6 space-y-4 text-center" action="/api/contact" method="post">
             <h2 className="text-lg font-bold gradient-text">Send a message</h2>
             <input
               className="w-full rounded-xl border border-[--border] bg-[--muted]/30 px-4 py-2.5 text-sm text-[--foreground] placeholder:text-[--muted-foreground] focus:border-[--muted-foreground] outline-none transition-colors"

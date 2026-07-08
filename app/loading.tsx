@@ -9,7 +9,6 @@ export default function Loading() {
 
   useEffect(() => {
     // Animate progress from 0 to 90% (will complete when route loads)
-    let progressInterval: NodeJS.Timeout;
     let currentProgress = 0;
 
     const updateProgress = () => {
@@ -20,7 +19,7 @@ export default function Loading() {
       }
     };
 
-    progressInterval = setInterval(updateProgress, 50);
+    const progressInterval = setInterval(updateProgress, 50);
 
     return () => {
       clearInterval(progressInterval);

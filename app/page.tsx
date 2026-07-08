@@ -65,6 +65,13 @@ const ScrollSection = forwardRef<
 
 ScrollSection.displayName = "ScrollSection";
 
+const TITLES = [
+  "AI Enthusiast",
+  "Code Artisan",
+  "Tech Explorer",
+  "Innovation Seeker",
+] as const;
+
 export default function Home() {
   const [commandOpen, setCommandOpen] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
@@ -77,13 +84,6 @@ export default function Home() {
   const skillsRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
-
-  const titles = [
-    "AI Enthusiast",
-    "Code Artisan",
-    "Tech Explorer",
-    "Innovation Seeker"
-  ];
 
   const scrollToSection = (section: number) => {
     // Update currentSection immediately to prevent underline from animating through intermediate positions
@@ -98,36 +98,32 @@ export default function Home() {
 
   // Typing effect for titles
   useEffect(() => {
-    const currentTitle = titles[currentTitleIndex];
+    const currentTitle = TITLES[currentTitleIndex];
     let timeout: NodeJS.Timeout;
 
     if (!isDeleting) {
-      // Typing
       if (displayedText.length < currentTitle.length) {
         timeout = setTimeout(() => {
           setDisplayedText(currentTitle.slice(0, displayedText.length + 1));
         }, 100);
       } else {
-        // Finished typing, wait then start deleting
         timeout = setTimeout(() => {
           setIsDeleting(true);
         }, 2000);
       }
+    } else if (displayedText.length > 0) {
+      timeout = setTimeout(() => {
+        setDisplayedText(displayedText.slice(0, -1));
+      }, 50);
     } else {
-      // Deleting
-      if (displayedText.length > 0) {
-        timeout = setTimeout(() => {
-          setDisplayedText(displayedText.slice(0, -1));
-        }, 50);
-      } else {
-        // Finished deleting, move to next title
+      timeout = setTimeout(() => {
         setIsDeleting(false);
-        setCurrentTitleIndex((prev) => (prev + 1) % titles.length);
-      }
+        setCurrentTitleIndex((prev) => (prev + 1) % TITLES.length);
+      }, 0);
     }
 
     return () => clearTimeout(timeout);
-  }, [displayedText, isDeleting, currentTitleIndex, titles]);
+  }, [displayedText, isDeleting, currentTitleIndex]);
 
   // Update scroll progress and scroll position
   useEffect(() => {
@@ -298,7 +294,7 @@ export default function Home() {
                     transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
                     className="block text-[--muted-foreground]"
                   >
-                    Hi I'm
+                    Hi I&apos;m
                   </motion.span>
                   <motion.span
                     initial={{ opacity: 0, y: 30 }}
@@ -541,10 +537,10 @@ export default function Home() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
                     <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent">
-                        Let's Connect
+                        Let&apos;s Connect
                       </h2>
               <p className="text-lg text-[--muted-foreground] max-w-2xl mx-auto">
-                Have a problem to solve or a product to ship? Let's build it right.
+                Have a problem to solve or a product to ship? Let&apos;s build it right.
               </p>
             </div>
 
@@ -576,9 +572,9 @@ export default function Home() {
 
               <div className="glass-card p-6">
                 <Lightbulb className="h-8 w-8 text-white mb-4" strokeWidth={1.5} />
-                <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">Let's Build Together</h3>
+                <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">Let&apos;s Build Together</h3>
                 <p className="text-[--muted-foreground] mb-4">
-                  I'm open to interesting projects and opportunities. Let's discuss how we can work together to bring your ideas to life.
+                  I&apos;m open to interesting projects and opportunities. Let&apos;s discuss how we can work together to bring your ideas to life.
                 </p>
                 <motion.button
                   onClick={() => window.location.href = 'mailto:manoharreddygali19061999@gmail.com'}

@@ -14,7 +14,7 @@ import {
   X,
   Search,
 } from "lucide-react";
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -47,18 +47,22 @@ export function Topbar({
 }: TopbarProps) {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [navPathname, setNavPathname] = useState(pathname);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    setIsMobileNavOpen(false);
-  }, [pathname]);
+  if (pathname !== navPathname) {
+    setNavPathname(pathname);
+    if (isMobileNavOpen) {
+      setIsMobileNavOpen(false);
+    }
+  }
 
   const setThemeMode = (mode: "dark" | "light" | "system") => {
     if (mode === "system") {

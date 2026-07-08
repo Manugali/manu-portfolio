@@ -54,15 +54,7 @@ export function Topbar({
   );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const [navPathname, setNavPathname] = useState(pathname);
   const menuRef = useRef<HTMLDivElement>(null);
-
-  if (pathname !== navPathname) {
-    setNavPathname(pathname);
-    if (isMobileNavOpen) {
-      setIsMobileNavOpen(false);
-    }
-  }
 
   const setThemeMode = (mode: "dark" | "light" | "system") => {
     if (mode === "system") {

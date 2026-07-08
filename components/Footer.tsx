@@ -1,10 +1,9 @@
-import Link from "next/link";
 import { Github, Linkedin, Mail } from "lucide-react";
 
 const socialLinks = [
-  { href: "https://github.com/Manugali", icon: Github, label: "GitHub" },
-  { href: "https://linkedin.com/in/manu", icon: Linkedin, label: "LinkedIn" },
-  { href: "mailto:manoharreddygali19061999@gmail.com", icon: Mail, label: "Email" },
+  { href: "https://github.com/Manugali", icon: Github, label: "GitHub", external: true },
+  { href: "https://linkedin.com/in/manu", icon: Linkedin, label: "LinkedIn", external: true },
+  { href: "mailto:manoharreddygali19061999@gmail.com", icon: Mail, label: "Email", external: false },
 ] as const;
 
 export function Footer() {
@@ -26,17 +25,18 @@ export function Footer() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          {socialLinks.map(({ href, icon: Icon, label }) => (
-            <Link
+          {socialLinks.map(({ href, icon: Icon, label, external }) => (
+            <a
               key={label}
               href={href}
-              target={href.startsWith("mailto") ? undefined : "_blank"}
-              rel={href.startsWith("mailto") ? undefined : "noopener noreferrer"}
+              {...(external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
               className="flex h-9 w-9 items-center justify-center rounded-full border border-[--border] text-[--muted-foreground] hover:text-white hover:border-[--muted-foreground] transition-colors"
               aria-label={label}
             >
               <Icon className="h-4 w-4" />
-            </Link>
+            </a>
           ))}
         </div>
       </div>

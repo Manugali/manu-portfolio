@@ -5,7 +5,6 @@ import { ArrowRight, Brain, Rocket, Wrench, Users, Lightbulb, Mail, Phone, Mouse
 import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import experience from "@/data/experience.json";
-import { Footer } from "@/components/Footer";
 import { SiteBackground } from "@/components/SiteBackground";
 import { TechStack } from "@/components/TechStack";
 import { MobileNav } from "@/components/MobileNav";
@@ -525,7 +524,6 @@ export default function Home() {
         </ScrollSection>
       </main>
 
-      <Footer />
       <MobileNav />
     </div>
   );

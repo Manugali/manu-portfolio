@@ -1,57 +1,48 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import LightRays from "@/components/LightRays";
 
-// Optimized wave clip path component for better mobile performance
-function WaveClipPath({ progress, isMobile, children }: { progress: number; isMobile: boolean; children: React.ReactNode }) {
+function WaveClipPath({
+  progress,
+  wavePhase,
+  children,
+}: {
+  progress: number;
+  wavePhase: number;
+  children: React.ReactNode;
+}) {
   const clipPath = useMemo(() => {
     const baseY = 100 - progress;
     const wavePoints = [];
-    
-    // Use fewer points on mobile for better performance (every 2% vs 1%)
-    const pointInterval = isMobile ? 2 : 1;
-    
-    // Generate smooth wave points
-    for (let x = 0; x <= 100; x += pointInterval) {
-      // Use multiple sine waves with different frequencies for organic feel
-      const wave1 = Math.sin(progress * 0.07 + x * 0.15) * 10;
-      const wave2 = Math.sin(progress * 0.05 + x * 0.12) * 4;
-      const wave3 = Math.sin(progress * 0.03 + x * 0.08) * 2;
-      
-      // Combine waves for smooth, organic effect
+
+    for (let x = 0; x <= 100; x += 2) {
+      const wave1 = Math.sin(wavePhase * 0.15 + x * 0.15) * 10;
+      const wave2 = Math.sin(wavePhase * 0.1 + x * 0.12) * 4;
+      const wave3 = Math.sin(wavePhase * 0.06 + x * 0.08) * 2;
       const waveOffset = wave1 + wave2 + wave3;
       const y = Math.max(0, baseY + waveOffset);
       wavePoints.push(`${x}% ${y}%`);
     }
-    
-    // Complete the polygon
-    wavePoints.push('100% 100%');
-    wavePoints.push('0% 100%');
-    
-    return `polygon(${wavePoints.join(', ')})`;
-  }, [progress, isMobile]);
 
-  return (
-    <div
-      style={{
-        clipPath,
-        transition: 'clip-path 0.1s cubic-bezier(0.4, 0, 0.2, 1)',
-      }}
-    >
-      {children}
-    </div>
-  );
+    wavePoints.push("100% 100%");
+    wavePoints.push("0% 100%");
+
+    return `polygon(${wavePoints.join(", ")})`;
+  }, [progress, wavePhase]);
+
+  return <div style={{ clipPath }}>{children}</div>;
 }
 
 export function InitialLoader() {
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [wavePhase, setWavePhase] = useState(0);
   const [animationPhase, setAnimationPhase] = useState<'loading' | 'zoomIn' | 'zoomOut'>('loading');
   const [targetPosition, setTargetPosition] = useState({ x: 0, y: 0 });
   const [targetScale, setTargetScale] = useState(0.12);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobileRef = useRef(false);
   const [loadingMessage, setLoadingMessage] = useState("Initializing systems...");
 
   useEffect(() => {
@@ -66,9 +57,9 @@ export function InitialLoader() {
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
 
-    // Detect mobile vs desktop
+    // Detect mobile vs desktop once (ref avoids restarting the animation)
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      isMobileRef.current = window.innerWidth < 768;
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -140,44 +131,31 @@ export function InitialLoader() {
     const startTime = Date.now();
     let animationFrame: number;
     let animationComplete = false;
-    let lastUpdateTime = 0;
-    
-    // Animation duration for all devices
-    const animationDuration = 6000; // 6 seconds
-    
-    // Calculate constant time per message (equal duration for each)
-    const messageInterval = animationDuration / loadingMessages.length; // Equal time for each message
+
+    const animationDuration = 6000;
+    const messageInterval = animationDuration / loadingMessages.length;
     let currentMessageIndex = 0;
-    
-    // Throttle updates on mobile for better performance (every ~16ms = ~60fps, vs every frame)
-    const throttleInterval = isMobile ? 16 : 0; // 16ms = ~60fps
 
     const updateProgress = () => {
       const now = Date.now();
       const elapsed = now - startTime;
-      const t = Math.min(elapsed / animationDuration, 1); // Normalized time (0 to 1)
-      
+      const t = Math.min(elapsed / animationDuration, 1);
+
       if (t < 1) {
-        // Update message based on constant timing (not progress-based)
         const expectedIndex = Math.floor(elapsed / messageInterval);
         if (expectedIndex < loadingMessages.length && expectedIndex !== currentMessageIndex) {
           currentMessageIndex = expectedIndex;
           setLoadingMessage(loadingMessages[currentMessageIndex].message);
         }
-        
-        // Throttle updates on mobile
-        if (!isMobile || (now - lastUpdateTime) >= throttleInterval) {
-          // Ease-in-out cubic for smooth animation
-          const eased = t < 0.5 
-            ? 4 * t * t * t 
-            : 1 - Math.pow(-2 * t + 2, 3) / 2;
-          
-          const calculatedProgress = eased * 100;
-          setProgress(calculatedProgress);
-          
-          lastUpdateTime = now;
-        }
-        
+
+        // Continuous wave ripple independent of eased fill progress
+        setWavePhase(elapsed * 0.004);
+
+        const eased = t < 0.5
+          ? 4 * t * t * t
+          : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+        setProgress(eased * 100);
         animationFrame = requestAnimationFrame(updateProgress);
       } else {
         // Ensure we reach exactly 100%
@@ -221,7 +199,7 @@ export function InitialLoader() {
       cancelAnimationFrame(animationFrame);
       clearTimeout(maxTimeout);
     };
-  }, [isMobile]);
+  }, []);
 
   return (
     <AnimatePresence>
@@ -257,15 +235,15 @@ export function InitialLoader() {
             className="relative z-10 flex flex-col items-center gap-8"
             animate={{
               scale: animationPhase === 'zoomIn' ? 1.4 : animationPhase === 'zoomOut' 
-                ? (isMobile ? 0 : targetScale) 
+                ? (isMobileRef.current ? 0 : targetScale) 
                 : 1,
-              x: animationPhase === 'zoomOut' && !isMobile ? targetPosition.x : 0,
-              y: animationPhase === 'zoomOut' && !isMobile ? targetPosition.y : 0,
-              opacity: animationPhase === 'zoomOut' && isMobile ? 0 : 1,
+              x: animationPhase === 'zoomOut' && !isMobileRef.current ? targetPosition.x : 0,
+              y: animationPhase === 'zoomOut' && !isMobileRef.current ? targetPosition.y : 0,
+              opacity: animationPhase === 'zoomOut' && isMobileRef.current ? 0 : 1,
             }}
             transition={{
               duration: animationPhase === 'zoomIn' ? 0.5 : animationPhase === 'zoomOut' 
-                ? (isMobile ? 0.6 : 0.8) 
+                ? (isMobileRef.current ? 0.6 : 0.8) 
                 : 0,
               ease: animationPhase === 'zoomIn' ? [0.34, 1.56, 0.64, 1] : animationPhase === 'zoomOut' 
                 ? [0.4, 0, 0.2, 1]
@@ -300,7 +278,7 @@ export function InitialLoader() {
                    lineHeight: '1',
                  }}
                >
-                 <WaveClipPath progress={progress} isMobile={isMobile}>
+                 <WaveClipPath progress={progress} wavePhase={wavePhase}>
                    manu
                  </WaveClipPath>
                </div>

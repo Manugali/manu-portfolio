@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo } from "react";
 import LightRays from "@/components/LightRays";
 
 function WaveClipPath({
@@ -42,7 +42,7 @@ export function InitialLoader() {
   const [animationPhase, setAnimationPhase] = useState<'loading' | 'zoomIn' | 'zoomOut'>('loading');
   const [targetPosition, setTargetPosition] = useState({ x: 0, y: 0 });
   const [targetScale, setTargetScale] = useState(0.12);
-  const isMobileRef = useRef(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("Initializing systems...");
 
   useEffect(() => {
@@ -57,9 +57,9 @@ export function InitialLoader() {
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
 
-    // Detect mobile vs desktop once (ref avoids restarting the animation)
+    // Detect mobile vs desktop (state is for render; animation effect uses [] deps)
     const checkMobile = () => {
-      isMobileRef.current = window.innerWidth < 768;
+      setIsMobile(window.innerWidth < 768);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -235,15 +235,15 @@ export function InitialLoader() {
             className="relative z-10 flex flex-col items-center gap-8"
             animate={{
               scale: animationPhase === 'zoomIn' ? 1.4 : animationPhase === 'zoomOut' 
-                ? (isMobileRef.current ? 0 : targetScale) 
+                ? (isMobile ? 0 : targetScale) 
                 : 1,
-              x: animationPhase === 'zoomOut' && !isMobileRef.current ? targetPosition.x : 0,
-              y: animationPhase === 'zoomOut' && !isMobileRef.current ? targetPosition.y : 0,
-              opacity: animationPhase === 'zoomOut' && isMobileRef.current ? 0 : 1,
+              x: animationPhase === 'zoomOut' && !isMobile ? targetPosition.x : 0,
+              y: animationPhase === 'zoomOut' && !isMobile ? targetPosition.y : 0,
+              opacity: animationPhase === 'zoomOut' && isMobile ? 0 : 1,
             }}
             transition={{
               duration: animationPhase === 'zoomIn' ? 0.5 : animationPhase === 'zoomOut' 
-                ? (isMobileRef.current ? 0.6 : 0.8) 
+                ? (isMobile ? 0.6 : 0.8) 
                 : 0,
               ease: animationPhase === 'zoomIn' ? [0.34, 1.56, 0.64, 1] : animationPhase === 'zoomOut' 
                 ? [0.4, 0, 0.2, 1]

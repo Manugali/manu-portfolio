@@ -174,7 +174,15 @@ body::-webkit-scrollbar {
 }
 
 .glass-card {
-  @apply rounded-xl border border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_75%,transparent)] backdrop-blur-sm transition-colors duration-300 hover:border-[--muted-foreground];
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--card) 75%, transparent);
+  backdrop-filter: blur(4px);
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.glass-card:hover {
+  border-color: var(--muted-foreground);
 }
 
 .section-label {

@@ -18,8 +18,8 @@ export function AppShell({ children }: AppShellProps) {
   return (
     <div className="relative min-h-screen text-[--foreground]">
       <SiteBackground subtle />
-      <div className="relative z-10 mx-auto max-w-lg w-full">
-        <Topbar variant="site" onOpenCommand={() => setOpen(true)} />
+      <div className="relative z-10 mx-auto w-full max-w-lg lg:max-w-5xl xl:max-w-6xl">
+        <Topbar onOpenCommand={() => setOpen(true)} />
         <PageWrapper>
           <div className="px-4 pt-[4.5rem] pb-24">{children}</div>
         </PageWrapper>

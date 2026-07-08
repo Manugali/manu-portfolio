@@ -191,7 +191,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="relative mx-auto min-h-screen w-full max-w-lg text-[--foreground]" style={{
+    <div className="relative mx-auto min-h-screen w-full max-w-lg lg:max-w-5xl xl:max-w-6xl text-[--foreground]" style={{
       background: 'linear-gradient(135deg, #0A0A0A 0%, #0F0F0F 25%, #111111 50%, #0F0F0F 75%, #0A0A0A 100%)',
       backgroundAttachment: 'fixed'
     }}>
@@ -199,13 +199,7 @@ export default function Home() {
         <SiteBackground />
       </div>
 
-      <Topbar
-        variant="home"
-        sections={['About', 'Skills', 'Experience', 'Contact']}
-        currentSection={currentSection}
-        onSelectSection={(i) => scrollToSection(i)}
-        onOpenCommand={() => setCommandOpen(true)}
-      />
+      <Topbar onOpenCommand={() => setCommandOpen(true)} />
 
       {/* Scroll Progress Indicator - Compact Left Side Design */}
       <div className="fixed left-3 top-1/2 z-[70] h-60 w-px -translate-y-1/2 bg-gray-800/30 pointer-events-none">

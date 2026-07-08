@@ -9,7 +9,6 @@ import { Footer } from "@/components/Footer";
 import { SiteBackground } from "@/components/SiteBackground";
 import { TechStack } from "@/components/TechStack";
 import { MobileNav } from "@/components/MobileNav";
-import { CommandPalette } from "@/components/CommandPalette";
 import { forwardRef } from "react";
 
 // Scroll-driven section wrapper component with creative transitions
@@ -73,7 +72,6 @@ const TITLES = [
 ] as const;
 
 export default function Home() {
-  const [commandOpen, setCommandOpen] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
@@ -199,7 +197,7 @@ export default function Home() {
         <SiteBackground />
       </div>
 
-      <Topbar onOpenCommand={() => setCommandOpen(true)} />
+      <Topbar />
 
       {/* Scroll Progress Indicator - Compact Left Side Design */}
       <div className="fixed left-3 top-1/2 z-[70] h-60 w-px -translate-y-1/2 bg-gray-800/30 pointer-events-none">
@@ -592,7 +590,6 @@ export default function Home() {
 
       <Footer />
       <MobileNav />
-      <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} />
     </div>
   );
 }

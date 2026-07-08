@@ -2,18 +2,14 @@
 
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { Moon, Sun, Monitor, Search } from "lucide-react";
+import { Moon, Sun, Monitor } from "lucide-react";
 import { useSyncExternalStore } from "react";
 import { cn } from "@/lib/utils";
 
 const CONTENT_WIDTH =
   "mx-auto w-full max-w-lg lg:max-w-5xl xl:max-w-6xl";
 
-type TopbarProps = {
-  onOpenCommand?: () => void;
-};
-
-export function Topbar({ onOpenCommand }: TopbarProps) {
+export function Topbar() {
   const { theme, setTheme } = useTheme();
   const mounted = useSyncExternalStore(
     () => () => {},
@@ -47,16 +43,6 @@ export function Topbar({ onOpenCommand }: TopbarProps) {
         </Link>
 
         <div className="flex items-center gap-2">
-          {onOpenCommand && (
-            <button
-              onClick={onOpenCommand}
-              className="h-9 w-9 rounded-full flex items-center justify-center border border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_85%,transparent)] backdrop-blur-md text-[--muted-foreground] hover:text-white transition-colors"
-              aria-label="Open search"
-            >
-              <Search className="h-4 w-4" />
-            </button>
-          )}
-
           {mounted && (
             <div className="flex items-center rounded-full border border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_85%,transparent)] backdrop-blur-md p-0.5">
               {[

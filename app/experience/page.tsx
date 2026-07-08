@@ -7,31 +7,31 @@ import experience from "@/data/experience.json";
 export default function ExperiencePage() {
   return (
     <AppShell>
-      <main className="space-y-8">
+      <main className="space-y-6">
         <PageHeader
           title="Experience"
           description="Building solutions that drive digital transformation and deliver measurable impact."
         />
-        <div className="space-y-6 max-w-4xl">
+        <div className="space-y-4">
           {experience.map((item, index) => (
             <article
               key={`${item.company}-${item.role}-${index}`}
-              className="glass-card p-6 md:p-8"
+              className="glass-card p-6"
             >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+              <div className="flex flex-col gap-2 mb-4">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold gradient-text">{item.role}</h2>
-                  <p className="text-base text-[--muted-foreground] mt-1">{item.company}</p>
+                  <h2 className="text-lg font-bold gradient-text">{item.role}</h2>
+                  <p className="text-sm text-[--muted-foreground] mt-1">{item.company}</p>
                   {item.location && (
                     <p className="text-sm text-[--muted-foreground] mt-1">{item.location}</p>
                   )}
                 </div>
-                <p className="text-sm text-[--muted-foreground] whitespace-nowrap">{item.period}</p>
+                <p className="text-sm text-[--muted-foreground]">{item.period}</p>
               </div>
-              <p className="text-sm md:text-base text-[--muted-foreground] mb-5 leading-relaxed">
+              <p className="text-sm text-[--muted-foreground] mb-4 leading-relaxed">
                 {item.summary}
               </p>
-              <ul className="space-y-2.5">
+              <ul className="space-y-2">
                 {item.highlights.map((highlight: string, idx: number) => (
                   <li
                     key={idx}

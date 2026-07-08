@@ -8,9 +8,9 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative mt-16 md:mt-24 py-8 px-6 border-t border-[--border]/60">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="text-center md:text-left">
+    <footer className="relative mt-12 py-6 px-4 border-t border-[--border]/60">
+      <div className="flex flex-col items-center gap-4">
+        <div className="text-center">
           <p
             className="text-lg font-bold lowercase gradient-text"
             style={{

@@ -2,12 +2,9 @@ import skills from "@/data/skills.json";
 
 export function TechStack() {
   return (
-    <div className="grid gap-6 sm:grid-cols-2 max-w-4xl mx-auto">
+    <div className="grid gap-4">
       {skills.categories.map((category) => (
-        <div
-          key={category.name}
-          className="glass-card p-6 md:p-8"
-        >
+        <div key={category.name} className="glass-card p-6">
           <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-[--muted-foreground] mb-4">
             {category.name}
           </h3>

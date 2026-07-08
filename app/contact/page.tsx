@@ -12,8 +12,8 @@ export default function ContactPage() {
           title="Contact"
           description="Have a problem to solve or a product to ship? I'd love to hear from you."
         />
-        <div className="grid gap-6 md:grid-cols-2 max-w-4xl">
-          <div className="glass-card p-6 md:p-8 space-y-5">
+        <div className="grid gap-4">
+          <div className="glass-card p-6 space-y-5">
             <h2 className="text-lg font-bold gradient-text">Say hello</h2>
             <p className="text-sm text-[--muted-foreground] leading-relaxed">
               I&apos;m open to interesting projects, collaborations, and full-time opportunities.
@@ -54,11 +54,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <form
-            className="glass-card p-6 md:p-8 space-y-4"
-            action="/api/contact"
-            method="post"
-          >
+          <form className="glass-card p-6 space-y-4" action="/api/contact" method="post">
             <h2 className="text-lg font-bold gradient-text">Send a message</h2>
             <input
               className="w-full rounded-xl border border-[--border] bg-[--muted]/30 px-4 py-2.5 text-sm text-[--foreground] placeholder:text-[--muted-foreground] focus:border-[--muted-foreground] outline-none transition-colors"

@@ -191,7 +191,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen text-[--foreground] relative" style={{
+    <div className="relative mx-auto min-h-screen w-full max-w-lg text-[--foreground]" style={{
       background: 'linear-gradient(135deg, #0A0A0A 0%, #0F0F0F 25%, #111111 50%, #0F0F0F 75%, #0A0A0A 100%)',
       backgroundAttachment: 'fixed'
     }}>
@@ -208,7 +208,7 @@ export default function Home() {
       />
 
       {/* Scroll Progress Indicator - Compact Left Side Design */}
-      <div className="fixed left-4 md:left-6 top-1/2 -translate-y-1/2 h-60 md:h-72 w-px bg-gray-800/30 z-[70] pointer-events-none">
+      <div className="fixed left-3 top-1/2 z-[70] h-60 w-px -translate-y-1/2 bg-gray-800/30 pointer-events-none">
         {/* Static dots along the line - including start and end */}
         <div className="absolute inset-0">
           {[...Array(6)].map((_, i) => {
@@ -258,36 +258,34 @@ export default function Home() {
         />
       </div>
 
-      <main className="pt-16 md:pt-24 pb-20 md:pb-0">
+      <main className="px-3 pt-[4.5rem] pb-24">
         {/* Hero Section */}
         <ScrollSection
           ref={aboutRef}
-          className="min-h-screen flex items-center justify-center py-12 md:py-20 px-4 md:px-6"
+          className="min-h-screen flex items-center justify-center py-12"
           sectionIndex={0}
         >
-          <div className="max-w-7xl mx-auto w-full">
-            <div className="flex flex-col items-center text-center gap-12 lg:gap-16">
+          <div className="w-full">
+            <div className="flex flex-col items-center text-center gap-10">
               {/* Profile Picture */}
               <div className="flex-shrink-0 group relative">
-                {/* Default version */}
                 <img
                   src="/profile.jpg"
                   alt="Manohar Gali"
-                  className="relative w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 rounded-full object-cover border-2 border-[--border] transition-all duration-500 group-hover:opacity-0"
+                  className="relative w-32 h-32 rounded-full object-cover border-2 border-[--border] transition-all duration-500 group-hover:opacity-0"
                   style={{ objectPosition: 'center 15%' }}
                 />
-                {/* Color version (on hover) */}
                 <img
                   src="/profilecolor.jpg"
                   alt="Manohar Gali"
-                  className="absolute inset-0 w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 rounded-full object-cover border-2 border-[--border] transition-all duration-500 opacity-0 group-hover:opacity-100"
+                  className="absolute inset-0 w-32 h-32 rounded-full object-cover border-2 border-[--border] transition-all duration-500 opacity-0 group-hover:opacity-100"
                   style={{ objectPosition: 'center 15%' }}
                 />
               </div>
 
               {/* Hero Content */}
-              <div className="flex-1 max-w-3xl mx-auto">
-                <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 leading-tight px-2">
+              <div className="w-full">
+                <h1 className="text-3xl font-bold mb-4 leading-tight px-2">
                   <motion.span
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -300,7 +298,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.15 }}
-                    className="block bg-gradient-to-r from-white via-white to-gray-200 bg-clip-text text-transparent font-extrabold text-4xl md:text-5xl lg:text-6xl xl:text-7xl mt-1 md:mt-2"
+                    className="block bg-gradient-to-r from-white via-white to-gray-200 bg-clip-text text-transparent font-extrabold text-4xl mt-1"
                   >
                     Manohar Gali
                   </motion.span>
@@ -308,7 +306,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.3 }}
-                    className="block bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent text-xl md:text-2xl lg:text-3xl mt-2"
+                    className="block bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent text-xl mt-2"
                   >
                     <span>{displayedText}</span>
                     <motion.span
@@ -318,7 +316,7 @@ export default function Home() {
                     />
                   </motion.span>
                 </h1>
-                <p className="text-xs md:text-sm lg:text-base text-[--muted-foreground] mb-6 md:mb-8 leading-relaxed max-w-2xl mx-auto px-2">
+                <p className="text-xs text-[--muted-foreground] mb-6 leading-relaxed px-2">
                   I transform complex business challenges into elegant digital solutions. Specializing in enterprise-grade applications, 
                   I architect systems that drive operational efficiency, reduce costs, and deliver measurable ROI. 
                   From legacy system modernization to building next-generation platforms, I combine technical depth with business acumen 
@@ -434,38 +432,38 @@ export default function Home() {
         {/* What I can offer Section */}
         <ScrollSection
           ref={skillsRef}
-          className="min-h-screen flex items-center justify-center py-12 md:py-20 px-4 md:px-6"
+          className="min-h-screen flex items-center justify-center py-12"
           sectionIndex={1}
         >
-          <div className="max-w-7xl mx-auto w-full">
-            <div className="text-center mb-16 md:mb-24">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent">
+          <div className="w-full">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent">
                 What I Bring to the Table
               </h2>
-              <p className="text-base md:text-lg lg:text-xl text-[--muted-foreground] max-w-2xl mx-auto leading-relaxed">
+              <p className="text-sm text-[--muted-foreground] leading-relaxed">
                 Combining technical expertise with a problem-solving mindset to deliver solutions that matter
               </p>
             </div>
 
-            <div className="mb-16 md:mb-24">
-              <div className="text-center mb-10">
+            <div className="mb-10">
+              <div className="text-center mb-6">
                 <p className="section-label mb-3">Toolbox</p>
-                <h3 className="text-2xl md:text-3xl font-bold gradient-text">Tech Stack</h3>
+                <h3 className="text-2xl font-bold gradient-text">Tech Stack</h3>
               </div>
               <TechStack />
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 gap-4">
               {services.map((service, index) => {
                 const Icon = service.icon;
                 return (
                   <div
                     key={index}
-                    className="glass-card p-8 md:p-10 hover:scale-[1.02] transition-transform duration-300"
+                    className="glass-card p-6"
                   >
-                    <Icon className="h-10 w-10 md:h-12 md:w-12 text-white mb-6" strokeWidth={1.5} />
-                    <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">{service.title}</h3>
-                    <p className="text-sm md:text-base lg:text-lg text-[--muted-foreground] leading-relaxed">
+                    <Icon className="h-10 w-10 text-white mb-4" strokeWidth={1.5} />
+                    <h3 className="text-xl font-bold mb-3 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">{service.title}</h3>
+                    <p className="text-sm text-[--muted-foreground] leading-relaxed">
                       {service.description}
                     </p>
                   </div>
@@ -478,45 +476,45 @@ export default function Home() {
         {/* Experience Section */}
         <ScrollSection
           ref={experienceRef}
-          className="min-h-screen flex items-center justify-center py-12 md:py-20 px-4 md:px-6"
+          className="min-h-screen flex items-center justify-center py-12"
           sectionIndex={2}
         >
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-8 md:mb-16">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent px-2">
+          <div className="w-full">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold mb-3 bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent px-2">
                 Experience
               </h2>
-              <p className="text-sm md:text-base lg:text-lg text-[--muted-foreground] max-w-2xl mx-auto px-2">
+              <p className="text-sm text-[--muted-foreground] px-2">
                 Building solutions that drive digital transformation and deliver measurable impact
               </p>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4">
               {experience.map((item, index) => (
                 <div
                   key={`${item.company}-${item.role}-${index}`}
-                  className="glass-card p-4 md:p-6"
+                  className="glass-card p-4"
                 >
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+                  <div className="flex flex-col gap-3 mb-4">
                     <div>
-                      <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-1 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">
+                      <h3 className="text-lg font-bold mb-1 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">
                         {item.role}
                       </h3>
-                      <p className="text-base md:text-lg text-[--muted-foreground]">{item.company}</p>
+                      <p className="text-sm text-[--muted-foreground]">{item.company}</p>
                       {item.location && (
                         <p className="text-sm text-[--muted-foreground] mt-1">{item.location}</p>
                       )}
                     </div>
-                    <div className="text-sm md:text-base text-[--muted-foreground] whitespace-nowrap">
+                    <div className="text-sm text-[--muted-foreground]">
                       {item.period}
                     </div>
                   </div>
-                  <p className="text-sm md:text-base text-[--muted-foreground] mb-4 leading-relaxed">
+                  <p className="text-sm text-[--muted-foreground] mb-4 leading-relaxed">
                     {item.summary}
                   </p>
                   <ul className="space-y-2">
                     {item.highlights.map((highlight: string, idx: number) => (
-                      <li key={idx} className="text-xs md:text-sm text-[--muted-foreground] flex items-start gap-3">
+                      <li key={idx} className="text-xs text-[--muted-foreground] flex items-start gap-3">
                         <span className="text-white mt-1.5 flex-shrink-0">•</span>
                         <span className="leading-relaxed">{highlight}</span>
                       </li>
@@ -531,25 +529,24 @@ export default function Home() {
         {/* Contact Section */}
         <ScrollSection
           ref={contactRef}
-          className="min-h-screen flex items-center justify-center py-12 md:py-20 px-4 md:px-6"
+          className="min-h-screen flex items-center justify-center py-12"
           sectionIndex={3}
         >
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent">
-                        Let&apos;s Connect
-                      </h2>
-              <p className="text-lg text-[--muted-foreground] max-w-2xl mx-auto">
+          <div className="w-full">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent">
+                Let&apos;s Connect
+              </h2>
+              <p className="text-sm text-[--muted-foreground]">
                 Have a problem to solve or a product to ship? Let&apos;s build it right.
               </p>
             </div>
 
-            {/* Contact Cards */}
-            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-              <div className="glass-card p-4 md:p-6">
-                <Mail className="h-6 w-6 md:h-8 md:w-8 text-white mb-3 md:mb-4" strokeWidth={1.5} />
-                <h3 className="text-lg md:text-xl font-bold mb-2 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">Get in Touch</h3>
-                <p className="text-sm md:text-base text-[--muted-foreground] mb-3 md:mb-4">
+            <div className="grid grid-cols-1 gap-4">
+              <div className="glass-card p-4">
+                <Mail className="h-6 w-6 text-white mb-3" strokeWidth={1.5} />
+                <h3 className="text-lg font-bold mb-2 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">Get in Touch</h3>
+                <p className="text-sm text-[--muted-foreground] mb-3">
                   Have a project in mind or want to discuss opportunities? Feel free to reach out.
                 </p>
                 <div className="space-y-2">
@@ -570,10 +567,10 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="glass-card p-6">
-                <Lightbulb className="h-8 w-8 text-white mb-4" strokeWidth={1.5} />
-                <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">Let&apos;s Build Together</h3>
-                <p className="text-[--muted-foreground] mb-4">
+              <div className="glass-card p-4">
+                <Lightbulb className="h-6 w-6 text-white mb-3" strokeWidth={1.5} />
+                <h3 className="text-lg font-bold mb-2 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">Let&apos;s Build Together</h3>
+                <p className="text-sm text-[--muted-foreground] mb-4">
                   I&apos;m open to interesting projects and opportunities. Let&apos;s discuss how we can work together to bring your ideas to life.
                 </p>
                 <motion.button

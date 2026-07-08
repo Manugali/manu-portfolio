@@ -26,9 +26,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[--card] via-transparent to-transparent" />
       </div>
-      <div className="p-5 md:p-6 space-y-4">
+      <div className="p-5 space-y-3">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="text-lg md:text-xl font-bold gradient-text">{project.title}</h3>
+          <h3 className="text-lg font-bold gradient-text">{project.title}</h3>
           <div className="flex items-center gap-1 shrink-0">
             {project.repo && (
               <a

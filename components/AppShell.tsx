@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Sidebar } from "@/components/Sidebar";
 import { Topbar } from "@/components/Topbar";
 import { CommandPalette } from "@/components/CommandPalette";
 import { PageWrapper } from "@/components/PageWrapper";
@@ -19,15 +18,12 @@ export function AppShell({ children }: AppShellProps) {
   return (
     <div className="relative min-h-screen text-[--foreground]">
       <SiteBackground subtle />
-      <div className="relative z-10 mx-auto flex max-w-7xl">
-        <Sidebar />
-        <div className="flex-1 min-w-0 pb-20 md:pb-0">
-          <Topbar variant="site" onOpenCommand={() => setOpen(true)} />
-          <PageWrapper>
-            <div className="px-4 md:px-6 pt-20 md:pt-28">{children}</div>
-          </PageWrapper>
-          <Footer />
-        </div>
+      <div className="relative z-10 mx-auto max-w-lg w-full">
+        <Topbar variant="site" onOpenCommand={() => setOpen(true)} />
+        <PageWrapper>
+          <div className="px-4 pt-[4.5rem] pb-24">{children}</div>
+        </PageWrapper>
+        <Footer />
       </div>
       <MobileNav />
       <CommandPalette open={open} onOpenChange={setOpen} />

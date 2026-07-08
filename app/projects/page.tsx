@@ -13,7 +13,7 @@ export default function ProjectsPage() {
           title="Projects"
           description="A selection of applications and systems I've built — from enterprise integrations to modern web experiences."
         />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4">
           {projects.map((p) => (
             <ProjectCard key={p.title} project={p} />
           ))}

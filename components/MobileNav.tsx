@@ -18,10 +18,10 @@ export function MobileNav() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-[60] md:hidden border-t border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_90%,transparent)] backdrop-blur-xl"
-      aria-label="Mobile navigation"
+      className="fixed bottom-0 left-0 right-0 z-[60] border-t border-[--border] bg-[color-mix(in_oklch,oklch(var(--card))_90%,transparent)] backdrop-blur-xl"
+      aria-label="Main navigation"
     >
-      <div className="flex items-center justify-around px-2 py-2 safe-area-pb">
+      <div className="mx-auto flex max-w-lg items-center justify-around px-2 py-2">
         {links.map(({ href, label, icon: Icon }) => {
           const active = pathname === href;
           return (
@@ -35,7 +35,13 @@ export function MobileNav() {
                   : "text-[--muted-foreground] hover:text-white"
               )}
             >
-              <Icon className={cn("h-4 w-4", active && "drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]")} strokeWidth={active ? 2 : 1.5} />
+              <Icon
+                className={cn(
+                  "h-4 w-4",
+                  active && "drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]"
+                )}
+                strokeWidth={active ? 2 : 1.5}
+              />
               <span>{label}</span>
             </Link>
           );

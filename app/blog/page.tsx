@@ -24,12 +24,9 @@ export default function BlogPage() {
           title="Blog / Notes"
           description="Thoughts on engineering, design, and building software that lasts."
         />
-        <div className="grid gap-6 sm:grid-cols-2 max-w-4xl">
+        <div className="grid gap-4">
           {posts.map((post) => (
-            <article
-              key={post.title}
-              className="glass-card p-6 md:p-8 opacity-80"
-            >
+            <article key={post.title} className="glass-card p-6 opacity-80">
               <p className="section-label mb-3">{post.date}</p>
               <h2 className="text-lg font-bold gradient-text">{post.title}</h2>
               <p className="mt-3 text-sm text-[--muted-foreground] leading-relaxed">

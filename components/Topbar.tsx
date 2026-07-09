@@ -14,50 +14,43 @@ const navLinks = [
 
 export function Topbar() {
   const pathname = usePathname();
-  const scrolled = useScrolled();
+  const scrolled = useScrolled(8);
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-[60] w-full pt-3">
-      <div
-        className={cn(
-          SITE_CONTAINER,
-          SITE_PADDING,
-          "flex items-center justify-between gap-3"
-        )}
-      >
+    <header
+      className={cn(
+        "site-header fixed left-0 right-0 top-0 z-[60] w-full",
+        scrolled && "site-header-scrolled"
+      )}
+    >
+      <div className={cn(SITE_CONTAINER, SITE_PADDING, "flex h-14 items-center justify-between")}>
         <Link
           href="/"
-          className="logo-text-gradient shrink-0 text-2xl transition-opacity hover:opacity-80 sm:text-3xl"
+          className="logo-text-gradient text-xl transition-opacity hover:opacity-80 sm:text-2xl"
         >
           manu
         </Link>
 
-        <nav
-          className={cn("nav-pill hidden md:flex", scrolled && "nav-pill-scrolled")}
-          aria-label="Main navigation"
-        >
+        <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
           {navLinks.map(({ href, label }) => {
             const active = pathname === href;
             return (
               <Link
                 key={href}
                 href={href}
-                className={cn("nav-link", active && "nav-link-active")}
+                className={cn("site-nav-link", active && "site-nav-link-active")}
               >
                 {label}
               </Link>
             );
           })}
-          <Link href="/resume" className="btn-ghost ml-1 px-3 py-1.5 text-xs">
+          <Link href="/resume" className="btn-secondary ml-2 px-3 py-2 text-xs">
             Resume
           </Link>
         </nav>
 
-        <Link
-          href="/contact"
-          className="btn-ghost hidden shrink-0 px-3 py-2 text-xs sm:inline-flex md:hidden"
-        >
-          Let&apos;s talk
+        <Link href="/contact" className="btn-secondary px-3 py-2 text-xs md:hidden">
+          Contact
         </Link>
       </div>
     </header>

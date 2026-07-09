@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Syne } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { InitialLoader } from "@/components/InitialLoader";
-import { AtmosphereOverlay } from "@/components/AtmosphereOverlay";
 
 const bodyFont = Inter({
   subsets: ["latin"],
@@ -29,15 +27,6 @@ export const metadata: Metadata = {
   },
   description:
     "Full-stack .NET engineer in financial services. Internal platforms, legacy integration, SQL Server, and Azure.",
-  keywords: [
-    "Manohar Gali",
-    "Applications Engineer",
-    ".NET",
-    "Enterprise Software",
-    "Financial Services",
-    "Full-Stack Developer",
-  ],
-  authors: [{ name: "Manohar Gali" }],
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -53,10 +42,6 @@ export const metadata: Metadata = {
     description:
       "Full-stack .NET engineer building internal platforms in regulated financial environments.",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
 };
 
 const personJsonLd = {
@@ -66,14 +51,6 @@ const personJsonLd = {
   jobTitle: "Applications Engineer",
   url: siteUrl,
   sameAs: ["https://github.com/Manugali"],
-  knowsAbout: [
-    "C#",
-    ".NET",
-    "ASP.NET Core",
-    "SQL Server",
-    "Enterprise Software",
-    "System Integration",
-  ],
 };
 
 export default function RootLayout({
@@ -87,16 +64,12 @@ export default function RootLayout({
       className={`${bodyFont.variable} ${logoFont.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen bg-[--background] text-[--foreground] antialiased">
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <ThemeProvider>
-          <AtmosphereOverlay />
-          <InitialLoader />
-          {children}
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

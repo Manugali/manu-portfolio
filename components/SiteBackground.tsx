@@ -25,14 +25,14 @@ export function SiteBackground({ subtle = false }: SiteBackgroundProps) {
     >
       <LightRays
         raysOrigin="top-center"
-        raysColor="#a8b4c4"
-        raysSpeed={subtle ? 0.6 : 1.1}
-        lightSpread={subtle ? 0.45 : 0.7}
-        rayLength={subtle ? 0.85 : 1.1}
+        raysColor="#ffffff"
+        raysSpeed={subtle ? 0.5 : 0.9}
+        lightSpread={subtle ? 0.4 : 0.65}
+        rayLength={subtle ? 0.8 : 1}
         followMouse={!subtle && !isMobile}
-        mouseInfluence={subtle ? 0.04 : 0.08}
-        noiseAmount={0.02}
-        distortion={0.02}
+        mouseInfluence={0.06}
+        noiseAmount={0}
+        distortion={0}
         className="custom-rays"
       />
     </div>

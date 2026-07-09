@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Syne } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { InitialLoader } from "@/components/InitialLoader";
 
 const bodyFont = Inter({
   subsets: ["latin"],
@@ -69,7 +70,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <InitialLoader />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -25,6 +25,7 @@ export function Topbar() {
     >
       <div className={cn(SITE_CONTAINER, SITE_PADDING, "flex h-14 items-center justify-between")}>
         <Link
+          id="site-logo"
           href="/"
           className="logo-text-gradient text-xl transition-opacity hover:opacity-80 sm:text-2xl"
         >

@@ -236,7 +236,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.15 }}
-                    className="block bg-gradient-to-r from-white via-white to-gray-200 bg-clip-text text-4xl font-bold leading-tight text-transparent sm:text-5xl"
+                    className="block bg-gradient-to-r from-white via-white to-gray-200 bg-clip-text text-4xl font-semibold leading-tight tracking-tight text-transparent sm:text-5xl"
                   >
                     Manohar Gali
                   </motion.span>
@@ -320,7 +320,7 @@ export default function Home() {
           >
             <div className="w-full space-y-10 sm:space-y-12">
               <div className="space-y-4 text-center">
-                <h2 className="bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-3xl font-bold text-transparent">
+                <h2 className="bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-3xl font-semibold tracking-tight text-transparent">
                   What I Bring to the Table
                 </h2>
                 <p className="mx-auto max-w-lg text-sm leading-relaxed text-[--muted-foreground] sm:text-base">
@@ -335,7 +335,7 @@ export default function Home() {
                   return (
                     <div key={service.title} className="glass-card p-6 text-center sm:p-7">
                       <Icon className="mx-auto mb-5 h-10 w-10 text-white" strokeWidth={1.5} />
-                      <h3 className="mb-4 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-xl font-bold text-transparent">
+                      <h3 className="mb-4 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-xl font-semibold text-transparent">
                         {service.title}
                       </h3>
                       <p className="text-sm leading-relaxed text-[--muted-foreground]">
@@ -367,7 +367,7 @@ export default function Home() {
               <div className="w-full space-y-10 sm:space-y-12">
                 <div className="space-y-4 text-center">
                   <p className="section-label">Featured work</p>
-                  <h2 className="bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text px-2 text-3xl font-bold text-transparent">
+                  <h2 className="bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text px-2 text-3xl font-semibold text-transparent">
                     Recent Experience
                   </h2>
                   <p className="px-2 text-sm text-[--muted-foreground] sm:text-base">
@@ -399,7 +399,7 @@ export default function Home() {
             <div className="w-full space-y-10 sm:space-y-12">
               <div className="space-y-4 text-center">
                 <p className="section-label">Explore</p>
-                <h2 className="bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-3xl font-bold text-transparent">
+                <h2 className="bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-3xl font-semibold tracking-tight text-transparent">
                   More to discover
                 </h2>
                 <p className="text-sm text-[--muted-foreground] sm:text-base">

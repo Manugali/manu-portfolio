@@ -59,7 +59,7 @@ export function ExperienceCard({
             >
               <h3
                 className={cn(
-                  "font-bold gradient-text",
+                  "font-semibold gradient-text",
                   isLeftAligned ? "text-xl" : "text-lg"
                 )}
               >

@@ -20,7 +20,7 @@ export default function ProjectsPage() {
           </div>
 
           <p className="section-label mb-3">Coming soon</p>
-          <h2 className="text-2xl font-bold gradient-text mb-4">
+          <h2 className="text-2xl font-semibold gradient-text mb-4">
             Something worth showing
           </h2>
           <p className="mx-auto max-w-md text-sm text-[--muted-foreground] leading-relaxed">

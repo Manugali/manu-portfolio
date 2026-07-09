@@ -79,7 +79,7 @@ export default function BlogPage() {
                 className="glass-card p-6 text-center opacity-80"
               >
                 <p className="section-label mb-3">{note.date}</p>
-                <h2 className="text-lg font-bold gradient-text">{note.title}</h2>
+                <h2 className="text-lg font-semibold gradient-text">{note.title}</h2>
                 <p className="mt-3 text-sm text-[--muted-foreground] leading-relaxed">
                   {note.excerpt}
                 </p>

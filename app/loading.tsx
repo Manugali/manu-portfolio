@@ -60,7 +60,7 @@ export default function Loading() {
             ease: [0.4, 0, 0.2, 1],
             delay: 0.2
           }}
-          className="text-4xl md:text-6xl lowercase bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent"
+          className="text-4xl font-semibold tracking-tight md:text-6xl bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent"
           style={{
             backgroundImage: "linear-gradient(to right, #ffffff, #e5e7eb, #ffffff)",
           }}

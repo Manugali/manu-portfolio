@@ -10,7 +10,7 @@ export function Topbar() {
       <div className={cn(SITE_CONTAINER, SITE_PADDING, "flex items-center justify-center")}>
         <Link
           href="/"
-          className="text-2xl lowercase bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent shrink-0"
+          className="text-xl font-semibold tracking-tight bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent shrink-0"
         >
           manu
         </Link>

@@ -16,7 +16,7 @@ export function EducationCard({ item }: EducationCardProps) {
   return (
     <article className="glass-card p-5 text-left sm:p-6">
       <header className="mb-4 space-y-1">
-        <h3 className="text-lg font-bold gradient-text">{item.institution}</h3>
+        <h3 className="text-lg font-semibold gradient-text">{item.institution}</h3>
         <p className="text-sm text-white">{item.focus}</p>
         <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-[--muted-foreground]">
           <span>{item.period}</span>

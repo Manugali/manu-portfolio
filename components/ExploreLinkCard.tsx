@@ -24,7 +24,7 @@ export function ExploreLinkCard({
     >
       <p className="section-label mb-3">{label}</p>
       <Icon className="mx-auto mb-4 h-8 w-8 text-white" strokeWidth={1.5} />
-      <h3 className="mb-2 text-lg font-bold gradient-text">{title}</h3>
+      <h3 className="mb-2 text-lg font-semibold gradient-text">{title}</h3>
       <p className="text-sm leading-relaxed text-[--muted-foreground]">{description}</p>
       <span className="mt-4 inline-flex items-center gap-2 text-sm text-white">
         Explore

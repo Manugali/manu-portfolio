@@ -6,8 +6,7 @@ import LightRays from "@/components/LightRays";
 
 const LOADER_KEY = "manu-portfolio-loader-seen";
 const FILL_DURATION = 2400;
-const EXIT_DURATION = 550;
-const MAX_LOADER_MS = 6000;
+const EXIT_DURATION = 700;
 
 type LoaderContextValue = {
   isLoading: boolean;
@@ -64,21 +63,29 @@ function measureLogoHandoff() {
 }
 
 export function LoaderProvider({ children }: { children: React.ReactNode }) {
-  const [showLoader, setShowLoader] = useState(false);
+  const [overlayVisible, setOverlayVisible] = useState(false);
+  const [phase, setPhase] = useState<"fill" | "exit">("fill");
   const [progress, setProgress] = useState(0);
   const [wavePhase, setWavePhase] = useState(0);
-  const [phase, setPhase] = useState<"fill" | "exit">("fill");
   const [handoff, setHandoff] = useState({ x: 0, y: 0, scale: 0.2 });
   const [isMobile, setIsMobile] = useState(false);
 
   const fillFrame = useRef<number | null>(null);
-  const exitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const safetyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const isBlocking = overlayVisible && phase === "fill";
 
   const dismiss = useCallback(() => {
     sessionStorage.setItem(LOADER_KEY, "1");
     document.body.style.overflow = "";
-    setShowLoader(false);
+    setOverlayVisible(false);
+    setPhase("fill");
+  }, []);
+
+  const startExit = useCallback(() => {
+    const target = measureLogoHandoff();
+    if (target) setHandoff(target);
+    setPhase("exit");
   }, []);
 
   useEffect(() => {
@@ -91,15 +98,19 @@ export function LoaderProvider({ children }: { children: React.ReactNode }) {
     const begin = () => {
       if (cancelled) return;
 
-      setShowLoader(true);
+      setOverlayVisible(true);
+      setPhase("fill");
       document.body.style.overflow = "hidden";
 
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
 
       safetyTimer.current = setTimeout(() => {
-        if (!cancelled) dismiss();
-      }, MAX_LOADER_MS);
+        if (!cancelled) {
+          setPhase("exit");
+          setTimeout(dismiss, EXIT_DURATION);
+        }
+      }, 6000);
 
       const start = Date.now();
 
@@ -119,14 +130,9 @@ export function LoaderProvider({ children }: { children: React.ReactNode }) {
         }
 
         setProgress(100);
-
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            if (cancelled) return;
-            const target = measureLogoHandoff();
-            if (target) setHandoff(target);
-            setPhase("exit");
-            exitTimer.current = setTimeout(dismiss, EXIT_DURATION + 100);
+            if (!cancelled) startExit();
           });
         });
       };
@@ -140,23 +146,28 @@ export function LoaderProvider({ children }: { children: React.ReactNode }) {
       cancelled = true;
       cancelAnimationFrame(startId);
       if (fillFrame.current) cancelAnimationFrame(fillFrame.current);
-      if (exitTimer.current) clearTimeout(exitTimer.current);
       if (safetyTimer.current) clearTimeout(safetyTimer.current);
       document.body.style.overflow = "";
     };
-  }, [dismiss]);
+  }, [dismiss, startExit]);
+
+  const handleOverlayFadeComplete = useCallback(() => {
+    if (phase === "exit") dismiss();
+  }, [phase, dismiss]);
 
   return (
-    <LoaderContext.Provider value={{ isLoading: showLoader }}>
+    <LoaderContext.Provider value={{ isLoading: isBlocking }}>
       {children}
 
       <AnimatePresence>
-        {showLoader ? (
+        {overlayVisible ? (
           <motion.div
             key="site-loader"
             initial={{ opacity: 1 }}
+            animate={{ opacity: phase === "exit" ? 0 : 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            transition={{ duration: EXIT_DURATION / 1000, ease: [0.4, 0, 0.2, 1] }}
+            onAnimationComplete={handleOverlayFadeComplete}
             className="fixed inset-0 z-[200] flex items-center justify-center bg-[#0a0a0a]"
             role="status"
             aria-live="polite"
@@ -186,9 +197,9 @@ export function LoaderProvider({ children }: { children: React.ReactNode }) {
               animate={
                 phase === "exit"
                   ? isMobile
-                    ? { opacity: 0, scale: 0.98, x: 0, y: 0 }
+                    ? { opacity: 0, scale: 0.98 }
                     : {
-                        opacity: [1, 1, 0],
+                        opacity: [1, 0.9, 0],
                         x: handoff.x,
                         y: handoff.y,
                         scale: handoff.scale,
@@ -198,7 +209,6 @@ export function LoaderProvider({ children }: { children: React.ReactNode }) {
               transition={{
                 duration: EXIT_DURATION / 1000,
                 ease: [0.4, 0, 0.2, 1],
-                opacity: { duration: EXIT_DURATION / 1000, times: [0, 0.7, 1] },
               }}
             >
               <div id="loader-logo" className="relative">

@@ -9,6 +9,7 @@ import experience from "@/data/experience.json";
 import { SiteBackground } from "@/components/SiteBackground";
 import { MobileNav } from "@/components/MobileNav";
 import { ExperienceCard } from "@/components/ExperienceCard";
+import { useLoaderBlocking } from "@/components/InitialLoader";
 import { cn } from "@/lib/utils";
 import { PAGE_VERTICAL, SITE_CONTAINER, SITE_PADDING } from "@/lib/layout";
 
@@ -53,24 +54,36 @@ const exploreLinks = [
   },
 ] as const;
 
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.45, ease: "easeOut" as const },
+const itemVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] as const },
+  },
 };
 
 export default function Home() {
+  const isLoading = useLoaderBlocking();
+  const show = !isLoading;
+
   return (
     <div className="relative min-h-screen w-full bg-[--background] text-[--foreground]">
       <SiteBackground />
       <div className={cn(SITE_CONTAINER, SITE_PADDING, "relative z-10")}>
         <Topbar />
 
-        <main className={cn("mx-auto w-full max-w-2xl", PAGE_VERTICAL)}>
-          {/* Hero */}
+        <motion.main
+          className={cn("mx-auto w-full max-w-2xl", PAGE_VERTICAL)}
+          initial="hidden"
+          animate={show ? "visible" : "hidden"}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.08, delayChildren: 0.12 } },
+          }}
+        >
           <section className="flex flex-col items-center px-2 py-16 text-center sm:py-20">
-            <motion.div {...fadeUp} className="group relative mb-8">
+            <motion.div variants={itemVariants} className="group relative mb-8">
               <Image
                 src="/profile.jpg"
                 alt="Manohar Gali"
@@ -91,7 +104,7 @@ export default function Home() {
               />
             </motion.div>
 
-            <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.05 }} className="space-y-4">
+            <motion.div variants={itemVariants} className="space-y-4">
               <p className="text-sm text-[--muted-foreground] sm:text-base">Hi, I&apos;m</p>
               <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Manohar Gali</h1>
               <p className="text-lg text-[--muted-foreground] sm:text-xl">
@@ -100,8 +113,7 @@ export default function Home() {
             </motion.div>
 
             <motion.p
-              {...fadeUp}
-              transition={{ ...fadeUp.transition, delay: 0.1 }}
+              variants={itemVariants}
               className="mt-6 max-w-md text-sm leading-7 text-[--muted-foreground] sm:text-base sm:leading-8"
             >
               I build internal platforms in regulated financial environments — .NET backends,
@@ -109,8 +121,7 @@ export default function Home() {
             </motion.p>
 
             <motion.div
-              {...fadeUp}
-              transition={{ ...fadeUp.transition, delay: 0.15 }}
+              variants={itemVariants}
               className="mt-8 flex flex-col gap-3 sm:flex-row"
             >
               <Link href="/experience" className="btn-primary">
@@ -123,8 +134,7 @@ export default function Home() {
             </motion.div>
           </section>
 
-          {/* Services */}
-          <motion.section {...fadeUp} className="space-y-8 py-16 sm:py-20">
+          <motion.section variants={itemVariants} className="space-y-8 py-16 sm:py-20">
             <div className="space-y-3 text-center">
               <p className="section-label">Capabilities</p>
               <h2 className="section-title">What I do</h2>
@@ -149,9 +159,8 @@ export default function Home() {
             </div>
           </motion.section>
 
-          {/* Featured work */}
           {FEATURED_EXPERIENCE ? (
-            <motion.section {...fadeUp} className="space-y-8 py-16 sm:py-20">
+            <motion.section variants={itemVariants} className="space-y-8 py-16 sm:py-20">
               <div className="space-y-3 text-center">
                 <p className="section-label">Experience</p>
                 <h2 className="section-title">Where I work today</h2>
@@ -169,8 +178,7 @@ export default function Home() {
             </motion.section>
           ) : null}
 
-          {/* Explore */}
-          <motion.section {...fadeUp} className="space-y-8 py-16 pb-8 sm:py-20">
+          <motion.section variants={itemVariants} className="space-y-8 py-16 pb-8 sm:py-20">
             <div className="space-y-3 text-center">
               <p className="section-label">Explore</p>
               <h2 className="section-title">Around the site</h2>
@@ -199,7 +207,7 @@ export default function Home() {
               })}
             </div>
           </motion.section>
-        </main>
+        </motion.main>
       </div>
 
       <MobileNav />

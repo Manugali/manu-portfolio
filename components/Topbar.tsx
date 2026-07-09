@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { SITE_CONTAINER, SITE_PADDING } from "@/lib/layout";
 import { useScrolled } from "@/hooks/useScrolled";
+import { useLoaderBlocking } from "@/components/InitialLoader";
 
 const navLinks = [
   { href: "/experience", label: "Work" },
@@ -15,6 +16,7 @@ const navLinks = [
 export function Topbar() {
   const pathname = usePathname();
   const scrolled = useScrolled(8);
+  const isLoading = useLoaderBlocking();
 
   return (
     <header
@@ -27,7 +29,10 @@ export function Topbar() {
         <Link
           id="site-logo"
           href="/"
-          className="logo-text-gradient text-xl transition-opacity hover:opacity-80 sm:text-2xl"
+          className={cn(
+            "logo-text-gradient text-xl transition-all duration-500 hover:opacity-80 sm:text-2xl",
+            isLoading ? "opacity-0" : "opacity-100"
+          )}
         >
           manu
         </Link>

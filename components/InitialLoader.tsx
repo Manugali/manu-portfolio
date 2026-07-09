@@ -257,7 +257,7 @@ export function InitialLoader() {
              <div className="relative">
                {/* Base grey text */}
                <div
-                 className="font-display text-8xl md:text-[12rem] lg:text-[16rem] lowercase text-gray-500 relative"
+                 className="text-8xl md:text-[12rem] lg:text-[16rem] lowercase text-gray-500 relative"
                  style={{ lineHeight: "1" }}
                >
                  manu
@@ -265,7 +265,7 @@ export function InitialLoader() {
                
                {/* White text that fills from bottom to top with wavy effect */}
                <div
-                 className="font-display absolute inset-0 text-8xl md:text-[12rem] lg:text-[16rem] lowercase text-white overflow-hidden"
+                 className="absolute inset-0 text-8xl md:text-[12rem] lg:text-[16rem] lowercase text-white overflow-hidden"
                  style={{ lineHeight: "1" }}
                >
                  <WaveClipPath progress={progress} wavePhase={wavePhase}>
@@ -283,7 +283,7 @@ export function InitialLoader() {
                   scale: animationPhase === 'zoomOut' ? 0 : 1,
                 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="text-2xl md:text-3xl font-semibold text-white tabular-nums"
+                className="text-2xl md:text-3xl text-white tabular-nums"
               >
                 {Math.round(progress)}%
               </motion.div>

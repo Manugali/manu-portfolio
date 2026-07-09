@@ -66,15 +66,15 @@ export function ExperienceCard({
                 {item.role}
               </h3>
               {item.employmentType ? (
-                <span className="rounded-full border border-[--border] bg-[--muted]/40 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-[--muted-foreground]">
+                <span className="rounded-full border border-[--border] bg-[--muted]/40 px-2.5 py-0.5 text-[10px] uppercase tracking-wider text-[--muted-foreground]">
                   {item.employmentType}
                 </span>
               ) : null}
             </div>
             <p
               className={cn(
-                "text-sm text-white",
-                isLeftAligned ? "mt-1 font-medium" : "mt-1 text-[--muted-foreground]"
+                "text-sm",
+                isLeftAligned ? "mt-1 text-white" : "mt-1 text-[--muted-foreground]"
               )}
             >
               {item.company}

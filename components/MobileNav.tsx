@@ -36,7 +36,7 @@ export function MobileNav() {
               key={href}
               href={href}
               className={cn(
-                "flex flex-col items-center gap-1 rounded-xl px-3 py-2 text-[10px] font-medium transition-colors min-w-[56px]",
+                "flex flex-col items-center gap-1 rounded-xl px-3 py-2 text-[10px] transition-colors min-w-[56px]",
                 active
                   ? "text-white"
                   : "text-[--muted-foreground] hover:text-white"

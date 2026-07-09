@@ -236,7 +236,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.15 }}
-                    className="font-display block bg-gradient-to-r from-white via-white to-gray-200 bg-clip-text text-4xl leading-tight text-transparent sm:text-5xl"
+                    className="block bg-gradient-to-r from-white via-white to-gray-200 bg-clip-text text-4xl font-bold leading-tight text-transparent sm:text-5xl"
                   >
                     Manohar Gali
                   </motion.span>
@@ -279,7 +279,7 @@ export default function Home() {
                     pointerEvents: scrollY < 150 ? "auto" : "none",
                   }}
                 >
-                  <p className="text-xs font-medium uppercase tracking-[0.1em] text-[--muted-foreground] transition-colors duration-300 group-hover:text-white">
+                  <p className="text-xs uppercase tracking-[0.1em] text-[--muted-foreground] transition-colors duration-300 group-hover:text-white">
                     Scroll to explore
                   </p>
                   <motion.div

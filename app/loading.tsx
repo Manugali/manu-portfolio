@@ -60,7 +60,7 @@ export default function Loading() {
             ease: [0.4, 0, 0.2, 1],
             delay: 0.2
           }}
-          className="font-display text-4xl md:text-6xl lowercase bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent"
+          className="text-4xl md:text-6xl lowercase bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent"
           style={{
             backgroundImage: "linear-gradient(to right, #ffffff, #e5e7eb, #ffffff)",
           }}
@@ -114,7 +114,7 @@ export default function Loading() {
             key={progress}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-lg md:text-xl font-semibold text-white tabular-nums"
+            className="text-lg md:text-xl text-white tabular-nums"
           >
             {Math.round(progress)}%
           </motion.p>

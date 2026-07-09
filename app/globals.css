@@ -202,6 +202,27 @@ body::-webkit-scrollbar {
   @apply text-[11px] font-semibold uppercase tracking-[0.1em] text-[--muted-foreground];
 }
 
+/* Brand logo — distinct from Arial body text */
+.logo-text {
+  font-family: var(--font-logo), "Futura Bold", Futura, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-transform: lowercase;
+  line-height: 1;
+}
+
+.logo-text-gradient {
+  font-family: var(--font-logo), "Futura Bold", Futura, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-transform: lowercase;
+  line-height: 1;
+  background-image: linear-gradient(120deg, #ffffff 0%, #c4c4c4 45%, #ffffff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,

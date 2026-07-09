@@ -257,16 +257,14 @@ export function InitialLoader() {
              <div className="relative">
                {/* Base grey text */}
                <div
-                 className="text-8xl font-semibold tracking-tight md:text-[12rem] lg:text-[16rem] text-gray-500 relative"
-                 style={{ lineHeight: "1" }}
+                 className="logo-text text-8xl text-gray-500 relative md:text-[12rem] lg:text-[16rem]"
                >
                  manu
                </div>
                
                {/* White text that fills from bottom to top with wavy effect */}
                <div
-                 className="absolute inset-0 text-8xl font-semibold tracking-tight md:text-[12rem] lg:text-[16rem] text-white overflow-hidden"
-                 style={{ lineHeight: "1" }}
+                 className="logo-text absolute inset-0 text-8xl text-white overflow-hidden md:text-[12rem] lg:text-[16rem]"
                >
                  <WaveClipPath progress={progress} wavePhase={wavePhase}>
                    manu

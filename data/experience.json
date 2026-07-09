@@ -4,15 +4,53 @@
     "role": "Applications Engineer",
     "period": "Jun 2023 — Present",
     "location": "West Des Moines, Iowa",
-    "summary": "Leading the digital transformation of financial processes, building modern web applications that streamline operations and enhance customer experience. Specialized in developing scalable .NET solutions and seamless system integrations.",
+    "employmentType": "Full-time",
+    "summary": "Leading the development and modernization of internal financial applications that support payout operations, workforce management, and project tracking. Partner with cross-functional teams to deliver reliable, maintainable software that integrates with legacy systems and meets enterprise compliance standards.",
+    "techStack": [
+      "C#",
+      ".NET",
+      "ASP.NET Core",
+      "MVC",
+      "SQL Server",
+      "REST APIs",
+      "Git",
+      "Azure"
+    ],
+    "highlightGroups": [
+      {
+        "category": "Application Development",
+        "items": [
+          "Architected MVC models and view models for modular data management across Task, Employee, Projects, and Status modules",
+          "Built and maintained production modules end-to-end — from data layer through UI — ensuring consistent workflow integration across teams",
+          "Designed intuitive interfaces for internal operators and business stakeholders, improving usability and adoption of new tooling"
+        ]
+      },
+      {
+        "category": "System Integration",
+        "items": [
+          "Integrated the Payout Project with legacy financial systems, enabling real-time data synchronization and more reliable processing pipelines",
+          "Established clear error-handling patterns and interface contracts to reduce integration failures and support faster incident resolution"
+        ]
+      },
+      {
+        "category": "Data & Performance",
+        "items": [
+          "Optimized database operations through complex SQL queries and stored procedures, improving report and transaction query performance",
+          "Maintained data integrity across interconnected modules while supporting evolving business requirements in a regulated environment"
+        ]
+      },
+      {
+        "category": "Delivery & Quality",
+        "items": [
+          "Orchestrated end-to-end software delivery — builds, releases, and deployments — with disciplined debugging and systematic defect resolution",
+          "Upheld code quality through structured reviews, consistent patterns, and proactive maintenance of shared application components"
+        ]
+      }
+    ],
     "highlights": [
-      "Architected and developed MVC Models and View Models for efficient data management across multiple modules",
-      "Built and maintained Task, Employee, Projects, and Status Modules, ensuring seamless workflow integration",
-      "Integrated Payout Project with legacy financial systems, enabling real-time data synchronization and improved processing",
+      "Architected MVC models and view models for modular data management across Task, Employee, Projects, and Status modules",
+      "Integrated the Payout Project with legacy financial systems, enabling real-time data synchronization",
       "Optimized database operations through complex SQL queries and stored procedures, improving query performance",
-      "Designed intuitive user interfaces for both internal teams and customers, resulting in improved usability and adoption",
-      "Maintained high code quality through rigorous debugging and systematic bug resolution processes",
-      "Enhanced user experience with clear error handling and intuitive interface design patterns",
       "Orchestrated end-to-end software delivery pipeline, managing builds, releases, and deployments"
     ]
   }

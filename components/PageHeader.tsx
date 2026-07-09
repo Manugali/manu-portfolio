@@ -1,19 +1,15 @@
 type PageHeaderProps = {
   title: string;
   description?: string;
+  label?: string;
 };
 
-export function PageHeader({ title, description }: PageHeaderProps) {
+export function PageHeader({ title, description, label }: PageHeaderProps) {
   return (
-    <header className="mb-8 text-center">
-      <h1 className="text-3xl font-semibold tracking-tight bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent">
-        {title}
-      </h1>
-      {description && (
-        <p className="mx-auto mt-3 max-w-2xl text-sm text-[--muted-foreground] leading-relaxed">
-          {description}
-        </p>
-      )}
+    <header className="mb-10 space-y-3 text-center">
+      {label ? <p className="section-label">{label}</p> : null}
+      <h1 className="section-title">{title}</h1>
+      {description ? <p className="section-copy">{description}</p> : null}
     </header>
   );
 }

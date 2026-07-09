@@ -33,19 +33,18 @@ export default function BlogPage() {
     <AppShell>
       <main className="space-y-8">
         <PageHeader
-          title="Notes"
-          description="Things I'm thinking about — work, building, and everything in between."
+          label="Notes"
+          title="Thinking out loud"
+          description="Short essays on building software and working in enterprise teams."
         />
 
-        <div className="flex flex-wrap items-center justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-2">
           <button
             type="button"
             onClick={() => setActiveTag("all")}
             className={cn(
-              "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
-              activeTag === "all"
-                ? "border-white/40 bg-white/10 text-white"
-                : "border-[--border] text-[--muted-foreground] hover:border-[--muted-foreground] hover:text-white"
+              "tag cursor-pointer transition-colors",
+              activeTag === "all" && "border-[--foreground] text-white"
             )}
           >
             all
@@ -56,10 +55,8 @@ export default function BlogPage() {
               type="button"
               onClick={() => setActiveTag(tag)}
               className={cn(
-                "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
-                activeTag === tag
-                  ? "border-white/40 bg-white/10 text-white"
-                  : "border-[--border] text-[--muted-foreground] hover:border-[--muted-foreground] hover:text-white"
+                "tag cursor-pointer transition-colors",
+                activeTag === tag && "border-[--foreground] text-white"
               )}
             >
               #{tag}
@@ -68,36 +65,27 @@ export default function BlogPage() {
         </div>
 
         <div className="grid gap-4">
-          {filteredNotes.length === 0 ? (
-            <p className="text-center text-sm text-[--muted-foreground]">
-              No notes with this tag yet — check back soon.
-            </p>
-          ) : (
-            filteredNotes.map((note) => (
-              <article
-                key={note.title}
-                className="glass-card p-6 text-center opacity-80"
-              >
-                <p className="section-label mb-3">{note.date}</p>
-                <h2 className="text-lg font-semibold gradient-text">{note.title}</h2>
-                <p className="mt-3 text-sm text-[--muted-foreground] leading-relaxed">
-                  {note.excerpt}
-                </p>
-                <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-                  {note.tags.map((tag) => (
-                    <button
-                      key={tag}
-                      type="button"
-                      onClick={() => setActiveTag(tag)}
-                      className="text-xs text-[--muted-foreground] transition-colors hover:text-white"
-                    >
-                      #{tag}
-                    </button>
-                  ))}
-                </div>
-              </article>
-            ))
-          )}
+          {filteredNotes.map((note) => (
+            <article key={note.title} className="glass-card p-6">
+              <p className="section-label mb-2">{note.date}</p>
+              <h2 className="text-lg font-semibold">{note.title}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-[--muted-foreground]">
+                {note.excerpt}
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {note.tags.map((tag) => (
+                  <button
+                    key={tag}
+                    type="button"
+                    onClick={() => setActiveTag(tag)}
+                    className="tag cursor-pointer text-[11px]"
+                  >
+                    #{tag}
+                  </button>
+                ))}
+              </div>
+            </article>
+          ))}
         </div>
       </main>
     </AppShell>

@@ -6,11 +6,12 @@ import { ExperienceCard } from "@/components/ExperienceCard";
 import { EducationCard } from "@/components/EducationCard";
 import { WorkStats } from "@/components/WorkStats";
 import { TechStack } from "@/components/TechStack";
+import { PageHeader } from "@/components/PageHeader";
 import experience from "@/data/experience.json";
 import education from "@/data/education.json";
 import workProfile from "@/data/work-profile.json";
 import { getSocialLinks } from "@/lib/social";
-import { ArrowRight, Briefcase, Github, GraduationCap, Mail } from "lucide-react";
+import { ArrowRight, Github, Mail } from "lucide-react";
 
 export default function ExperiencePage() {
   const { email, github } = getSocialLinks();
@@ -18,109 +19,51 @@ export default function ExperiencePage() {
   return (
     <AppShell>
       <main className="space-y-12">
-        <header className="space-y-5 text-center">
-          <p className="section-label">Professional Profile</p>
-          <h1 className="text-3xl font-semibold tracking-tight gradient-text sm:text-4xl">
-            Work
-          </h1>
-          <p className="mx-auto max-w-2xl text-sm text-white sm:text-base">
-            {workProfile.headline}
-          </p>
-          <p className="mx-auto max-w-2xl text-sm leading-relaxed text-[--muted-foreground]">
-            {workProfile.summary}
-          </p>
-        </header>
+        <PageHeader
+          label="Profile"
+          title="Work"
+          description={workProfile.headline}
+        />
+        <p className="-mt-6 text-center text-sm leading-relaxed text-[--muted-foreground]">
+          {workProfile.summary}
+        </p>
 
-        <section aria-label="Professional highlights">
-          <WorkStats stats={workProfile.stats} />
+        <WorkStats stats={workProfile.stats} />
+
+        <section className="space-y-4">
+          <h2 className="section-label">Experience</h2>
+          {experience.map((item) => (
+            <ExperienceCard key={`${item.company}-${item.role}`} item={item} detailed />
+          ))}
         </section>
 
-        <section className="space-y-6" aria-label="Professional experience">
-          <div className="text-center sm:text-left">
-            <p className="section-label mb-2">Career</p>
-            <h2 className="flex items-center justify-center gap-2.5 text-2xl font-semibold gradient-text sm:justify-start">
-              <Briefcase className="h-5 w-5 shrink-0 text-white" strokeWidth={1.75} />
-              Experience
-            </h2>
-            <p className="mt-2 text-sm text-[--muted-foreground]">
-              Enterprise software delivery in financial services — from architecture through deployment.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {experience.map((item) => (
-              <ExperienceCard
-                key={`${item.company}-${item.role}`}
-                item={item}
-                detailed
-              />
-            ))}
-          </div>
+        <section className="space-y-4">
+          <h2 className="section-label">Education</h2>
+          {education.map((item) => (
+            <EducationCard key={item.institution} item={item} />
+          ))}
         </section>
 
-        <section className="space-y-6" aria-label="Education">
-          <div className="text-center sm:text-left">
-            <p className="section-label mb-2">Foundation</p>
-            <h2 className="flex items-center justify-center gap-2.5 text-2xl font-semibold gradient-text sm:justify-start">
-              <GraduationCap className="h-5 w-5 shrink-0 text-white" strokeWidth={1.75} />
-              Education
-            </h2>
-            <p className="mt-2 text-sm text-[--muted-foreground]">
-              Graduate training in computer science from Texas Tech University.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {education.map((item) => (
-              <EducationCard key={item.institution} item={item} />
-            ))}
-          </div>
-        </section>
-
-        <section className="space-y-6" aria-label="Core competencies">
-          <div className="text-center sm:text-left">
-            <p className="section-label mb-2">Capabilities</p>
-            <h2 className="text-2xl font-semibold gradient-text">Core Competencies</h2>
-            <p className="mt-2 text-sm text-[--muted-foreground]">
-              Technical skills and practices applied across enterprise development engagements.
-            </p>
-          </div>
+        <section className="space-y-4">
+          <h2 className="section-label">Skills</h2>
           <TechStack />
         </section>
 
-        <section
-          className="glass-card p-6 text-center sm:p-8"
-          aria-label="Contact call to action"
-        >
-          <p className="section-label mb-3">Next step</p>
-          <h2 className="mb-3 text-xl font-semibold gradient-text sm:text-2xl">
-            Interested in working together?
-          </h2>
-          <p className="mx-auto mb-6 max-w-lg text-sm leading-relaxed text-[--muted-foreground]">
-            I&apos;m open to full-time opportunities, consulting engagements, and
-            enterprise software projects where reliability and integration matter.
+        <section className="glass-card p-6 text-center sm:p-8">
+          <h2 className="text-xl font-semibold">Let&apos;s work together</h2>
+          <p className="mx-auto mt-3 max-w-md text-sm text-[--muted-foreground]">
+            Open to full-time opportunities and enterprise software projects.
           </p>
-          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-lg border border-[--border] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:border-[--muted-foreground]"
-            >
+          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link href="/contact" className="btn-primary">
               Get in touch
               <ArrowRight className="h-4 w-4" />
             </Link>
-            <a
-              href={`mailto:${email}`}
-              className="inline-flex items-center gap-2 rounded-lg border border-[--border] px-5 py-2.5 text-sm text-[--muted-foreground] transition-colors hover:border-[--muted-foreground] hover:text-white"
-            >
+            <a href={`mailto:${email}`} className="btn-secondary">
               <Mail className="h-4 w-4" />
-              Email me
+              Email
             </a>
-            <a
-              href={github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-[--border] px-5 py-2.5 text-sm text-[--muted-foreground] transition-colors hover:border-[--muted-foreground] hover:text-white"
-            >
+            <a href={github} target="_blank" rel="noopener noreferrer" className="btn-secondary">
               <Github className="h-4 w-4" />
               GitHub
             </a>

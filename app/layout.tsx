@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { Syne } from "next/font/google";
+import { Inter, Syne } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { InitialLoader } from "@/components/InitialLoader";
+import { LoaderProvider } from "@/components/InitialLoader";
+
+const bodyFont = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+  display: "swap",
+});
 
 const logoFont = Syne({
   subsets: ["latin"],
@@ -11,9 +18,40 @@ const logoFont = Syne({
   display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://manugali.dev";
+
 export const metadata: Metadata = {
-  title: "Manohar Gali - Software Engineer",
-  description: "Experienced Software Engineer specializing in enterprise-grade applications and digital transformation.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Manohar Gali — Applications Engineer",
+    template: "%s · Manohar Gali",
+  },
+  description:
+    "Full-stack .NET engineer in financial services. Internal platforms, legacy integration, SQL Server, and Azure.",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName: "Manohar Gali",
+    title: "Manohar Gali — Applications Engineer",
+    description:
+      "Full-stack .NET engineer building internal platforms in regulated financial environments.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Manohar Gali — Applications Engineer",
+    description:
+      "Full-stack .NET engineer building internal platforms in regulated financial environments.",
+  },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Manohar Gali",
+  jobTitle: "Applications Engineer",
+  url: siteUrl,
+  sameAs: ["https://github.com/Manugali"],
 };
 
 export default function RootLayout({
@@ -22,11 +60,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={logoFont.variable} suppressHydrationWarning>
-      <body className="min-h-screen bg-[--background] text-[--foreground] antialiased">
+    <html
+      lang="en"
+      className={`${bodyFont.variable} ${logoFont.variable}`}
+      suppressHydrationWarning
+    >
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <ThemeProvider>
-          <InitialLoader />
-          {children}
+          <LoaderProvider>{children}</LoaderProvider>
         </ThemeProvider>
       </body>
     </html>

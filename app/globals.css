@@ -1,14 +1,12 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: Arial, Helvetica, sans-serif;
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
   --color-sidebar-ring: var(--sidebar-ring);
@@ -47,74 +45,72 @@
 }
 
 :root {
-  --radius: 0.5rem;
-  /* Minimalist dark theme */
-  --background: #0A0A0A;
-  --foreground: #FFFFFF;
-  --card: #1A1A1A;
-  --card-foreground: #FFFFFF;
-  --popover: #262626;
-  --popover-foreground: #FFFFFF;
-  --primary: #FFFFFF;
-  --primary-foreground: #1A1A1A;
-  --secondary: #1A1A1A;
-  --secondary-foreground: #FFFFFF;
-  --muted: #1A1A1A;
-  --muted-foreground: #AAAAAA;
-  --accent: #404040;
-  --accent-foreground: #FFFFFF;
-  --destructive: #EF4444;
-  --border: #404040;
-  --input: #262626;
-  --ring: #666666;
-  --chart-1: #FFFFFF;
-  --chart-2: #CCCCCC;
-  --chart-3: #999999;
-  --chart-4: #666666;
-  --chart-5: #404040;
-  --sidebar: #1A1A1A;
-  --sidebar-foreground: #FFFFFF;
-  --sidebar-primary: #FFFFFF;
-  --sidebar-primary-foreground: #1A1A1A;
-  --sidebar-accent: #2A2A2A;
-  --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: #404040;
-  --sidebar-ring: #666666;
+  --radius: 0.75rem;
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --card: #111111;
+  --card-foreground: #fafafa;
+  --popover: #141414;
+  --popover-foreground: #fafafa;
+  --primary: #fafafa;
+  --primary-foreground: #0a0a0a;
+  --secondary: #111111;
+  --secondary-foreground: #fafafa;
+  --muted: #111111;
+  --muted-foreground: #a3a3a3;
+  --accent: #d4d4d4;
+  --accent-foreground: #0a0a0a;
+  --destructive: #ef4444;
+  --border: #262626;
+  --input: #141414;
+  --ring: #525252;
+  --chart-1: #fafafa;
+  --chart-2: #d4d4d4;
+  --chart-3: #a3a3a3;
+  --chart-4: #737373;
+  --chart-5: #525252;
+  --sidebar: #111111;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: #fafafa;
+  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar-accent: #141414;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: #262626;
+  --sidebar-ring: #525252;
 }
 
 .dark {
-  /* Dark mode: same minimalist dark theme */
-  --background: #0A0A0A;
-  --foreground: #FFFFFF;
-  --card: #1A1A1A;
-  --card-foreground: #FFFFFF;
-  --popover: #262626;
-  --popover-foreground: #FFFFFF;
-  --primary: #FFFFFF;
-  --primary-foreground: #1A1A1A;
-  --secondary: #1A1A1A;
-  --secondary-foreground: #FFFFFF;
-  --muted: #1A1A1A;
-  --muted-foreground: #AAAAAA;
-  --accent: #404040;
-  --accent-foreground: #FFFFFF;
-  --destructive: #EF4444;
-  --border: #404040;
-  --input: #262626;
-  --ring: #666666;
-  --chart-1: #FFFFFF;
-  --chart-2: #CCCCCC;
-  --chart-3: #999999;
-  --chart-4: #666666;
-  --chart-5: #404040;
-  --sidebar: #1A1A1A;
-  --sidebar-foreground: #FFFFFF;
-  --sidebar-primary: #FFFFFF;
-  --sidebar-primary-foreground: #1A1A1A;
-  --sidebar-accent: #2A2A2A;
-  --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: #404040;
-  --sidebar-ring: #666666;
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --card: #111111;
+  --card-foreground: #fafafa;
+  --popover: #141414;
+  --popover-foreground: #fafafa;
+  --primary: #fafafa;
+  --primary-foreground: #0a0a0a;
+  --secondary: #111111;
+  --secondary-foreground: #fafafa;
+  --muted: #111111;
+  --muted-foreground: #a3a3a3;
+  --accent: #d4d4d4;
+  --accent-foreground: #0a0a0a;
+  --destructive: #ef4444;
+  --border: #262626;
+  --input: #141414;
+  --ring: #525252;
+  --chart-1: #fafafa;
+  --chart-2: #d4d4d4;
+  --chart-3: #a3a3a3;
+  --chart-4: #737373;
+  --chart-5: #525252;
+  --sidebar: #111111;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: #fafafa;
+  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar-accent: #141414;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: #262626;
+  --sidebar-ring: #525252;
 }
 
 @layer base {
@@ -122,15 +118,13 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background font-sans text-foreground font-normal;
-    background: linear-gradient(135deg, #0A0A0A 0%, #0F0F0F 50%, #0A0A0A 100%);
-    background-attachment: fixed;
-    letter-spacing: normal;
+    @apply bg-background font-sans text-foreground font-normal antialiased;
+    background: #0a0a0a;
     line-height: 1.6;
   }
   html {
-    background: linear-gradient(135deg, #0A0A0A 0%, #0F0F0F 50%, #0A0A0A 100%);
-    background-attachment: fixed;
+    background: #0a0a0a;
+    scroll-behavior: smooth;
   }
   h1,
   h2,
@@ -138,71 +132,113 @@
   h4,
   h5,
   h6 {
-    @apply font-semibold tracking-tight;
-    line-height: 1.25;
+    @apply font-semibold tracking-tight text-[--foreground];
+    line-height: 1.2;
   }
   p {
     line-height: 1.7;
   }
+  ::selection {
+    background: rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+  }
 }
 
-/* Global scrollbar hide while preserving scroll */
-html, body {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none;    /* Firefox */
+html,
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   overflow-x: hidden;
 }
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-  display: none;            /* Chrome, Safari, Opera */
-  width: 0;
-  height: 0;
-  background: transparent;
+  display: none;
 }
 
-/* Ensure all nested scrollable areas also hide scrollbars by default */
-* {
-  scrollbar-width: none;    /* Firefox */
-}
-*::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-  background: transparent;
-}
-
-
-/* Hide scrollbar while allowing scroll */
-.scrollbar-hidden {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-.scrollbar-hidden::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
-
-/* Shared design utilities */
+/* Typography */
 .gradient-text {
-  @apply bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text font-semibold tracking-tight text-transparent;
-}
-
-.glass-card {
-  border-radius: 0.75rem;
-  border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--card) 75%, transparent);
-  backdrop-filter: blur(4px);
-  transition: border-color 0.3s, transform 0.3s;
-  min-width: 0;
-}
-
-.glass-card:hover {
-  border-color: var(--muted-foreground);
+  @apply bg-gradient-to-r from-white via-neutral-200 to-white bg-clip-text font-semibold tracking-tight text-transparent;
 }
 
 .section-label {
-  @apply text-[11px] font-semibold uppercase tracking-[0.1em] text-[--muted-foreground];
+  @apply text-[11px] font-medium uppercase tracking-[0.12em] text-[--muted-foreground];
 }
 
-/* Brand logo — distinct from Arial body text */
+.section-title {
+  @apply text-2xl font-semibold tracking-tight text-[--foreground] sm:text-3xl;
+}
+
+.section-copy {
+  @apply mx-auto max-w-lg text-sm leading-relaxed text-[--muted-foreground] sm:text-base;
+}
+
+/* Surfaces */
+.glass-card {
+  border-radius: 0.875rem;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--card) 88%, transparent);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s ease;
+  min-width: 0;
+}
+
+.glass-card-interactive:hover {
+  border-color: #404040;
+}
+
+/* Header */
+.site-header {
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  background: color-mix(in srgb, var(--background) 82%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.site-header-scrolled {
+  border-bottom-color: var(--border);
+  background: color-mix(in srgb, var(--background) 94%, transparent);
+}
+
+/* Navigation */
+.site-nav-link {
+  @apply rounded-lg px-3 py-2 text-sm text-[--muted-foreground] transition-colors;
+}
+
+.site-nav-link:hover {
+  color: var(--foreground);
+}
+
+.site-nav-link-active {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--card) 90%, transparent);
+}
+
+/* Buttons */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-medium transition-colors;
+  @apply border border-[--foreground] bg-[--foreground] text-[--background];
+}
+
+.btn-primary:hover {
+  background: #e5e5e5;
+  border-color: #e5e5e5;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-medium transition-colors;
+  @apply border border-[--border] text-[--foreground];
+}
+
+.btn-secondary:hover {
+  border-color: #404040;
+  background: color-mix(in srgb, var(--card) 80%, transparent);
+}
+
+/* Tags */
+.tag {
+  @apply rounded-full border border-[--border] bg-[--card] px-2.5 py-1 text-xs text-[--muted-foreground];
+}
+
+/* Logo */
 .logo-text {
   font-family: var(--font-logo), "Futura Bold", Futura, sans-serif;
   font-weight: 800;
@@ -223,7 +259,43 @@ body::-webkit-scrollbar {
   color: transparent;
 }
 
-/* Respect reduced motion preferences */
+/* Form */
+.field {
+  @apply w-full rounded-xl border border-[--border] bg-[--card] px-4 py-3 text-sm text-[--foreground] outline-none transition-colors;
+}
+
+.field:focus {
+  border-color: #525252;
+}
+
+@media print {
+  body,
+  html {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .glass-card {
+    background: #ffffff !important;
+    border: 1px solid #e5e5e5 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .gradient-text {
+    color: #000000 !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+  }
+
+  nav,
+  header,
+  .print-hidden {
+    display: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -234,4 +306,3 @@ body::-webkit-scrollbar {
     scroll-behavior: auto !important;
   }
 }
-

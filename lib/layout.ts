@@ -6,4 +6,4 @@ export const SITE_CONTAINER =
 export const SITE_PADDING = "px-4 sm:px-6 lg:px-8";
 
 /** Vertical spacing below fixed topbar and above bottom nav */
-export const PAGE_VERTICAL = "pt-[4.5rem] pb-24";
+export const PAGE_VERTICAL = "pt-[5rem] pb-24";

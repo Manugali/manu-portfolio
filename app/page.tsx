@@ -10,14 +10,17 @@ import {
   FolderKanban,
   BookText,
   Mail,
+  Download,
 } from "lucide-react";
 import { useState, useRef, useEffect, forwardRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import experience from "@/data/experience.json";
+import workProfile from "@/data/work-profile.json";
 import { SiteBackground } from "@/components/SiteBackground";
 import { MobileNav } from "@/components/MobileNav";
 import { ExperienceCard } from "@/components/ExperienceCard";
 import { ExploreLinkCard } from "@/components/ExploreLinkCard";
+import { WorkStats } from "@/components/WorkStats";
 import { cn } from "@/lib/utils";
 import { PAGE_VERTICAL, SITE_CONTAINER, SITE_PADDING } from "@/lib/layout";
 
@@ -27,32 +30,19 @@ const ScrollSection = forwardRef<
     children: React.ReactNode;
     className?: string;
     sectionIndex: number;
-    /** Hero stays fully visible on first paint — no scroll-driven fade/slide */
     pinned?: boolean;
   }
 >(({ children, className = "", sectionIndex, pinned = false }, ref) => {
   const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref as React.RefObject<HTMLDivElement>,
-    offset: ["start 0.8", "end 0.2"],
+    offset: ["start 0.85", "end 0.15"],
   });
-
-  const blur = useTransform(
-    scrollYProgress,
-    [0, 0.25, 0.75, 1],
-    prefersReducedMotion || pinned ? [0, 0, 0, 0] : [10, 0, 0, 10]
-  );
 
   const opacity = useTransform(
     scrollYProgress,
     [0, 0.2, 0.8, 1],
     prefersReducedMotion || pinned ? [1, 1, 1, 1] : [0, 1, 1, 0]
-  );
-
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    prefersReducedMotion || pinned ? [1, 1, 1] : [0.9, 1, 0.9]
   );
 
   const y = useTransform(
@@ -61,8 +51,8 @@ const ScrollSection = forwardRef<
     prefersReducedMotion || pinned
       ? [0, 0]
       : sectionIndex % 2 === 0
-        ? [100, -100]
-        : [-100, 100]
+        ? [32, -32]
+        : [-32, 32]
   );
 
   return (
@@ -70,9 +60,7 @@ const ScrollSection = forwardRef<
       ref={ref}
       className={className}
       style={{
-        filter: prefersReducedMotion ? undefined : `blur(${blur}px)`,
         opacity,
-        scale,
         y,
       }}
     >
@@ -84,11 +72,13 @@ const ScrollSection = forwardRef<
 ScrollSection.displayName = "ScrollSection";
 
 const TITLES = [
-  "AI Enthusiast",
-  "Code Artisan",
-  "Tech Explorer",
-  "Innovation Seeker",
+  "Applications Engineer",
+  "Enterprise .NET Developer",
+  "Integration Specialist",
+  "Financial Services Software",
 ] as const;
+
+const PROOF_TAGS = [".NET", "SQL Server", "Azure", "Financial Services"] as const;
 
 const FEATURED_EXPERIENCE = experience[0];
 
@@ -131,6 +121,22 @@ const exploreLinks = [
   },
 ] as const;
 
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 16 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: "easeOut" as const },
+  },
+};
+
 export default function Home() {
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
@@ -153,16 +159,16 @@ export default function Home() {
       if (displayedText.length < currentTitle.length) {
         timeout = setTimeout(() => {
           setDisplayedText(currentTitle.slice(0, displayedText.length + 1));
-        }, 100);
+        }, 80);
       } else {
         timeout = setTimeout(() => {
           setIsDeleting(true);
-        }, 2000);
+        }, 2400);
       }
     } else if (displayedText.length > 0) {
       timeout = setTimeout(() => {
         setDisplayedText(displayedText.slice(0, -1));
-      }, 50);
+      }, 40);
     } else {
       timeout = setTimeout(() => {
         setIsDeleting(false);
@@ -207,22 +213,27 @@ export default function Home() {
             pinned
           >
             <div className="flex w-full max-w-md flex-col items-center text-center">
-              <div className="group relative mb-10 shrink-0 sm:mb-12">
+              <div className="portrait-frame group relative mb-8 shrink-0 sm:mb-10">
                 <img
                   src="/profile.jpg"
                   alt="Manohar Gali"
-                  className="relative h-36 w-36 rounded-full border-2 border-[--border] object-cover transition-all duration-500 group-hover:opacity-0 sm:h-40 sm:w-40"
+                  className="relative h-36 w-36 rounded-full border-2 border-[color-mix(in_srgb,#ffffff_12%,var(--border))] object-cover transition-all duration-500 group-hover:opacity-0 sm:h-40 sm:w-40"
                   style={{ objectPosition: "center 15%" }}
                 />
                 <img
                   src="/profilecolor.jpg"
                   alt="Manohar Gali"
-                  className="absolute inset-0 h-36 w-36 rounded-full border-2 border-[--border] object-cover opacity-0 transition-all duration-500 group-hover:opacity-100 sm:h-40 sm:w-40"
+                  className="absolute inset-0 h-36 w-36 rounded-full border-2 border-[color-mix(in_srgb,#ffffff_12%,var(--border))] object-cover opacity-0 transition-all duration-500 group-hover:scale-[1.02] group-hover:opacity-100 sm:h-40 sm:w-40"
                   style={{ objectPosition: "center 15%" }}
                 />
               </div>
 
-              <div className="w-full space-y-8">
+              <div className="w-full space-y-7">
+                <div className="availability-badge mx-auto">
+                  <span className="availability-dot" aria-hidden />
+                  Open to opportunities
+                </div>
+
                 <h1 className="space-y-4 px-2">
                   <motion.span
                     initial={{ opacity: 0, y: 30 }}
@@ -236,7 +247,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.15 }}
-                    className="block bg-gradient-to-r from-white via-white to-gray-200 bg-clip-text text-4xl font-semibold leading-tight tracking-tight text-transparent sm:text-5xl"
+                    className="gradient-text-hero block text-4xl font-semibold leading-tight sm:text-5xl"
                   >
                     Manohar Gali
                   </motion.span>
@@ -244,24 +255,43 @@ export default function Home() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.3 }}
-                    className="block min-h-[1.75rem] bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-lg text-transparent sm:min-h-[2rem] sm:text-xl"
+                    className="block min-h-[1.75rem] bg-gradient-to-r from-[--accent] via-gray-300 to-[--accent] bg-clip-text text-lg text-transparent sm:min-h-[2rem] sm:text-xl"
                   >
                     <span>{displayedText || "\u00A0"}</span>
                     {displayedText ? (
                       <motion.span
                         animate={{ opacity: [1, 0] }}
                         transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
-                        className="ml-1 inline-block h-[0.9em] w-0.5 bg-white align-middle"
+                        className="ml-1 inline-block h-[0.9em] w-0.5 bg-[--accent] align-middle"
                       />
                     ) : null}
                   </motion.span>
                 </h1>
 
                 <p className="mx-auto max-w-sm px-1 text-sm leading-7 text-[--muted-foreground] sm:max-w-md sm:text-base sm:leading-8">
-                  I transform complex business challenges into elegant digital solutions.
-                  Specializing in enterprise-grade applications, I architect systems that
-                  drive operational efficiency, reduce costs, and deliver measurable ROI.
+                  I build internal platforms in regulated financial environments — .NET
+                  backends, SQL-heavy data layers, and integrations that have to work with
+                  legacy systems.
                 </p>
+
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  {PROOF_TAGS.map((tag) => (
+                    <span key={tag} className="tech-pill text-[11px] text-[--muted-foreground]">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex flex-col items-center justify-center gap-3 pt-1 sm:flex-row">
+                  <Link href="/experience" className="btn-primary">
+                    View my work
+                    <ArrowRight className="h-4 w-4" strokeWidth={1.25} />
+                  </Link>
+                  <Link href="/resume" className="btn-ghost">
+                    <Download className="h-4 w-4" strokeWidth={1.25} />
+                    Resume
+                  </Link>
+                </div>
 
                 <motion.div
                   className="group flex cursor-pointer flex-col items-center gap-3 pt-2"
@@ -279,7 +309,7 @@ export default function Home() {
                     pointerEvents: scrollY < 150 ? "auto" : "none",
                   }}
                 >
-                  <p className="text-xs uppercase tracking-[0.1em] text-[--muted-foreground] transition-colors duration-300 group-hover:text-white">
+                  <p className="section-label transition-colors duration-300 group-hover:text-white">
                     Scroll to explore
                   </p>
                   <motion.div
@@ -293,7 +323,7 @@ export default function Home() {
                   >
                     <Mouse
                       className="h-6 w-6 text-[--muted-foreground] transition-colors duration-300 group-hover:text-white"
-                      strokeWidth={1.5}
+                      strokeWidth={1.25}
                     />
                     <motion.div
                       className="absolute left-1/2 top-[8px] h-1 w-0.5 -translate-x-1/2 rounded-full bg-[--muted-foreground] transition-colors duration-300 group-hover:bg-white"
@@ -313,6 +343,8 @@ export default function Home() {
             </div>
           </ScrollSection>
 
+          <div className="section-divider" />
+
           <ScrollSection
             ref={skillsRef}
             className="flex items-center justify-center py-24 sm:py-28"
@@ -320,7 +352,8 @@ export default function Home() {
           >
             <div className="w-full space-y-10 sm:space-y-12">
               <div className="space-y-4 text-center">
-                <h2 className="bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-3xl font-semibold tracking-tight text-transparent">
+                <p className="section-number">01</p>
+                <h2 className="gradient-text-soft text-3xl font-semibold tracking-tight">
                   What I Bring to the Table
                 </h2>
                 <p className="mx-auto max-w-lg text-sm leading-relaxed text-[--muted-foreground] sm:text-base">
@@ -329,34 +362,52 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
+              <motion.div
+                className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6"
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-80px" }}
+              >
                 {services.map((service) => {
                   const Icon = service.icon;
                   return (
-                    <div key={service.title} className="glass-card p-6 text-center sm:p-7">
-                      <Icon className="mx-auto mb-5 h-10 w-10 text-white" strokeWidth={1.5} />
-                      <h3 className="mb-4 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-xl font-semibold text-transparent">
+                    <motion.div
+                      key={service.title}
+                      variants={staggerItem}
+                      className="glass-card p-6 text-center sm:p-7"
+                    >
+                      <div className="icon-container mx-auto mb-5 h-12 w-12">
+                        <Icon className="h-6 w-6 text-white" strokeWidth={1.25} />
+                      </div>
+                      <h3 className="mb-4 text-xl font-semibold gradient-text-soft">
                         {service.title}
                       </h3>
                       <p className="text-sm leading-relaxed text-[--muted-foreground]">
                         {service.description}
                       </p>
-                    </div>
+                    </motion.div>
                   );
                 })}
+              </motion.div>
+
+              <div className="mx-auto w-full max-w-2xl">
+                <WorkStats stats={workProfile.stats} />
               </div>
 
               <div className="text-center">
                 <Link
                   href="/experience"
-                  className="inline-flex items-center gap-2 text-sm text-[--muted-foreground] transition-colors hover:text-white"
+                  className="link-underline inline-flex items-center gap-2 text-sm text-[--muted-foreground] transition-colors hover:text-white"
                 >
                   View competencies and experience
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-4 w-4" strokeWidth={1.25} />
                 </Link>
               </div>
             </div>
           </ScrollSection>
+
+          <div className="section-divider" />
 
           {FEATURED_EXPERIENCE ? (
             <ScrollSection
@@ -366,8 +417,9 @@ export default function Home() {
             >
               <div className="w-full space-y-10 sm:space-y-12">
                 <div className="space-y-4 text-center">
+                  <p className="section-number">02</p>
                   <p className="section-label">Featured work</p>
-                  <h2 className="bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text px-2 text-3xl font-semibold text-transparent">
+                  <h2 className="gradient-text-soft px-2 text-3xl font-semibold">
                     Recent Experience
                   </h2>
                   <p className="px-2 text-sm text-[--muted-foreground] sm:text-base">
@@ -380,16 +432,18 @@ export default function Home() {
                   <div className="text-center">
                     <Link
                       href="/experience"
-                      className="inline-flex items-center gap-2 text-sm text-white transition-colors hover:text-[--muted-foreground]"
+                      className="link-underline inline-flex items-center gap-2 text-sm text-white transition-colors hover:text-[--muted-foreground]"
                     >
                       View all work
-                      <ArrowRight className="h-4 w-4" />
+                      <ArrowRight className="h-4 w-4" strokeWidth={1.25} />
                     </Link>
                   </div>
                 </div>
               </div>
             </ScrollSection>
           ) : null}
+
+          <div className="section-divider" />
 
           <ScrollSection
             ref={exploreRef}
@@ -398,8 +452,9 @@ export default function Home() {
           >
             <div className="w-full space-y-10 sm:space-y-12">
               <div className="space-y-4 text-center">
+                <p className="section-number">03</p>
                 <p className="section-label">Explore</p>
-                <h2 className="bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-3xl font-semibold tracking-tight text-transparent">
+                <h2 className="gradient-text-soft text-3xl font-semibold tracking-tight">
                   More to discover
                 </h2>
                 <p className="text-sm text-[--muted-foreground] sm:text-base">
@@ -407,11 +462,19 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6">
+              <motion.div
+                className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6"
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-60px" }}
+              >
                 {exploreLinks.map((link) => (
-                  <ExploreLinkCard key={link.href} {...link} />
+                  <motion.div key={link.href} variants={staggerItem}>
+                    <ExploreLinkCard {...link} />
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           </ScrollSection>
         </main>

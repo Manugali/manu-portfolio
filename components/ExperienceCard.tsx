@@ -44,6 +44,7 @@ export function ExperienceCard({
     <article
       className={cn(
         "glass-card p-4 sm:p-6",
+        detailed && "glass-card-static",
         isLeftAligned ? "text-left" : "text-center",
         compact ? "p-4" : "p-5"
       )}
@@ -59,14 +60,14 @@ export function ExperienceCard({
             >
               <h3
                 className={cn(
-                  "font-semibold gradient-text",
+                  "font-semibold gradient-text-soft",
                   isLeftAligned ? "text-xl" : "text-lg"
                 )}
               >
                 {item.role}
               </h3>
               {item.employmentType ? (
-                <span className="rounded-full border border-[--border] bg-[--muted]/40 px-2.5 py-0.5 text-[10px] uppercase tracking-wider text-[--muted-foreground]">
+                <span className="tech-pill text-[10px] uppercase tracking-wider text-[--muted-foreground]">
                   {item.employmentType}
                 </span>
               ) : null}
@@ -93,7 +94,9 @@ export function ExperienceCard({
                     isLeftAligned ? "" : "justify-center"
                   )}
                 >
-                  {isLeftAligned ? <MapPin className="h-3.5 w-3.5 shrink-0" /> : null}
+                  {isLeftAligned ? (
+                    <MapPin className="h-3.5 w-3.5 shrink-0" strokeWidth={1.25} />
+                  ) : null}
                   {item.location}
                 </span>
               ) : null}
@@ -112,9 +115,7 @@ export function ExperienceCard({
 
         {item.techStack && item.techStack.length > 0 ? (
           <div className={cn("mb-5", compact && "mb-4")}>
-            {!compact ? (
-              <p className="section-label mb-3">Technologies</p>
-            ) : null}
+            {!compact ? <p className="section-label mb-3">Technologies</p> : null}
             <div
               className={cn(
                 "flex flex-wrap gap-2",
@@ -122,10 +123,7 @@ export function ExperienceCard({
               )}
             >
               {(compact ? item.techStack.slice(0, 4) : item.techStack).map((tech) => (
-                <span
-                  key={tech}
-                  className="rounded-full border border-[--border] bg-[--muted]/40 px-2.5 py-1 text-xs text-[--foreground]"
-                >
+                <span key={tech} className="tech-pill">
                   {tech}
                 </span>
               ))}
@@ -144,7 +142,7 @@ export function ExperienceCard({
                       key={highlight}
                       className="flex items-start gap-3 text-sm text-[--muted-foreground]"
                     >
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-white" />
+                      <span className="list-dash mt-0.5 text-xs" />
                       <span className="leading-relaxed">{highlight}</span>
                     </li>
                   ))}
@@ -159,7 +157,7 @@ export function ExperienceCard({
                 key={highlight}
                 className="flex items-start gap-3 text-xs text-[--muted-foreground] sm:text-sm"
               >
-                <span className="mt-1.5 shrink-0 text-white">•</span>
+                <span className="list-dash mt-0.5 text-xs" />
                 <span className="leading-relaxed">{highlight}</span>
               </li>
             ))}

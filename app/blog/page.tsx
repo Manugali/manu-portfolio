@@ -33,7 +33,8 @@ export default function BlogPage() {
     <AppShell>
       <main className="space-y-8">
         <PageHeader
-          title="Notes"
+          sectionNumber="Notes"
+          title="Thinking out loud"
           description="Things I'm thinking about — work, building, and everything in between."
         />
 
@@ -76,11 +77,11 @@ export default function BlogPage() {
             filteredNotes.map((note) => (
               <article
                 key={note.title}
-                className="glass-card p-6 text-center opacity-80"
+                className="glass-card glass-card-static p-6 text-center opacity-90"
               >
                 <p className="section-label mb-3">{note.date}</p>
-                <h2 className="text-lg font-semibold gradient-text">{note.title}</h2>
-                <p className="mt-3 text-sm text-[--muted-foreground] leading-relaxed">
+                <h2 className="text-lg font-semibold gradient-text-soft">{note.title}</h2>
+                <p className="mt-3 text-sm leading-relaxed text-[--muted-foreground]">
                   {note.excerpt}
                 </p>
                 <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
@@ -89,7 +90,7 @@ export default function BlogPage() {
                       key={tag}
                       type="button"
                       onClick={() => setActiveTag(tag)}
-                      className="text-xs text-[--muted-foreground] transition-colors hover:text-white"
+                      className="tech-pill text-xs text-[--muted-foreground]"
                     >
                       #{tag}
                     </button>

@@ -202,147 +202,147 @@ export default function Home() {
         <main className={cn("mx-auto w-full", PAGE_VERTICAL)}>
           <ScrollSection
             ref={aboutRef}
-            className="flex min-h-[calc(100dvh-9rem)] flex-col items-center justify-start pt-2 pb-8 sm:pt-4"
+            className="flex min-h-[calc(100dvh-9rem)] flex-col items-center justify-center px-2 py-10 sm:py-14"
             sectionIndex={0}
             pinned
           >
-            <div className="w-full">
-              <div className="flex flex-col items-center gap-6 text-center sm:gap-8">
-                <div className="group relative shrink-0">
-                  <img
-                    src="/profile.jpg"
-                    alt="Manohar Gali"
-                    className="relative h-32 w-32 rounded-full border-2 border-[--border] object-cover transition-all duration-500 group-hover:opacity-0"
-                    style={{ objectPosition: "center 15%" }}
-                  />
-                  <img
-                    src="/profilecolor.jpg"
-                    alt="Manohar Gali"
-                    className="absolute inset-0 h-32 w-32 rounded-full border-2 border-[--border] object-cover opacity-0 transition-all duration-500 group-hover:opacity-100"
-                    style={{ objectPosition: "center 15%" }}
-                  />
-                </div>
+            <div className="flex w-full max-w-md flex-col items-center text-center">
+              <div className="group relative mb-10 shrink-0 sm:mb-12">
+                <img
+                  src="/profile.jpg"
+                  alt="Manohar Gali"
+                  className="relative h-36 w-36 rounded-full border-2 border-[--border] object-cover transition-all duration-500 group-hover:opacity-0 sm:h-40 sm:w-40"
+                  style={{ objectPosition: "center 15%" }}
+                />
+                <img
+                  src="/profilecolor.jpg"
+                  alt="Manohar Gali"
+                  className="absolute inset-0 h-36 w-36 rounded-full border-2 border-[--border] object-cover opacity-0 transition-all duration-500 group-hover:opacity-100 sm:h-40 sm:w-40"
+                  style={{ objectPosition: "center 15%" }}
+                />
+              </div>
 
-                <div className="w-full">
-                  <h1 className="mb-4 px-2 text-3xl font-bold leading-tight">
-                    <motion.span
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                      className="block text-[--muted-foreground]"
-                    >
-                      Hi I&apos;m
-                    </motion.span>
-                    <motion.span
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.15 }}
-                      className="mt-1 block bg-gradient-to-r from-white via-white to-gray-200 bg-clip-text text-4xl font-extrabold text-transparent"
-                    >
-                      Manohar Gali
-                    </motion.span>
-                    <motion.span
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.3 }}
-                      className="mt-2 block bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-xl text-transparent"
-                    >
-                      <span>{displayedText}</span>
+              <div className="w-full space-y-8">
+                <h1 className="space-y-4 px-2">
+                  <motion.span
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                    className="block text-base text-[--muted-foreground] sm:text-lg"
+                  >
+                    Hi I&apos;m
+                  </motion.span>
+                  <motion.span
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.15 }}
+                    className="block bg-gradient-to-r from-white via-white to-gray-200 bg-clip-text text-4xl font-extrabold leading-tight text-transparent sm:text-5xl"
+                  >
+                    Manohar Gali
+                  </motion.span>
+                  <motion.span
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.3 }}
+                    className="block min-h-[1.75rem] bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-lg text-transparent sm:min-h-[2rem] sm:text-xl"
+                  >
+                    <span>{displayedText || "\u00A0"}</span>
+                    {displayedText ? (
                       <motion.span
                         animate={{ opacity: [1, 0] }}
                         transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
                         className="ml-1 inline-block h-[0.9em] w-0.5 bg-white align-middle"
                       />
-                    </motion.span>
-                  </h1>
-                  <p className="mb-6 px-2 text-xs leading-relaxed text-[--muted-foreground]">
-                    I transform complex business challenges into elegant digital solutions.
-                    Specializing in enterprise-grade applications, I architect systems that
-                    drive operational efficiency, reduce costs, and deliver measurable ROI.
+                    ) : null}
+                  </motion.span>
+                </h1>
+
+                <p className="mx-auto max-w-sm px-1 text-sm leading-7 text-[--muted-foreground] sm:max-w-md sm:text-base sm:leading-8">
+                  I transform complex business challenges into elegant digital solutions.
+                  Specializing in enterprise-grade applications, I architect systems that
+                  drive operational efficiency, reduce costs, and deliver measurable ROI.
+                </p>
+
+                <motion.div
+                  className="group flex cursor-pointer flex-col items-center gap-3 pt-2"
+                  onClick={() => scrollToSection(skillsRef)}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{
+                    y: 0,
+                    opacity: scrollY > 100 ? 0 : 1,
+                  }}
+                  transition={{
+                    y: { duration: 0.6, delay: 0.8, ease: "easeOut" },
+                    opacity: { duration: 0.5, ease: "easeOut" },
+                  }}
+                  style={{
+                    pointerEvents: scrollY < 150 ? "auto" : "none",
+                  }}
+                >
+                  <p
+                    className="text-xs uppercase tracking-wider text-[--muted-foreground] transition-colors duration-300 group-hover:text-white"
+                    style={{
+                      fontFamily:
+                        '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif',
+                      letterSpacing: "0.1em",
+                    }}
+                  >
+                    Scroll to explore
                   </p>
-                  <div className="flex flex-col items-center gap-6">
+                  <motion.div
+                    className="relative"
+                    animate={{ y: [0, 6, 0] }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <Mouse
+                      className="h-6 w-6 text-[--muted-foreground] transition-colors duration-300 group-hover:text-white"
+                      strokeWidth={1.5}
+                    />
                     <motion.div
-                      className="group flex cursor-pointer flex-col items-center gap-2"
-                      onClick={() => scrollToSection(skillsRef)}
-                      initial={{ opacity: 0, y: 10 }}
+                      className="absolute left-1/2 top-[8px] h-1 w-0.5 -translate-x-1/2 rounded-full bg-[--muted-foreground] transition-colors duration-300 group-hover:bg-white"
                       animate={{
-                        y: 0,
-                        opacity: scrollY > 100 ? 0 : 1,
+                        opacity: [0.4, 1, 0.4],
+                        y: [0, 3, 6],
                       }}
                       transition={{
-                        y: { duration: 0.6, delay: 0.8, ease: "easeOut" },
-                        opacity: { duration: 0.5, ease: "easeOut" },
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
                       }}
-                      style={{
-                        pointerEvents: scrollY < 150 ? "auto" : "none",
-                      }}
-                    >
-                      <p
-                        className="text-xs uppercase tracking-wider text-[--muted-foreground] transition-colors duration-300 group-hover:text-white"
-                        style={{
-                          fontFamily:
-                            '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif',
-                          letterSpacing: "0.1em",
-                        }}
-                      >
-                        Scroll to explore
-                      </p>
-                      <motion.div
-                        className="relative"
-                        animate={{ y: [0, 6, 0] }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                        }}
-                      >
-                        <Mouse
-                          className="h-6 w-6 text-[--muted-foreground] transition-colors duration-300 group-hover:text-white"
-                          strokeWidth={1.5}
-                        />
-                        <motion.div
-                          className="absolute left-1/2 top-[8px] h-1 w-0.5 -translate-x-1/2 rounded-full bg-[--muted-foreground] transition-colors duration-300 group-hover:bg-white"
-                          animate={{
-                            opacity: [0.4, 1, 0.4],
-                            y: [0, 3, 6],
-                          }}
-                          transition={{
-                            duration: 1.5,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          }}
-                        />
-                      </motion.div>
-                    </motion.div>
-                  </div>
-                </div>
+                    />
+                  </motion.div>
+                </motion.div>
               </div>
             </div>
           </ScrollSection>
 
           <ScrollSection
             ref={skillsRef}
-            className="flex items-center justify-center py-20"
+            className="flex items-center justify-center py-24 sm:py-28"
             sectionIndex={1}
           >
-            <div className="w-full">
-              <div className="mb-10 text-center">
-                <h2 className="mb-4 bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-3xl font-bold text-transparent">
+            <div className="w-full space-y-10 sm:space-y-12">
+              <div className="space-y-4 text-center">
+                <h2 className="bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-3xl font-bold text-transparent">
                   What I Bring to the Table
                 </h2>
-                <p className="text-sm leading-relaxed text-[--muted-foreground]">
+                <p className="mx-auto max-w-lg text-sm leading-relaxed text-[--muted-foreground] sm:text-base">
                   Enterprise software delivery with a focus on reliability, integration, and
                   measurable impact
                 </p>
               </div>
 
-              <div className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
                 {services.map((service) => {
                   const Icon = service.icon;
                   return (
-                    <div key={service.title} className="glass-card p-6 text-center">
-                      <Icon className="mx-auto mb-4 h-10 w-10 text-white" strokeWidth={1.5} />
-                      <h3 className="mb-3 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-xl font-bold text-transparent">
+                    <div key={service.title} className="glass-card p-6 text-center sm:p-7">
+                      <Icon className="mx-auto mb-5 h-10 w-10 text-white" strokeWidth={1.5} />
+                      <h3 className="mb-4 bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-xl font-bold text-transparent">
                         {service.title}
                       </h3>
                       <p className="text-sm leading-relaxed text-[--muted-foreground]">
@@ -353,7 +353,7 @@ export default function Home() {
                 })}
               </div>
 
-              <div className="mt-8 text-center">
+              <div className="text-center">
                 <Link
                   href="/experience"
                   className="inline-flex items-center gap-2 text-sm text-[--muted-foreground] transition-colors hover:text-white"
@@ -368,21 +368,21 @@ export default function Home() {
           {FEATURED_EXPERIENCE ? (
             <ScrollSection
               ref={workRef}
-              className="flex items-center justify-center py-20"
+              className="flex items-center justify-center py-24 sm:py-28"
               sectionIndex={2}
             >
-              <div className="w-full">
-                <div className="mb-8 text-center">
-                  <p className="section-label mb-3">Featured work</p>
-                  <h2 className="mb-3 bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text px-2 text-3xl font-bold text-transparent">
+              <div className="w-full space-y-10 sm:space-y-12">
+                <div className="space-y-4 text-center">
+                  <p className="section-label">Featured work</p>
+                  <h2 className="bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text px-2 text-3xl font-bold text-transparent">
                     Recent Experience
                   </h2>
-                  <p className="px-2 text-sm text-[--muted-foreground]">
+                  <p className="px-2 text-sm text-[--muted-foreground] sm:text-base">
                     A snapshot of where I&apos;m building today
                   </p>
                 </div>
 
-                <div className="mx-auto w-full max-w-2xl space-y-6">
+                <div className="mx-auto w-full max-w-2xl space-y-8">
                   <ExperienceCard item={FEATURED_EXPERIENCE} compact highlightLimit={2} />
                   <div className="text-center">
                     <Link
@@ -400,21 +400,21 @@ export default function Home() {
 
           <ScrollSection
             ref={exploreRef}
-            className="flex items-center justify-center py-20 pb-28"
+            className="flex items-center justify-center py-24 pb-32 sm:py-28 sm:pb-36"
             sectionIndex={3}
           >
-            <div className="w-full">
-              <div className="mb-8 text-center">
-                <p className="section-label mb-3">Explore</p>
-                <h2 className="mb-3 bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-3xl font-bold text-transparent">
+            <div className="w-full space-y-10 sm:space-y-12">
+              <div className="space-y-4 text-center">
+                <p className="section-label">Explore</p>
+                <h2 className="bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-3xl font-bold text-transparent">
                   More to discover
                 </h2>
-                <p className="text-sm text-[--muted-foreground]">
+                <p className="text-sm text-[--muted-foreground] sm:text-base">
                   Dive deeper into projects, notes, and ways to reach me
                 </p>
               </div>
 
-              <div className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3">
+              <div className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6">
                 {exploreLinks.map((link) => (
                   <ExploreLinkCard key={link.href} {...link} />
                 ))}

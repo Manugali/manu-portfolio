@@ -10,7 +10,7 @@ import experience from "@/data/experience.json";
 import education from "@/data/education.json";
 import workProfile from "@/data/work-profile.json";
 import { getSocialLinks } from "@/lib/social";
-import { ArrowRight, Github, Mail } from "lucide-react";
+import { ArrowRight, Briefcase, Github, GraduationCap, Mail } from "lucide-react";
 
 export default function ExperiencePage() {
   const { email, github } = getSocialLinks();
@@ -38,19 +38,21 @@ export default function ExperiencePage() {
         <section className="space-y-6" aria-label="Professional experience">
           <div className="text-center sm:text-left">
             <p className="section-label mb-2">Career</p>
-            <h2 className="text-2xl font-bold gradient-text">Experience</h2>
+            <h2 className="flex items-center justify-center gap-2.5 text-2xl font-bold gradient-text sm:justify-start">
+              <Briefcase className="h-5 w-5 shrink-0 text-white" strokeWidth={1.75} />
+              Experience
+            </h2>
             <p className="mt-2 text-sm text-[--muted-foreground]">
               Enterprise software delivery in financial services — from architecture through deployment.
             </p>
           </div>
 
-          <div className="space-y-8">
-            {experience.map((item, index) => (
+          <div className="space-y-4">
+            {experience.map((item) => (
               <ExperienceCard
                 key={`${item.company}-${item.role}`}
                 item={item}
-                showTimeline
-                isLast={index === experience.length - 1}
+                detailed
               />
             ))}
           </div>
@@ -59,20 +61,18 @@ export default function ExperiencePage() {
         <section className="space-y-6" aria-label="Education">
           <div className="text-center sm:text-left">
             <p className="section-label mb-2">Foundation</p>
-            <h2 className="text-2xl font-bold gradient-text">Education</h2>
+            <h2 className="flex items-center justify-center gap-2.5 text-2xl font-bold gradient-text sm:justify-start">
+              <GraduationCap className="h-5 w-5 shrink-0 text-white" strokeWidth={1.75} />
+              Education
+            </h2>
             <p className="mt-2 text-sm text-[--muted-foreground]">
               Graduate training in computer science from Texas Tech University.
             </p>
           </div>
 
-          <div className="space-y-8">
-            {education.map((item, index) => (
-              <EducationCard
-                key={item.institution}
-                item={item}
-                showTimeline
-                isLast={index === education.length - 1}
-              />
+          <div className="space-y-4">
+            {education.map((item) => (
+              <EducationCard key={item.institution} item={item} />
             ))}
           </div>
         </section>

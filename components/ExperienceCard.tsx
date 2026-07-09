@@ -1,4 +1,4 @@
-import { MapPin, Briefcase } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type HighlightGroup = {
@@ -21,17 +21,15 @@ export type ExperienceItem = {
 type ExperienceCardProps = {
   item: ExperienceItem;
   compact?: boolean;
+  detailed?: boolean;
   highlightLimit?: number;
-  showTimeline?: boolean;
-  isLast?: boolean;
 };
 
 export function ExperienceCard({
   item,
   compact = false,
+  detailed = false,
   highlightLimit = 3,
-  showTimeline = false,
-  isLast = false,
 }: ExperienceCardProps) {
   const useGroupedHighlights =
     !compact && item.highlightGroups && item.highlightGroups.length > 0;
@@ -40,49 +38,29 @@ export function ExperienceCard({
     ? item.highlights.slice(0, highlightLimit)
     : item.highlights;
 
+  const isLeftAligned = detailed;
+
   return (
     <article
       className={cn(
-        "relative",
-        showTimeline && "pl-8 sm:pl-10",
-        !showTimeline && "glass-card p-4 text-center sm:p-6"
+        "glass-card p-4 sm:p-6",
+        isLeftAligned ? "text-left" : "text-center",
+        compact ? "p-4" : "p-5"
       )}
     >
-      {showTimeline ? (
-        <>
-          <div
-            className="absolute left-0 top-1 flex h-6 w-6 items-center justify-center rounded-full border border-[--border] bg-[--card]"
-            aria-hidden
-          >
-            <Briefcase className="h-3 w-3 text-white" strokeWidth={2} />
-          </div>
-          {!isLast ? (
-            <div
-              className="absolute left-[11px] top-7 bottom-0 w-px bg-[--border]"
-              aria-hidden
-            />
-          ) : null}
-        </>
-      ) : null}
-
-      <div
-        className={cn(
-          showTimeline && "glass-card p-5 text-left sm:p-6",
-          !showTimeline && "contents"
-        )}
-      >
-        <header className={cn("mb-4", !showTimeline && "flex flex-col gap-2 sm:gap-3")}>
-          <div className={cn(showTimeline ? "space-y-2" : "")}>
+      <div className={cn(!isLeftAligned && !compact && "contents")}>
+        <header className={cn("mb-4", !isLeftAligned && "flex flex-col gap-2 sm:gap-3")}>
+          <div className={cn(isLeftAligned ? "space-y-2" : "")}>
             <div
               className={cn(
                 "flex flex-wrap items-center gap-2",
-                showTimeline ? "justify-start" : "justify-center"
+                isLeftAligned ? "justify-start" : "justify-center"
               )}
             >
               <h3
                 className={cn(
                   "font-bold gradient-text",
-                  showTimeline ? "text-xl" : "text-lg"
+                  isLeftAligned ? "text-xl" : "text-lg"
                 )}
               >
                 {item.role}
@@ -96,7 +74,7 @@ export function ExperienceCard({
             <p
               className={cn(
                 "text-sm font-medium text-white",
-                showTimeline ? "mt-1" : "mt-1 text-[--muted-foreground]"
+                isLeftAligned ? "mt-1" : "mt-1 text-[--muted-foreground]"
               )}
             >
               {item.company}
@@ -104,7 +82,7 @@ export function ExperienceCard({
             <div
               className={cn(
                 "flex flex-wrap gap-x-4 gap-y-1 text-sm text-[--muted-foreground]",
-                showTimeline ? "mt-2" : "mt-1 flex-col items-center sm:items-center"
+                isLeftAligned ? "mt-2" : "mt-1 flex-col items-center sm:items-center"
               )}
             >
               <span>{item.period}</span>
@@ -112,10 +90,10 @@ export function ExperienceCard({
                 <span
                   className={cn(
                     "inline-flex items-center gap-1",
-                    showTimeline ? "" : "justify-center"
+                    isLeftAligned ? "" : "justify-center"
                   )}
                 >
-                  {showTimeline ? <MapPin className="h-3.5 w-3.5 shrink-0" /> : null}
+                  {isLeftAligned ? <MapPin className="h-3.5 w-3.5 shrink-0" /> : null}
                   {item.location}
                 </span>
               ) : null}
@@ -126,7 +104,7 @@ export function ExperienceCard({
         <p
           className={cn(
             "mb-5 text-sm leading-relaxed text-[--muted-foreground]",
-            !showTimeline && "mb-4"
+            !isLeftAligned && "mb-4"
           )}
         >
           {item.summary}
@@ -140,7 +118,7 @@ export function ExperienceCard({
             <div
               className={cn(
                 "flex flex-wrap gap-2",
-                !showTimeline && "justify-center"
+                !isLeftAligned && "justify-center"
               )}
             >
               {(compact ? item.techStack.slice(0, 4) : item.techStack).map((tech) => (
@@ -175,7 +153,7 @@ export function ExperienceCard({
             ))}
           </div>
         ) : flatHighlights.length > 0 ? (
-          <ul className={cn("space-y-2", !showTimeline && "text-left")}>
+          <ul className={cn("space-y-2", !isLeftAligned && "text-left")}>
             {flatHighlights.map((highlight) => (
               <li
                 key={highlight}

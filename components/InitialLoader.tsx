@@ -257,14 +257,14 @@ export function InitialLoader() {
              <div className="relative">
                {/* Base grey text */}
                <div
-                 className="logo-text text-8xl text-gray-500 relative md:text-[12rem] lg:text-[16rem]"
+                 className="logo-text text-5xl text-gray-500 relative sm:text-6xl md:text-7xl"
                >
                  manu
                </div>
                
                {/* White text that fills from bottom to top with wavy effect */}
                <div
-                 className="logo-text absolute inset-0 text-8xl text-white overflow-hidden md:text-[12rem] lg:text-[16rem]"
+                 className="logo-text absolute inset-0 text-5xl text-white overflow-hidden sm:text-6xl md:text-7xl"
                >
                  <WaveClipPath progress={progress} wavePhase={wavePhase}>
                    manu

@@ -60,7 +60,7 @@ export default function Loading() {
             ease: [0.4, 0, 0.2, 1],
             delay: 0.2
           }}
-          className="logo-text-gradient text-5xl md:text-7xl"
+          className="logo-text-gradient text-3xl md:text-4xl"
         >
           manu
         </motion.div>

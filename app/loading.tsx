@@ -60,13 +60,7 @@ export default function Loading() {
             ease: [0.4, 0, 0.2, 1],
             delay: 0.2
           }}
-          className="font-bold text-4xl md:text-6xl lowercase bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent"
-          style={{ 
-            fontFamily: '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif', 
-            fontWeight: 700, 
-            letterSpacing: '-0.02em',
-            backgroundImage: 'linear-gradient(to right, #ffffff, #e5e7eb, #ffffff)'
-          }}
+          className="logo-text-gradient text-3xl md:text-4xl"
         >
           manu
         </motion.div>
@@ -109,11 +103,7 @@ export default function Loading() {
               duration: 0.5, 
               delay: 0.5
             }}
-            className="text-sm text-[--muted-foreground] tracking-wide"
-            style={{
-              fontFamily: '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif',
-              letterSpacing: '0.1em'
-            }}
+            className="section-label"
           >
             LOADING
           </motion.p>
@@ -121,11 +111,7 @@ export default function Loading() {
             key={progress}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-lg md:text-xl font-bold text-white tabular-nums"
-            style={{
-              fontFamily: '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif',
-              letterSpacing: '-0.02em'
-            }}
+            className="text-lg md:text-xl text-white tabular-nums"
           >
             {Math.round(progress)}%
           </motion.p>

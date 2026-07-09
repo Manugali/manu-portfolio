@@ -10,13 +10,7 @@ export function Topbar() {
       <div className={cn(SITE_CONTAINER, SITE_PADDING, "flex items-center justify-center")}>
         <Link
           href="/"
-          className="font-bold text-2xl lowercase bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent shrink-0"
-          style={{
-            fontFamily:
-              '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif',
-            fontWeight: 700,
-            letterSpacing: "-0.02em",
-          }}
+          className="logo-text-gradient text-2xl shrink-0 transition-opacity hover:opacity-80 sm:text-3xl"
         >
           manu
         </Link>

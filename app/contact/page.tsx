@@ -17,7 +17,7 @@ export default function ContactPage() {
         />
         <div className="grid min-w-0 gap-4">
           <div className="glass-card min-w-0 p-6 space-y-5 text-center">
-            <h2 className="text-lg font-bold gradient-text">Say hello</h2>
+            <h2 className="text-lg font-semibold gradient-text">Say hello</h2>
             <p className="text-sm text-[--muted-foreground] leading-relaxed">
               I&apos;m open to interesting projects, collaborations, and full-time opportunities.
             </p>
@@ -60,7 +60,7 @@ export default function ContactPage() {
           </div>
 
           <form className="glass-card min-w-0 p-6 space-y-4 text-center" action="/api/contact" method="post">
-            <h2 className="text-lg font-bold gradient-text">Send a message</h2>
+            <h2 className="text-lg font-semibold gradient-text">Send a message</h2>
             <input
               className="w-full rounded-xl border border-[--border] bg-[--muted]/30 px-4 py-2.5 text-sm text-[--foreground] placeholder:text-[--muted-foreground] focus:border-[--muted-foreground] outline-none transition-colors"
               name="name"

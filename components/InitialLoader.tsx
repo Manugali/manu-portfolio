@@ -1,11 +1,30 @@
 "use client";
 
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState, useMemo } from "react";
 import LightRays from "@/components/LightRays";
 
 const LOADER_KEY = "manu-portfolio-loader-seen";
-const ANIMATION_DURATION = 2400;
+const FILL_DURATION = 2400;
+const EXIT_DURATION = 550;
+
+type LoaderContextValue = {
+  isBlocking: boolean;
+};
+
+const LoaderContext = createContext<LoaderContextValue>({ isBlocking: false });
+
+export function useLoaderBlocking() {
+  return useContext(LoaderContext).isBlocking;
+}
 
 function WaveClipPath({
   progress,
@@ -35,154 +54,189 @@ function WaveClipPath({
   return <div style={{ clipPath }}>{children}</div>;
 }
 
-function getLogoTarget() {
+function measureLogoHandoff() {
   const logo = document.getElementById("site-logo");
   const loaderLogo = document.getElementById("loader-logo");
   if (!logo || !loaderLogo) return null;
 
   const target = logo.getBoundingClientRect();
   const source = loaderLogo.getBoundingClientRect();
-
-  const targetCx = target.left + target.width / 2;
-  const targetCy = target.top + target.height / 2;
-  const sourceCx = source.left + source.width / 2;
-  const sourceCy = source.top + source.height / 2;
+  if (target.width === 0 || source.width === 0) return null;
 
   return {
-    x: targetCx - sourceCx,
-    y: targetCy - sourceCy,
+    x: target.left + target.width / 2 - (source.left + source.width / 2),
+    y: target.top + target.height / 2 - (source.top + source.height / 2),
     scale: target.width / source.width,
   };
 }
 
-export function InitialLoader() {
-  const [isLoading, setIsLoading] = useState(() => {
-    if (typeof window === "undefined") return true;
-    return !sessionStorage.getItem(LOADER_KEY);
+export function LoaderProvider({ children }: { children: React.ReactNode }) {
+  const [visible, setVisible] = useState(false);
+  const [ready, setReady] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return Boolean(sessionStorage.getItem(LOADER_KEY));
   });
   const [progress, setProgress] = useState(0);
   const [wavePhase, setWavePhase] = useState(0);
-  const [phase, setPhase] = useState<"loading" | "exit">("loading");
-  const [target, setTarget] = useState({ x: 0, y: 0, scale: 0.2 });
+  const [phase, setPhase] = useState<"fill" | "exit">("fill");
+  const [handoff, setHandoff] = useState({ x: 0, y: 0, scale: 0.2 });
   const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
-    if (!isLoading) return;
+  const fillFrame = useRef<number | null>(null);
+  const exitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    if ("scrollRestoration" in window.history) {
-      window.history.scrollRestoration = "manual";
+  const finish = useCallback(() => {
+    sessionStorage.setItem(LOADER_KEY, "1");
+    document.body.style.overflow = "";
+    setVisible(false);
+    window.setTimeout(() => setReady(true), 450);
+  }, []);
+
+  useEffect(() => {
+    if (sessionStorage.getItem(LOADER_KEY)) {
+      return;
     }
-    window.scrollTo(0, 0);
 
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, [isLoading]);
+    let cancelled = false;
 
-  useEffect(() => {
-    if (!isLoading) return;
-
-    const startTime = Date.now();
-    let frame: number;
-    let done = false;
-
-    const tick = () => {
-      const elapsed = Date.now() - startTime;
-      const t = Math.min(elapsed / ANIMATION_DURATION, 1);
-
-      setWavePhase(elapsed * 0.004);
-
-      const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-      setProgress(eased * 100);
-
-      if (t < 1) {
-        frame = requestAnimationFrame(tick);
-        return;
-      }
-
-      if (done) return;
-      done = true;
-      setProgress(100);
+    const startId = requestAnimationFrame(() => {
+      if (cancelled) return;
+      setVisible(true);
+      document.body.style.overflow = "hidden";
 
       const mobile = window.innerWidth < 768;
-      const logoTarget = getLogoTarget();
-      if (logoTarget) setTarget(logoTarget);
+      setIsMobile(mobile);
 
-      setPhase("exit");
-      sessionStorage.setItem(LOADER_KEY, "1");
+      const start = Date.now();
 
-      setTimeout(() => setIsLoading(false), mobile ? 500 : 650);
+      const tick = () => {
+        if (cancelled) return;
+
+        const elapsed = Date.now() - start;
+        const t = Math.min(elapsed / FILL_DURATION, 1);
+        setWavePhase(elapsed * 0.004);
+
+        const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        setProgress(eased * 100);
+
+        if (t < 1) {
+          fillFrame.current = requestAnimationFrame(tick);
+          return;
+        }
+
+        setProgress(100);
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (cancelled) return;
+            const target = measureLogoHandoff();
+            if (target) setHandoff(target);
+            setPhase("exit");
+            exitTimer.current = setTimeout(finish, EXIT_DURATION + 80);
+          });
+        });
+      };
+
+      fillFrame.current = requestAnimationFrame(tick);
+    });
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(startId);
+      if (fillFrame.current) cancelAnimationFrame(fillFrame.current);
+      if (exitTimer.current) clearTimeout(exitTimer.current);
+      document.body.style.overflow = "";
     };
+  }, [finish]);
 
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [isLoading]);
+  const isBlocking = !ready;
 
   return (
-    <AnimatePresence>
-      {isLoading ? (
-        <motion.div
-          key="loader"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-[--background]"
-        >
-          <div className="pointer-events-none absolute inset-0" aria-hidden>
-            <LightRays
-              raysOrigin="top-center"
-              raysColor="#ffffff"
-              raysSpeed={0.9}
-              lightSpread={0.65}
-              rayLength={1}
-              followMouse={!isMobile}
-              mouseInfluence={0.06}
-              noiseAmount={0}
-              distortion={0}
-            />
-          </div>
-
+    <LoaderContext.Provider value={{ isBlocking }}>
+      <AnimatePresence
+        onExitComplete={() => {
+          setReady(true);
+        }}
+      >
+        {visible ? (
           <motion.div
-            className="relative z-10 flex flex-col items-center gap-6"
-            animate={
-              phase === "exit"
-                ? isMobile
-                  ? { opacity: 0, scale: 0.96 }
-                  : {
-                      opacity: 1,
-                      x: target.x,
-                      y: target.y,
-                      scale: target.scale,
-                    }
-                : { opacity: 1, x: 0, y: 0, scale: 1 }
-            }
-            transition={{
-              duration: phase === "exit" ? (isMobile ? 0.45 : 0.6) : 0,
-              ease: [0.4, 0, 0.2, 1],
-            }}
+            key="site-loader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-[#0a0a0a]"
+            aria-hidden={!visible}
+            aria-busy="true"
+            role="status"
           >
-            <div id="loader-logo" className="relative">
-              <div className="logo-text text-5xl text-neutral-600 sm:text-6xl md:text-7xl">
-                manu
-              </div>
-              <div className="logo-text absolute inset-0 overflow-hidden text-5xl text-white sm:text-6xl md:text-7xl">
-                <WaveClipPath progress={progress} wavePhase={wavePhase}>
-                  manu
-                </WaveClipPath>
-              </div>
-            </div>
-
-            <motion.p
+            <motion.div
+              className="pointer-events-none absolute inset-0"
               animate={{ opacity: phase === "exit" ? 0 : 1 }}
-              transition={{ duration: 0.25 }}
-              className="section-label tabular-nums"
+              transition={{ duration: EXIT_DURATION / 1000, ease: "easeOut" }}
+              aria-hidden
             >
-              {Math.round(progress)}%
-            </motion.p>
+              <LightRays
+                raysOrigin="top-center"
+                raysColor="#ffffff"
+                raysSpeed={0.9}
+                lightSpread={0.65}
+                rayLength={1}
+                followMouse={!isMobile}
+                mouseInfluence={0.06}
+                noiseAmount={0}
+                distortion={0}
+              />
+            </motion.div>
+
+            <motion.div
+              className="relative z-10 flex flex-col items-center gap-6"
+              animate={
+                phase === "exit"
+                  ? isMobile
+                    ? { opacity: 0, scale: 0.98, x: 0, y: 0 }
+                    : {
+                        opacity: [1, 1, 0],
+                        x: handoff.x,
+                        y: handoff.y,
+                        scale: handoff.scale,
+                      }
+                  : { opacity: 1, x: 0, y: 0, scale: 1 }
+              }
+              transition={{
+                duration: EXIT_DURATION / 1000,
+                ease: [0.4, 0, 0.2, 1],
+                opacity: { duration: EXIT_DURATION / 1000, times: [0, 0.7, 1] },
+              }}
+            >
+              <div id="loader-logo" className="relative">
+                <div className="logo-text text-5xl text-neutral-600 sm:text-6xl md:text-7xl">
+                  manu
+                </div>
+                <div className="logo-text absolute inset-0 overflow-hidden text-5xl text-white sm:text-6xl md:text-7xl">
+                  <WaveClipPath progress={progress} wavePhase={wavePhase}>
+                    manu
+                  </WaveClipPath>
+                </div>
+              </div>
+
+              <motion.p
+                animate={{ opacity: phase === "exit" ? 0 : 1 }}
+                transition={{ duration: 0.2 }}
+                className="section-label tabular-nums"
+              >
+                {Math.round(progress)}%
+              </motion.p>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      ) : null}
-    </AnimatePresence>
+        ) : null}
+      </AnimatePresence>
+
+      <div
+        className={isBlocking ? "invisible" : "visible"}
+        aria-hidden={isBlocking}
+      >
+        {children}
+      </div>
+    </LoaderContext.Provider>
   );
 }

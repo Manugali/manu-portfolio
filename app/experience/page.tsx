@@ -61,7 +61,7 @@ export default function ExperiencePage() {
             <p className="section-label mb-2">Foundation</p>
             <h2 className="text-2xl font-bold gradient-text">Education</h2>
             <p className="mt-2 text-sm text-[--muted-foreground]">
-              Academic training in computer science and software engineering principles.
+              Graduate training in computer science from Texas Tech University.
             </p>
           </div>
 
@@ -103,7 +103,7 @@ export default function ExperiencePage() {
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-lg border border-[--border] bg-white px-5 py-2.5 text-sm font-medium text-[--primary-foreground] transition-colors hover:bg-gray-100"
+              className="inline-flex items-center gap-2 rounded-lg border border-[--border] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:border-[--muted-foreground]"
             >
               Get in touch
               <ArrowRight className="h-4 w-4" />

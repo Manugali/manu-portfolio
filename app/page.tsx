@@ -15,7 +15,6 @@ import { useState, useRef, useEffect, forwardRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import experience from "@/data/experience.json";
 import { SiteBackground } from "@/components/SiteBackground";
-import { TechStack } from "@/components/TechStack";
 import { MobileNav } from "@/components/MobileNav";
 import { ExperienceCard } from "@/components/ExperienceCard";
 import { ExploreLinkCard } from "@/components/ExploreLinkCard";
@@ -348,18 +347,9 @@ export default function Home() {
                   What I Bring to the Table
                 </h2>
                 <p className="text-sm leading-relaxed text-[--muted-foreground]">
-                  Technical depth and a problem-solving mindset — focused on what matters most
+                  Enterprise software delivery with a focus on reliability, integration, and
+                  measurable impact
                 </p>
-              </div>
-
-              <div className="mb-10">
-                <div className="mb-6 text-center">
-                  <p className="section-label mb-3">Toolbox</p>
-                  <h3 className="gradient-text text-2xl font-bold">Tech Stack</h3>
-                </div>
-                <div className="mx-auto w-full max-w-2xl">
-                  <TechStack />
-                </div>
               </div>
 
               <div className="mx-auto grid w-full max-w-2xl grid-cols-1 gap-4 sm:grid-cols-2">
@@ -377,6 +367,16 @@ export default function Home() {
                     </div>
                   );
                 })}
+              </div>
+
+              <div className="mt-8 text-center">
+                <Link
+                  href="/experience"
+                  className="inline-flex items-center gap-2 text-sm text-[--muted-foreground] transition-colors hover:text-white"
+                >
+                  View competencies and experience
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </div>
             </div>
           </ScrollSection>

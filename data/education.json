@@ -1,12 +1,13 @@
 [
   {
-    "institution": "Bachelor of Science, Computer Science",
-    "focus": "Software Engineering & Information Systems",
-    "period": "2017 — 2021",
+    "institution": "Texas Tech University",
+    "focus": "Master of Science, Computer Science",
+    "period": "2021 — 2023",
+    "location": "Lubbock, Texas",
     "highlights": [
-      "Coursework in data structures, algorithms, database systems, and software architecture",
-      "Capstone project: full-stack web application with REST API backend and relational database design",
-      "Foundation in object-oriented programming, version control, and collaborative development practices"
+      "Graduate coursework in software architecture, advanced algorithms, database systems, and distributed computing",
+      "Applied research and project work in enterprise application design and scalable system patterns",
+      "Strengthened foundation in object-oriented design, data structures, and collaborative software engineering practices"
     ]
   }
 ]

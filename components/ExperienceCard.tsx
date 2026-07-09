@@ -73,8 +73,8 @@ export function ExperienceCard({
             </div>
             <p
               className={cn(
-                "text-sm font-medium text-white",
-                isLeftAligned ? "mt-1" : "mt-1 text-[--muted-foreground]"
+                "text-sm text-white",
+                isLeftAligned ? "mt-1 font-medium" : "mt-1 text-[--muted-foreground]"
               )}
             >
               {item.company}

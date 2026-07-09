@@ -257,26 +257,16 @@ export function InitialLoader() {
              <div className="relative">
                {/* Base grey text */}
                <div
-                 className="font-bold text-8xl md:text-[12rem] lg:text-[16rem] lowercase text-gray-500 relative"
-                 style={{ 
-                   fontFamily: '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif', 
-                   fontWeight: 700, 
-                   letterSpacing: '-0.02em',
-                   lineHeight: '1',
-                 }}
+                 className="font-display text-8xl md:text-[12rem] lg:text-[16rem] lowercase text-gray-500 relative"
+                 style={{ lineHeight: "1" }}
                >
                  manu
                </div>
                
                {/* White text that fills from bottom to top with wavy effect */}
                <div
-                 className="absolute inset-0 font-bold text-8xl md:text-[12rem] lg:text-[16rem] lowercase text-white overflow-hidden"
-                 style={{ 
-                   fontFamily: '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif', 
-                   fontWeight: 700, 
-                   letterSpacing: '-0.02em',
-                   lineHeight: '1',
-                 }}
+                 className="font-display absolute inset-0 text-8xl md:text-[12rem] lg:text-[16rem] lowercase text-white overflow-hidden"
+                 style={{ lineHeight: "1" }}
                >
                  <WaveClipPath progress={progress} wavePhase={wavePhase}>
                    manu
@@ -293,11 +283,7 @@ export function InitialLoader() {
                   scale: animationPhase === 'zoomOut' ? 0 : 1,
                 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="text-2xl md:text-3xl font-bold text-white tabular-nums"
-                style={{
-                  fontFamily: '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif',
-                  letterSpacing: '-0.02em'
-                }}
+                className="text-2xl md:text-3xl font-semibold text-white tabular-nums"
               >
                 {Math.round(progress)}%
               </motion.div>
@@ -310,12 +296,7 @@ export function InitialLoader() {
                   animate={{ opacity: animationPhase === 'zoomOut' ? 0 : 1, y: 0 }}
                   exit={{ opacity: 0, y: -5 }}
                   transition={{ duration: 0.3 }}
-                  className="text-sm md:text-base text-gray-400 tracking-wider uppercase"
-                  style={{
-                    fontFamily: '"Futura Bold", "Futura-Bold", Futura, "Century Gothic", -apple-system, BlinkMacSystemFont, sans-serif',
-                    letterSpacing: '0.15em',
-                    fontSize: '0.75rem',
-                  }}
+                  className="section-label text-[0.75rem]"
                 >
                   {loadingMessage}
                 </motion.p>

@@ -23,7 +23,7 @@ export default function ExperiencePage() {
           <h1 className="text-3xl font-bold tracking-tight gradient-text sm:text-4xl">
             Work
           </h1>
-          <p className="mx-auto max-w-2xl text-sm font-medium text-white sm:text-base">
+          <p className="mx-auto max-w-2xl text-sm text-white sm:text-base">
             {workProfile.headline}
           </p>
           <p className="mx-auto max-w-2xl text-sm leading-relaxed text-[--muted-foreground]">

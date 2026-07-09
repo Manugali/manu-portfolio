@@ -261,21 +261,6 @@ export default function Home() {
                     drive operational efficiency, reduce costs, and deliver measurable ROI.
                   </p>
                   <div className="flex flex-col items-center gap-6">
-                    <Link
-                      href="/contact"
-                      className="group relative inline-flex cursor-pointer items-center gap-2 overflow-hidden rounded-lg border border-[--border] px-6 py-3 text-white"
-                    >
-                      <motion.div
-                        className="absolute inset-0 rounded-lg bg-gradient-to-r from-white/25 via-white/20 to-white/25"
-                        initial={{ scaleX: 0 }}
-                        whileHover={{ scaleX: 1 }}
-                        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                        style={{ transformOrigin: "left" }}
-                      />
-                      <span className="relative z-10">Get in touch</span>
-                      <ArrowRight className="relative z-10 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Link>
-
                     <motion.div
                       className="group flex cursor-pointer flex-col items-center gap-2"
                       onClick={() => scrollToSection(skillsRef)}
@@ -289,7 +274,6 @@ export default function Home() {
                         opacity: { duration: 0.5, ease: "easeOut" },
                       }}
                       style={{
-                        marginTop: "1.5rem",
                         pointerEvents: scrollY < 150 ? "auto" : "none",
                       }}
                     >

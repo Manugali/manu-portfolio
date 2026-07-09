@@ -1,29 +1,22 @@
 "use client";
 
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LightRays from "@/components/LightRays";
 
 const LOADER_KEY = "manu-portfolio-loader-seen";
 const FILL_DURATION = 2400;
 const EXIT_DURATION = 550;
+const MAX_LOADER_MS = 6000;
 
 type LoaderContextValue = {
-  isBlocking: boolean;
+  isLoading: boolean;
 };
 
-const LoaderContext = createContext<LoaderContextValue>({ isBlocking: false });
+const LoaderContext = createContext<LoaderContextValue>({ isLoading: false });
 
 export function useLoaderBlocking() {
-  return useContext(LoaderContext).isBlocking;
+  return useContext(LoaderContext).isLoading;
 }
 
 function WaveClipPath({
@@ -71,11 +64,7 @@ function measureLogoHandoff() {
 }
 
 export function LoaderProvider({ children }: { children: React.ReactNode }) {
-  const [visible, setVisible] = useState(false);
-  const [ready, setReady] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return Boolean(sessionStorage.getItem(LOADER_KEY));
-  });
+  const [showLoader, setShowLoader] = useState(false);
   const [progress, setProgress] = useState(0);
   const [wavePhase, setWavePhase] = useState(0);
   const [phase, setPhase] = useState<"fill" | "exit">("fill");
@@ -84,12 +73,12 @@ export function LoaderProvider({ children }: { children: React.ReactNode }) {
 
   const fillFrame = useRef<number | null>(null);
   const exitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const safetyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const finish = useCallback(() => {
+  const dismiss = useCallback(() => {
     sessionStorage.setItem(LOADER_KEY, "1");
     document.body.style.overflow = "";
-    setVisible(false);
-    window.setTimeout(() => setReady(true), 450);
+    setShowLoader(false);
   }, []);
 
   useEffect(() => {
@@ -99,13 +88,18 @@ export function LoaderProvider({ children }: { children: React.ReactNode }) {
 
     let cancelled = false;
 
-    const startId = requestAnimationFrame(() => {
+    const begin = () => {
       if (cancelled) return;
-      setVisible(true);
+
+      setShowLoader(true);
       document.body.style.overflow = "hidden";
 
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
+
+      safetyTimer.current = setTimeout(() => {
+        if (!cancelled) dismiss();
+      }, MAX_LOADER_MS);
 
       const start = Date.now();
 
@@ -132,42 +126,41 @@ export function LoaderProvider({ children }: { children: React.ReactNode }) {
             const target = measureLogoHandoff();
             if (target) setHandoff(target);
             setPhase("exit");
-            exitTimer.current = setTimeout(finish, EXIT_DURATION + 80);
+            exitTimer.current = setTimeout(dismiss, EXIT_DURATION + 100);
           });
         });
       };
 
       fillFrame.current = requestAnimationFrame(tick);
-    });
+    };
+
+    const startId = requestAnimationFrame(begin);
 
     return () => {
       cancelled = true;
       cancelAnimationFrame(startId);
       if (fillFrame.current) cancelAnimationFrame(fillFrame.current);
       if (exitTimer.current) clearTimeout(exitTimer.current);
+      if (safetyTimer.current) clearTimeout(safetyTimer.current);
       document.body.style.overflow = "";
     };
-  }, [finish]);
-
-  const isBlocking = !ready;
+  }, [dismiss]);
 
   return (
-    <LoaderContext.Provider value={{ isBlocking }}>
-      <AnimatePresence
-        onExitComplete={() => {
-          setReady(true);
-        }}
-      >
-        {visible ? (
+    <LoaderContext.Provider value={{ isLoading: showLoader }}>
+      {children}
+
+      <AnimatePresence>
+        {showLoader ? (
           <motion.div
             key="site-loader"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="fixed inset-0 z-[200] flex items-center justify-center bg-[#0a0a0a]"
-            aria-hidden={!visible}
-            aria-busy="true"
             role="status"
+            aria-live="polite"
+            aria-label="Loading site"
           >
             <motion.div
               className="pointer-events-none absolute inset-0"
@@ -230,13 +223,6 @@ export function LoaderProvider({ children }: { children: React.ReactNode }) {
           </motion.div>
         ) : null}
       </AnimatePresence>
-
-      <div
-        className={isBlocking ? "invisible" : "visible"}
-        aria-hidden={isBlocking}
-      >
-        {children}
-      </div>
     </LoaderContext.Provider>
   );
 }

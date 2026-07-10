@@ -30,9 +30,9 @@ export function GET() {
   const feed = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Manohar Gali — Writing</title>
+    <title>Manohar Gali — Journal</title>
     <link>${siteUrl}/blog</link>
-    <description>Essays on building software and working in enterprise teams.</description>
+    <description>Personal notes from Manohar Gali — place, memory, and life outside the résumé.</description>
     <language>en-us</language>
     <atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml" />
     ${items}

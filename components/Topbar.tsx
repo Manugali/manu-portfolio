@@ -9,7 +9,7 @@ import { useLoaderBlocking } from "@/components/InitialLoader";
 
 const navLinks = [
   { href: "/experience", label: "Work" },
-  { href: "/blog", label: "Blog" },
+  { href: "/blog", label: "Journal" },
   { href: "/contact", label: "Contact" },
 ] as const;
 

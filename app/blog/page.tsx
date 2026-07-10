@@ -7,9 +7,9 @@ import { BlogIndex } from "@/components/BlogIndex";
 import { getAllPostMeta } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Writing",
+  title: "Journal",
   description:
-    "Essays and notes on building software, learning in public, and working in enterprise teams.",
+    "Personal notes — the parts of my life that do not belong on a résumé.",
 };
 
 export default function BlogPage() {
@@ -19,9 +19,9 @@ export default function BlogPage() {
     <AppShell>
       <main className="space-y-8">
         <PageHeader
-          label="Blog"
-          title="Thinking out loud"
-          description="Personal essays on building software, learning, and the messy parts of enterprise work."
+          label="Journal"
+          title="The rest of me"
+          description="My portfolio covers the work. This is the quieter corner — notes on place, memory, and whatever I am thinking through."
         />
 
         <div className="flex justify-center">

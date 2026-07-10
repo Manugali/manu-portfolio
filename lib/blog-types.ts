@@ -1,4 +1,4 @@
-export const TAGS = ["building", "learning", "opinions", "life", "tech"] as const;
+export const TAGS = ["life", "reflections", "memories", "notes", "place"] as const;
 export type Tag = (typeof TAGS)[number];
 
 export type BlogPost = {

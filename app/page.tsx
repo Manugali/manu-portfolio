@@ -41,9 +41,9 @@ const exploreLinks = [
   {
     href: "/blog",
     icon: BookText,
-    label: "Blog",
-    title: "Writing & ideas",
-    description: "Personal essays on building software, learning, and enterprise work.",
+    label: "Journal",
+    title: "Personal notes",
+    description: "The quieter corner — thoughts, memories, and life outside the résumé.",
   },
   {
     href: "/contact",

@@ -25,7 +25,7 @@ export function FeaturedPost({ post }: FeaturedPostProps) {
         <span>{post.readingTime} min read</span>
       </div>
       <span className="mt-5 inline-flex items-center gap-2 text-sm text-[--muted-foreground] transition-colors group-hover:text-white">
-        Read essay
+        Read
         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
       </span>
     </Link>

@@ -8,16 +8,20 @@ featured: true
 
 Flat land. Wide sky. The first place in this country that held my name on a lease, my footsteps in the dust.
 
-I did not know yet how to be here. Lubbock did not instruct — it simply was there, brown-red at the ankles, wind that never seemed finished with anything. Sunday light on empty lots. Voices from home through a phone screen, smaller than I needed them to be.
+I did not know yet how to be here. Lubbock did not instruct — it simply was there, brown-red at the ankles, wind that never seemed finished with anything. Campus at midnight. A part-time schedule stitched around lectures. Exam weeks where the fluorescent hum felt personal. Coffee gone cold beside an open book. Hurry, wait, begin again.
 
-Some evenings still arrive when I am not looking. A certain shade before dark. Laughter in a car that smelled like fast food and late rain. Other nights — the kind you fold into a drawer and leave closed. They remain. Memory does not sort for you.
+Between the weight of all that — roads out of town. Windows down. A playlist on repeat. Small cities sliding past in the glass. Trips that needed no destination except elsewhere, and the right people in the car.
+
+And the other firsts. Warmth I did not earn and could not keep. A particular silence in a small room. Brightness that arrived whole. Then the slow subtraction — felt in the throat before it is felt anywhere else. A drawer I leave closed. Still full.
+
+Memory does not sort for you.
 
 What stayed: a handful of people. Not a crowd. Enough.
 
-The ones who sat with me when the semester felt longer than the year. Who knew my face before I knew how to wear it in America. I carry them somewhere behind the ribs. Distance does not seem to matter with that sort of thing.
+The ones at the same table through the all-nighters. The ones who covered a shift when the week went wrong. Who saw the bloom and the ruin and did not drift. That sort of held does not need a zip code. I carry them behind the ribs.
 
-I left in 2023. Iowa now. Different horizon, same habit of looking up.
+I left in 2023. Iowa now.
 
-Lubbock does not ask to be missed. I think of it anyway — the flatness, the firsts, the rooms that held brightness and ache in the same breath, the few faces that went from strangers to something permanent before I had words for any of it.
+Lubbock does not ask to be missed. I think of it anyway — dust, fluorescent light, someone's laugh with the windows down, a few faces that became permanent before I understood what permanent meant.
 
 Still happening, quietly, somewhere I cannot point to on a map.

@@ -1,21 +1,23 @@
 ---
 title: "Lubbock is flat and I still think about it"
-excerpt: "Wind, empty Sundays, and a sky that does not care where you came from."
+excerpt: "The first American sky I ever slept under. Some nights I would not trade. Some I would not revisit."
 date: "2025-05-15"
 tags: ["place", "memories"]
 featured: true
 ---
 
-Lubbock is flat. You figure that out the first week.
+Flat land. Wide sky. The first place in this country that held my name on a lease, my footsteps in the dust.
 
-The sky is bigger than any sky I had lived under before. Brown-red dust on your shoes after walking across campus. Wind that does not ask — it just pushes until you learn to lean into it.
+I did not know yet how to be here. Lubbock did not instruct — it simply was there, brown-red at the ankles, wind that never seemed finished with anything. Sunday light on empty lots. Voices from home through a phone screen, smaller than I needed them to be.
 
-Sunday afternoons were the worst. Parking lots empty. Laundry, leftovers, the ceiling. Not sad every time. But often enough that I noticed.
+Some evenings still arrive when I am not looking. A certain shade before dark. Laughter in a car that smelled like fast food and late rain. Other nights — the kind you fold into a drawer and leave closed. They remain. Memory does not sort for you.
 
-I had friends. Not many. The kind you call when your car will not start or when you need someone to sit with at a mediocre restaurant. I cooked badly and then less badly. I called home and tried to sound fine before I was.
+What stayed: a handful of people. Not a crowd. Enough.
 
-I left in 2023. Iowa now — different state, different quiet. But Lubbock slips back in. Dry heat through an open window. That shade of blue right before the sun drops. Some song I cannot name.
+The ones who sat with me when the semester felt longer than the year. Who knew my face before I knew how to wear it in America. I carry them somewhere behind the ribs. Distance does not seem to matter with that sort of thing.
 
-I do not want to go back.
+I left in 2023. Iowa now. Different horizon, same habit of looking up.
 
-I am not done with it either.
+Lubbock does not ask to be missed. I think of it anyway — the flatness, the firsts, the rooms that held brightness and ache in the same breath, the few faces that went from strangers to something permanent before I had words for any of it.
+
+Still happening, quietly, somewhere I cannot point to on a map.

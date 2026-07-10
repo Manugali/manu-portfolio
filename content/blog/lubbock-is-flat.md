@@ -6,20 +6,20 @@ tags: ["place", "memories"]
 featured: true
 ---
 
-Lubbock is flat. You notice that right away.
+Flat. Wide sky. The first American city that knew my address.
 
-It was the first city I lived in when I came to the US. My apartment. My campus. A part-time job in whatever hours were left after class. Exams, late nights, that tired feeling at the end of a semester when you're running on coffee and habit.
+Lubbock held college and a part-time life at once — lectures, shifts, exam weeks under light that never seemed to soften, coffee going cold while the semester kept pressing. I was new to this country and new to all of it at the same time.
 
-Some weeks I barely remember. A few I can't shake.
+We escaped in cars when we could. Windows down. Gas station food. A playlist taking over. Nowhere we had to be — only somewhere else, and the right people in the backseat.
 
-We drove out of town when we could — no real plan, windows down, bad food from a gas station, music too loud in the car. Trips that didn't need a reason.
+Someone arrived and changed the weather inside me. Then left. The weeks after still had the same hallways, the same clock-in, the same quiet apartment. Impossible and ordinary, both at once.
 
-Someone there mattered to me in a way I hadn't felt before. When it ended, I didn't know what to do with the rest of the week. I still went to work. Still sat for exams. That part felt odd, looking back.
+Not every memory asks to be revisited. They're all still there.
 
-Not every memory from those years is one I'd want again. They're mine anyway.
+What remains clearest: a few friends. Not a crowd. The ones from 2am study tables, bad weeks, ordinary Tuesdays. Still in my life. Still close. Still the same weight in my chest they always were.
 
-What I hold onto: a few friends. Not many. The real kind. People who were there through all of it — the study nights, the broken weeks, the ordinary Tuesdays. I'm still close to them. I love them. That didn't fade when I left.
+Iowa since 2023.
 
-Iowa now. Since 2023.
+Lubbock returns in glances — dust on my shoes, a blue sky I can't describe right, a road out of town, a voice on the phone at midnight.
 
-Every so often Lubbock finds me — the sky, a road, a Sunday that's too quiet. I don't go looking for it. It just shows up.
+Unfinished. Like something I left mid-sentence.

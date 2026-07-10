@@ -9,7 +9,7 @@ import { SITE_CONTAINER, SITE_PADDING } from "@/lib/layout";
 const links = [
   { href: "/", label: "Home", icon: Home },
   { href: "/experience", label: "Work", icon: Briefcase },
-  { href: "/blog", label: "Notes", icon: BookText },
+  { href: "/blog", label: "Blog", icon: BookText },
   { href: "/contact", label: "Contact", icon: Mail },
 ] as const;
 

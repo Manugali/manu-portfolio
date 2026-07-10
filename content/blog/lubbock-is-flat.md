@@ -1,29 +1,27 @@
 ---
 title: "Lubbock is flat and I still think about it"
-excerpt: "Where the horizon runs out of patience, and some people stay in your blood."
+excerpt: "Warm stones and wreckage. A city that still breathes in my ribs."
 date: "2025-05-15"
 tags: ["place", "memories"]
 featured: true
 ---
 
-Flat — as if someone ironed the earth and forgot to put the wrinkles back.
+The land runs flat as a held breath. Sky everywhere — wide enough to make a newcomer feel skinless.
 
-Horizon like a sentence without a period. Dust on shoes the color of photographs fading in a drawer. A key turning. A doorway. Footsteps learning a foreign rhythm on ground that did not yet recognize me.
+Lubbock: first American address, campus routes worn into the feet. Between bells, a part-time life lived in the margins. Exam weeks humming like wire about to snap; coffee cooling while the night crept closer. I was learning a new country the way you learn a song — slowly, by repetition, with mistakes no one corrects.
 
-Those years moved like water poured between vessels — lamplight on pages, a body split between earning and becoming, nights thin as tissue, weeks layered like sediment, each pressing the one beneath into something harder and more true.
+When the horizon pressed too close, we drove. Colorado once — highway unspooling like dark thread ahead of us. Then the moment no one believes until it happens: metal singing the wrong note, the world tilting, silence after thick as wool. Glass. Breath caught in a dozen throats. And then — mercifully, impossibly — everyone still whole. Luck settling on us like wet snow: heavy, bright, not to be thrown away. We laughed later, giddy with surviving, our hands not yet done trembling.
 
-Memory arrives partial. Light through blinds — stripes of yes, stripes of not-again, all cut from the same afternoon.
+On campus, someone appeared and my heart lost its footing — a second rhythm moving in, sudden as a door swung open onto a room I had not known was there. For a season, the days bent toward that light. Then the quiet dismantling. Same paths. Same lectures. A chest relearning how to be one room instead of two.
 
-Out of town like birds leaving a wire — engines humming, wind a choir, cheap food and loud music stitching the dark together. Nowhere worth naming. Everywhere worth the going, with the ones who made elsewhere feel like shelter.
+Some memories warm the hands. Some bruise. Lubbock keeps both in the same weather.
 
-Once — green breaking through stone the way mercy sometimes does. Once — a dial spinning past every station at once. Afterward, ceilings wide and silent as snowfall. Mornings polite as porcelain, arriving whether invited or not.
+What held me through: a few faces, never many. Lamp-lit at two in the morning. In the car when the earth tried to turn us over. On the phone across years and states, still close, still tethered by something stronger than mileage. The kind of company that does not ask you to explain your grief.
 
-Not all of it gold. Not all of it ash. The city keeps both in the same jar.
+Iowa now. Different wind against the window.
 
-What crossed the distance with me: not furniture — faces. A small heaven of them. Lamp-lit at two a.m. Steady when the week split like old wood. Speaking across miles as though distance were a myth told to frighten children.
+Still Lubbock visits — dust on the tongue like something remembered from childhood, a blue so large it humbles you, mountain roads ghosting under closed eyes, a silhouette at the corner of a corridor I do not chase but cannot always avoid.
 
-Another wind now. Another door.
+A chapter the ink has not finished drying.
 
-Still Lubbock at the back of the throat — red dust like hunger from an earlier life, blue like a vow never spoken aloud, asphalt singing under wheels I only hear with my eyes shut, midnight glass lit with syllables heavier than prayer.
-
-A chapter whose ink has not dried. A door left ajar. A weather I carry without ever checking the forecast.
+A city carried like a stone warmed in the pocket — uncomfortable to hold, unthinkable to set down.

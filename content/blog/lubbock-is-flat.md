@@ -1,27 +1,25 @@
 ---
 title: "Lubbock is flat and I still think about it"
-excerpt: "The first American sky I ever slept under. Some nights I would not trade. Some I would not revisit."
+excerpt: "First city I lived in here. Still comes back sometimes."
 date: "2025-05-15"
 tags: ["place", "memories"]
 featured: true
 ---
 
-Flat land. Wide sky. The first place in this country that held my name on a lease, my footsteps in the dust.
+Lubbock is flat. You notice that right away.
 
-I did not know yet how to be here. Lubbock did not instruct — it simply was there, brown-red at the ankles, wind that never seemed finished with anything. Campus at midnight. A part-time schedule stitched around lectures. Exam weeks where the fluorescent hum felt personal. Coffee gone cold beside an open book. Hurry, wait, begin again.
+It was the first city I lived in when I came to the US. My apartment. My campus. A part-time job in whatever hours were left after class. Exams, late nights, that tired feeling at the end of a semester when you're running on coffee and habit.
 
-Between the weight of all that — roads out of town. Windows down. A playlist on repeat. Small cities sliding past in the glass. Trips that needed no destination except elsewhere, and the right people in the car.
+Some weeks I barely remember. A few I can't shake.
 
-And the other firsts. Warmth I did not earn and could not keep. A particular silence in a small room. Brightness that arrived whole. Then the slow subtraction — felt in the throat before it is felt anywhere else. A drawer I leave closed. Still full.
+We drove out of town when we could — no real plan, windows down, bad food from a gas station, music too loud in the car. Trips that didn't need a reason.
 
-Memory does not sort for you.
+Someone there mattered to me in a way I hadn't felt before. When it ended, I didn't know what to do with the rest of the week. I still went to work. Still sat for exams. That part felt odd, looking back.
 
-What stayed: a handful of people. Not a crowd. Enough.
+Not every memory from those years is one I'd want again. They're mine anyway.
 
-The ones at the same table through the all-nighters. The ones who covered a shift when the week went wrong. Who saw the bloom and the ruin and did not drift. That sort of held does not need a zip code. I carry them behind the ribs.
+What I hold onto: a few friends. Not many. The real kind. People who were there through all of it — the study nights, the broken weeks, the ordinary Tuesdays. I'm still close to them. I love them. That didn't fade when I left.
 
-I left in 2023. Iowa now.
+Iowa now. Since 2023.
 
-Lubbock does not ask to be missed. I think of it anyway — dust, fluorescent light, someone's laugh with the windows down, a few faces that became permanent before I understood what permanent meant.
-
-Still happening, quietly, somewhere I cannot point to on a map.
+Every so often Lubbock finds me — the sky, a road, a Sunday that's too quiet. I don't go looking for it. It just shows up.

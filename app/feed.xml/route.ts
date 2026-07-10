@@ -32,7 +32,7 @@ export function GET() {
   <channel>
     <title>Manohar Gali — Journal</title>
     <link>${siteUrl}/blog</link>
-    <description>Personal notes from Manohar Gali — place, memory, and life outside the résumé.</description>
+    <description>The rest of me.</description>
     <language>en-us</language>
     <atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml" />
     ${items}

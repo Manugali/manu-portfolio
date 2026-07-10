@@ -1,18 +1,21 @@
 ---
 title: "Lubbock is flat and I still think about it"
-excerpt: "Grad school was not only coursework. A lot of it was learning to be somewhere new."
+excerpt: "Wind, empty Sundays, and a sky that does not care where you came from."
 date: "2025-05-15"
 tags: ["place", "memories"]
+featured: true
 ---
 
-Texas Tech was two years in a place that looks the same in every direction.
+Lubbock is flat. You figure that out the first week.
 
-I came for a master's in computer science. What I remember most is not the coursework. It is how loud the wind felt. How empty the parking lots looked on Sunday afternoons. How far everything else seemed.
+The sky is bigger than any sky I had lived under before. Brown-red dust on your shoes after walking across campus. Wind that does not ask — it just pushes until you learn to lean into it.
 
-Lubbock taught me a lesson that turned out to matter: you can be lonely while being busy. Deadlines do not fix that. Neither does telling yourself you should be grateful.
+Sunday afternoons were the worst. Parking lots empty. Laundry, leftovers, the ceiling. Not sad every time. But often enough that I noticed.
 
-I made a few close friends there. I learned to cook more than I expected. I called home more than I wanted to admit. Some days I loved the quiet. Some days it ate me.
+I had friends. Not many. The kind you call when your car will not start or when you need someone to sit with at a mediocre restaurant. I cooked badly and then less badly. I called home and tried to sound fine before I was.
 
-I am in Iowa now. Different flatness. Different quiet. But Lubbock has a way of showing up — when I hear certain music, when the sky turns a particular color, when I am tired and cannot explain why.
+I left in 2023. Iowa now — different state, different quiet. But Lubbock slips back in. Dry heat through an open window. That shade of blue right before the sun drops. Some song I cannot name.
 
-I do not miss the city exactly. I miss who I was while I was learning how to live in it.
+I do not want to go back.
+
+I am not done with it either.

@@ -42,8 +42,8 @@ const exploreLinks = [
     href: "/blog",
     icon: BookText,
     label: "Journal",
-    title: "Personal notes",
-    description: "The quieter corner — thoughts, memories, and life outside the résumé.",
+    title: "The rest of me",
+    description: "Things I feel like putting down.",
   },
   {
     href: "/contact",

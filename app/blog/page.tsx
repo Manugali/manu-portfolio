@@ -8,8 +8,7 @@ import { getAllPostMeta } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Journal",
-  description:
-    "Personal notes — the parts of my life that do not belong on a résumé.",
+  description: "The rest of me.",
 };
 
 export default function BlogPage() {
@@ -18,11 +17,7 @@ export default function BlogPage() {
   return (
     <AppShell>
       <main className="space-y-8">
-        <PageHeader
-          label="Journal"
-          title="The rest of me"
-          description="My portfolio covers the work. This is the quieter corner — notes on place, memory, and whatever I am thinking through."
-        />
+        <PageHeader label="Journal" title="The rest of me" />
 
         <div className="flex justify-center">
           <Link

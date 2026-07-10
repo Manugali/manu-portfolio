@@ -238,6 +238,64 @@ body::-webkit-scrollbar {
   @apply rounded-full border border-[--border] bg-[--card] px-2.5 py-1 text-xs text-[--muted-foreground];
 }
 
+/* Blog prose */
+.blog-prose h2 {
+  @apply mt-10 mb-4 text-xl font-semibold tracking-tight text-[--foreground];
+}
+
+.blog-prose h3 {
+  @apply mt-8 mb-3 text-lg font-semibold tracking-tight text-[--foreground];
+}
+
+.blog-prose p {
+  @apply my-5 text-sm leading-relaxed text-[--muted-foreground] sm:text-base;
+}
+
+.blog-prose ul,
+.blog-prose ol {
+  @apply my-5 space-y-2 pl-5 text-sm leading-relaxed text-[--muted-foreground] sm:text-base;
+}
+
+.blog-prose ul {
+  @apply list-disc;
+}
+
+.blog-prose ol {
+  @apply list-decimal;
+}
+
+.blog-prose li {
+  @apply pl-1;
+}
+
+.blog-prose a {
+  @apply text-[--foreground] underline decoration-[--border] underline-offset-4 transition-colors;
+}
+
+.blog-prose a:hover {
+  @apply decoration-[--foreground];
+}
+
+.blog-prose strong {
+  @apply font-semibold text-[--foreground];
+}
+
+.blog-prose blockquote {
+  @apply my-6 border-l-2 border-[--border] pl-4 text-sm italic text-[--muted-foreground] sm:text-base;
+}
+
+.blog-prose code {
+  @apply rounded-md border border-[--border] bg-[--card] px-1.5 py-0.5 font-mono text-[0.9em] text-[--foreground];
+}
+
+.blog-prose pre {
+  @apply my-6 overflow-x-auto rounded-xl border border-[--border] bg-[--card] p-4;
+}
+
+.blog-prose pre code {
+  @apply border-0 bg-transparent p-0;
+}
+
 /* Logo */
 .logo-text {
   font-family: var(--font-logo), "Futura Bold", Futura, sans-serif;

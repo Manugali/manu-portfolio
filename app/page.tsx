@@ -41,9 +41,9 @@ const exploreLinks = [
   {
     href: "/blog",
     icon: BookText,
-    label: "Notes",
+    label: "Blog",
     title: "Writing & ideas",
-    description: "Thoughts on building software, learning, and working in enterprise teams.",
+    description: "Personal essays on building software, learning, and enterprise work.",
   },
   {
     href: "/contact",

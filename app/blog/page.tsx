@@ -1,92 +1,40 @@
-"use client";
-
-import { useMemo, useState } from "react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Rss } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { PageHeader } from "@/components/PageHeader";
-import notes from "@/data/notes.json";
-import { cn } from "@/lib/utils";
+import { BlogIndex } from "@/components/BlogIndex";
+import { getAllPostMeta } from "@/lib/blog";
 
-const TAGS = ["building", "learning", "opinions", "life", "tech"] as const;
-type Tag = (typeof TAGS)[number];
-
-type Note = {
-  title: string;
-  excerpt: string;
-  date: string;
-  tags: Tag[];
+export const metadata: Metadata = {
+  title: "Writing",
+  description:
+    "Essays and notes on building software, learning in public, and working in enterprise teams.",
 };
 
-const allNotes = notes as Note[];
-
 export default function BlogPage() {
-  const [activeTag, setActiveTag] = useState<Tag | "all">("all");
-
-  const filteredNotes = useMemo(
-    () =>
-      activeTag === "all"
-        ? allNotes
-        : allNotes.filter((note) => note.tags.includes(activeTag)),
-    [activeTag]
-  );
+  const posts = getAllPostMeta();
 
   return (
     <AppShell>
       <main className="space-y-8">
         <PageHeader
-          label="Notes"
+          label="Blog"
           title="Thinking out loud"
-          description="Short essays on building software and working in enterprise teams."
+          description="Personal essays on building software, learning, and the messy parts of enterprise work."
         />
 
-        <div className="flex flex-wrap justify-center gap-2">
-          <button
-            type="button"
-            onClick={() => setActiveTag("all")}
-            className={cn(
-              "tag cursor-pointer transition-colors",
-              activeTag === "all" && "border-[--foreground] text-white"
-            )}
+        <div className="flex justify-center">
+          <Link
+            href="/feed.xml"
+            className="inline-flex items-center gap-2 text-xs text-[--muted-foreground] transition-colors hover:text-white"
           >
-            all
-          </button>
-          {TAGS.map((tag) => (
-            <button
-              key={tag}
-              type="button"
-              onClick={() => setActiveTag(tag)}
-              className={cn(
-                "tag cursor-pointer transition-colors",
-                activeTag === tag && "border-[--foreground] text-white"
-              )}
-            >
-              #{tag}
-            </button>
-          ))}
+            <Rss className="h-3.5 w-3.5" />
+            Subscribe via RSS
+          </Link>
         </div>
 
-        <div className="grid gap-4">
-          {filteredNotes.map((note) => (
-            <article key={note.title} className="glass-card p-6">
-              <p className="section-label mb-2">{note.date}</p>
-              <h2 className="text-lg font-semibold">{note.title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-[--muted-foreground]">
-                {note.excerpt}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {note.tags.map((tag) => (
-                  <button
-                    key={tag}
-                    type="button"
-                    onClick={() => setActiveTag(tag)}
-                    className="tag cursor-pointer text-[11px]"
-                  >
-                    #{tag}
-                  </button>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
+        <BlogIndex posts={posts} />
       </main>
     </AppShell>
   );

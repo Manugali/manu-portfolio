@@ -1,25 +1,27 @@
 ---
 title: "Lubbock is flat and I still think about it"
-excerpt: "First city I lived in here. Still comes back sometimes."
+excerpt: "Where the horizon runs out of patience, and some people stay in your blood."
 date: "2025-05-15"
 tags: ["place", "memories"]
 featured: true
 ---
 
-Flat. Wide sky. The first American city that knew my address.
+The land lies open — flat as an exhale, stingy with shelter, drunk on sky.
 
-Lubbock held college and a part-time life at once — lectures, shifts, exam weeks under light that never seemed to soften, coffee going cold while the semester kept pressing. I was new to this country and new to all of it at the same time.
+Lubbock: my first American address. The place where I learned to fold a foreign country into ordinary Tuesdays. College corridors and clocked-in hours wrestled over the same tired body. Exam weeks hung above the town like heat lightning — present, electric, never quite breaking. Coffee cooled beside open books while time pooled at the edges of the night.
 
-We escaped in cars when we could. Windows down. Gas station food. A playlist taking over. Nowhere we had to be — only somewhere else, and the right people in the backseat.
+Some years slip the mind like sand through a loose fist. Others cling like burrs to wool.
 
-Someone arrived and changed the weather inside me. Then left. The weeks after still had the same hallways, the same clock-in, the same quiet apartment. Impossible and ordinary, both at once.
+We fled when the flatness pressed too close — cars sliding down highways dark as poured ink. Windows thrown wide. Gas-station bread, cheap soda, music flooding the cabin like water into a hollow boat. Destinations optional. Belonging the only compass.
 
-Not every memory asks to be revisited. They're all still there.
+Love arrived the way spring finds cracked pavement — sudden, green, sure of itself. Then gone, like a radio losing its station between breaths. Life went on with obscene politeness: the same shifts, the same syllabi, the same ceiling watching me like a moon that refused to look away.
 
-What remains clearest: a few friends. Not a crowd. The ones from 2am study tables, bad weeks, ordinary Tuesdays. Still in my life. Still close. Still the same weight in my chest they always were.
+Not every memory wears the same light. Some gleam like coins at the bottom of a pocket. Some sit heavy as stones you never meant to carry. Lubbock keeps the whole handful.
 
-Iowa since 2023.
+What cleaves to me still: a handful of friends — bright and few as stars in a thin sky. Faces over textbooks at two in the morning. Hands when the week split open like overripe fruit. Voices that cross state lines as though distance were a rumor. They are the rhyme I keep returning to. Root-work. Permanent.
 
-Lubbock returns in glances — dust on my shoes, a blue sky I can't describe right, a road out of town, a voice on the phone at midnight.
+Iowa since 2023. Another horizon. Another name on a door.
 
-Unfinished. Like something I left mid-sentence.
+Yet Lubbock returns the way old melodies return — half a verse, a dust-red evening I can almost taste, wind speaking a dialect I once fluently spoke. Roads humming under tires I hear with my eyes closed. Phones glowing at midnight with names that mean *remain*.
+
+Unfinished — a door left ajar in the house of memory, a chapter whose last line I have not written, and do not need to.

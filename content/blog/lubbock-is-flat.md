@@ -6,22 +6,24 @@ tags: ["place", "memories"]
 featured: true
 ---
 
-The land lies open — flat as an exhale, stingy with shelter, drunk on sky.
+Flat — as if someone ironed the earth and forgot to put the wrinkles back.
 
-Lubbock: my first American address. The place where I learned to fold a foreign country into ordinary Tuesdays. College corridors and clocked-in hours wrestled over the same tired body. Exam weeks hung above the town like heat lightning — present, electric, never quite breaking. Coffee cooled beside open books while time pooled at the edges of the night.
+Horizon like a sentence without a period. Dust on shoes the color of photographs fading in a drawer. A key turning. A doorway. Footsteps learning a foreign rhythm on ground that did not yet recognize me.
 
-Some years slip the mind like sand through a loose fist. Others cling like burrs to wool.
+Those years moved like water poured between vessels — lamplight on pages, a body split between earning and becoming, nights thin as tissue, weeks layered like sediment, each pressing the one beneath into something harder and more true.
 
-We fled when the flatness pressed too close — cars sliding down highways dark as poured ink. Windows thrown wide. Gas-station bread, cheap soda, music flooding the cabin like water into a hollow boat. Destinations optional. Belonging the only compass.
+Memory arrives partial. Light through blinds — stripes of yes, stripes of not-again, all cut from the same afternoon.
 
-Love arrived the way spring finds cracked pavement — sudden, green, sure of itself. Then gone, like a radio losing its station between breaths. Life went on with obscene politeness: the same shifts, the same syllabi, the same ceiling watching me like a moon that refused to look away.
+Out of town like birds leaving a wire — engines humming, wind a choir, cheap food and loud music stitching the dark together. Nowhere worth naming. Everywhere worth the going, with the ones who made elsewhere feel like shelter.
 
-Not every memory wears the same light. Some gleam like coins at the bottom of a pocket. Some sit heavy as stones you never meant to carry. Lubbock keeps the whole handful.
+Once — green breaking through stone the way mercy sometimes does. Once — a dial spinning past every station at once. Afterward, ceilings wide and silent as snowfall. Mornings polite as porcelain, arriving whether invited or not.
 
-What cleaves to me still: a handful of friends — bright and few as stars in a thin sky. Faces over textbooks at two in the morning. Hands when the week split open like overripe fruit. Voices that cross state lines as though distance were a rumor. They are the rhyme I keep returning to. Root-work. Permanent.
+Not all of it gold. Not all of it ash. The city keeps both in the same jar.
 
-Iowa since 2023. Another horizon. Another name on a door.
+What crossed the distance with me: not furniture — faces. A small heaven of them. Lamp-lit at two a.m. Steady when the week split like old wood. Speaking across miles as though distance were a myth told to frighten children.
 
-Yet Lubbock returns the way old melodies return — half a verse, a dust-red evening I can almost taste, wind speaking a dialect I once fluently spoke. Roads humming under tires I hear with my eyes closed. Phones glowing at midnight with names that mean *remain*.
+Another wind now. Another door.
 
-Unfinished — a door left ajar in the house of memory, a chapter whose last line I have not written, and do not need to.
+Still Lubbock at the back of the throat — red dust like hunger from an earlier life, blue like a vow never spoken aloud, asphalt singing under wheels I only hear with my eyes shut, midnight glass lit with syllables heavier than prayer.
+
+A chapter whose ink has not dried. A door left ajar. A weather I carry without ever checking the forecast.

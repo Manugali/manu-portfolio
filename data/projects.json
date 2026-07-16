@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "title": "Legacy Bridge Simulator",
+    "description": "Interactive integration lab for Meridian Financial: adapters pull from mock legacy HR, Policy, and GL systems, then map, validate, and write into Payout Ops with retries, a dead-letter queue, and reconciliation.",
+    "href": "/labs/bridge",
+    "stack": ["Next.js", "TypeScript", "Integration patterns", "Ops console"],
+    "outcome": "Shows how partial failures, duplicates, and drift are handled in an enterprise sync pipeline."
+  }
+]

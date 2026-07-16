@@ -11,6 +11,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/experience`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${siteUrl}/resume`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/projects`, lastModified, changeFrequency: "monthly", priority: 0.7 },
+    {
+      url: `${siteUrl}/labs/bridge`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.75,
+    },
     { url: `${siteUrl}/blog`, lastModified, changeFrequency: "weekly", priority: 0.8 },
     { url: `${siteUrl}/feed.xml`, lastModified, changeFrequency: "weekly", priority: 0.3 },
     ...posts.map((post) => ({

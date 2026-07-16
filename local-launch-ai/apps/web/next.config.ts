@@ -1,4 +1,8 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import type { NextConfig } from "next";
+
+const workspaceRoot = path.join(fileURLToPath(new URL(".", import.meta.url)), "../..");
 
 const nextConfig: NextConfig = {
   transpilePackages: [
@@ -8,8 +12,9 @@ const nextConfig: NextConfig = {
     "@locallaunch/types",
     "@locallaunch/ui",
   ],
-  experimental: {
-    typedRoutes: true,
+  typedRoutes: true,
+  turbopack: {
+    root: workspaceRoot,
   },
 };
 

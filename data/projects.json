@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "slug": "locallaunch-ai",
+    "title": "LocalLaunch AI",
+    "description": "A production-oriented SaaS platform that turns public business information into editable, publish-ready local business websites — with provenance tracking, approval gates, AI-generated original copy, billing, and deploy-ready architecture.",
+    "image": "/locallaunch-ai-cover.png",
+    "stack": [
+      "Next.js",
+      "TypeScript",
+      "Prisma",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "OpenAI",
+      "Stripe"
+    ],
+    "demo": "/projects/locallaunch-ai",
+    "repo": "https://github.com/Manugali/manu-portfolio/tree/cursor/locallaunch-foundation-414b/local-launch-ai"
+  }
+]

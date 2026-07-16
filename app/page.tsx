@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Topbar } from "@/components/Topbar";
-import { ArrowRight, Brain, Rocket, Briefcase, BookText, Mail } from "lucide-react";
+import { ArrowRight, Brain, Rocket, Briefcase, FolderKanban, BookText, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import experience from "@/data/experience.json";
 import { SiteBackground } from "@/components/SiteBackground";
@@ -37,6 +37,13 @@ const exploreLinks = [
     label: "Work",
     title: "Experience & skills",
     description: "Enterprise delivery in financial services — architecture through deployment.",
+  },
+  {
+    href: "/projects",
+    icon: FolderKanban,
+    label: "Projects",
+    title: "LocalLaunch AI & more",
+    description: "Selected products I've built — starting with a SaaS website generation platform.",
   },
   {
     href: "/blog",
@@ -124,8 +131,8 @@ export default function Home() {
               variants={itemVariants}
               className="mt-8 flex flex-col gap-3 sm:flex-row"
             >
-              <Link href="/experience" className="btn-primary">
-                View my work
+              <Link href="/projects" className="btn-primary">
+                View projects
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/contact" className="btn-secondary">

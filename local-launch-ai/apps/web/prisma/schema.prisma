@@ -1,0 +1,242 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PlanTier {
+  FREE
+  PRO
+  AGENCY
+  WHITE_LABEL
+}
+
+enum ContentOrigin {
+  IMPORTED
+  AI_REWRITTEN
+  USER_PROVIDED
+  USER_APPROVED
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum DeploymentStatus {
+  DRAFT
+  PENDING
+  LIVE
+  FAILED
+}
+
+model User {
+  id            String        @id @default(cuid())
+  email         String        @unique
+  name          String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  memberships   Membership[]
+  subscriptions Subscription[]
+  auditLogs     AuditLog[]
+}
+
+model Workspace {
+  id            String         @id @default(cuid())
+  name          String
+  slug          String         @unique
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  memberships   Membership[]
+  projects      Project[]
+  usageEntries  UsageLedger[]
+  featureFlags  FeatureFlag[]
+  subscriptions Subscription[]
+}
+
+model Membership {
+  id          String    @id @default(cuid())
+  role        String
+  createdAt   DateTime  @default(now())
+  userId      String
+  workspaceId String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, workspaceId])
+}
+
+model Subscription {
+  id                 String    @id @default(cuid())
+  tier               PlanTier
+  stripeCustomerId   String?   @unique
+  stripeSubscriptionId String? @unique
+  status             String
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  userId             String?
+  workspaceId        String?
+  user               User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
+  workspace          Workspace? @relation(fields: [workspaceId], references: [id], onDelete: SetNull)
+}
+
+model UsageLedger {
+  id          String    @id @default(cuid())
+  kind        String
+  units       Int
+  metadata    Json
+  createdAt   DateTime  @default(now())
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model Project {
+  id             String          @id @default(cuid())
+  name           String
+  status         String
+  category       String?
+  businessSource BusinessSource?
+  businessProfile BusinessProfile?
+  generatedSite  GeneratedSite?
+  deployment     Deployment?
+  leads          LeadSubmission[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  workspaceId    String
+  workspace      Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model BusinessSource {
+  id          String   @id @default(cuid())
+  sourceType  String
+  sourceUrl   String?
+  query       String?
+  rawPayload  Json
+  createdAt   DateTime @default(now())
+  projectId   String   @unique
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model BusinessProfile {
+  id          String   @id @default(cuid())
+  name        String
+  category    String
+  phone       String?
+  address     String?
+  hours       Json
+  serviceArea Json
+  provenance  Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  projectId   String   @unique
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Asset {
+  id             String         @id @default(cuid())
+  kind           String
+  sourceUrl      String?
+  storageUrl     String?
+  ownershipNotes String?
+  approvalStatus ApprovalStatus @default(PENDING)
+  origin         ContentOrigin
+  metadata       Json
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  generatedSiteId String?
+  generatedSite  GeneratedSite? @relation(fields: [generatedSiteId], references: [id], onDelete: SetNull)
+}
+
+model GeneratedSite {
+  id               String        @id @default(cuid())
+  themePreset      String
+  status           String
+  metaTitle        String
+  metaDescription  String
+  schemaMarkup     Json
+  approvalsSummary Json
+  pages            SitePage[]
+  assets           Asset[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  projectId        String        @unique
+  project          Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model SitePage {
+  id              String        @id @default(cuid())
+  slug            String
+  title           String
+  description     String
+  sortOrder       Int
+  sections        SiteSection[]
+  generatedSiteId String
+  generatedSite   GeneratedSite @relation(fields: [generatedSiteId], references: [id], onDelete: Cascade)
+}
+
+model SiteSection {
+  id         String   @id @default(cuid())
+  type       String
+  heading    String
+  body       String
+  content    Json
+  sortOrder  Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  sitePageId String
+  sitePage   SitePage @relation(fields: [sitePageId], references: [id], onDelete: Cascade)
+}
+
+model ThemePreset {
+  id         String   @id @default(cuid())
+  name       String   @unique
+  tokens     Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Deployment {
+  id            String           @id @default(cuid())
+  provider      String
+  providerId    String?
+  customDomain  String?
+  status        DeploymentStatus @default(DRAFT)
+  rollbackMeta  Json?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  projectId     String           @unique
+  project       Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model LeadSubmission {
+  id         String   @id @default(cuid())
+  name       String
+  email      String
+  message    String
+  createdAt  DateTime @default(now())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  action      String
+  metadata    Json
+  createdAt   DateTime @default(now())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model FeatureFlag {
+  id          String    @id @default(cuid())
+  key         String
+  enabled     Boolean   @default(false)
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, key])
+}

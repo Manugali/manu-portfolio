@@ -30,12 +30,13 @@ export function buildReconcileReport(runId?: string | null): ReconcileReport {
     });
   }
 
-  const targetKeys = new Map(
-    targetRecords.map((record) => [`${record.sourceId}:${record.externalId}`, record] as const)
-  );
+  const targetKeys = new Map<string, (typeof targetRecords)[number]>();
+  for (const record of targetRecords) {
+    targetKeys.set(`${record.sourceId}:${record.externalId}`, record);
+  }
 
   const diffs: ReconcileDiff[] = [];
-  const allKeys = new Set([...sourceKeys.keys(), ...targetKeys.keys()]);
+  const allKeys = new Set<string>([...sourceKeys.keys(), ...targetKeys.keys()]);
 
   for (const key of allKeys) {
     const source = sourceKeys.get(key);

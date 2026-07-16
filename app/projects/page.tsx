@@ -1,30 +1,32 @@
-"use client";
-
-import Link from "next/link";
+import type { Metadata } from "next";
 import { AppShell } from "@/components/AppShell";
 import { PageHeader } from "@/components/PageHeader";
-import { ArrowRight } from "lucide-react";
+import { ProjectCard, type Project } from "@/components/ProjectCard";
+import projects from "@/data/projects.json";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Selected product and engineering projects — including LocalLaunch AI, a SaaS platform for generating editable local business websites.",
+};
 
 export default function ProjectsPage() {
+  const items = projects as Project[];
+
   return (
     <AppShell>
       <main className="space-y-8">
         <PageHeader
           label="Projects"
-          title="Case studies"
-          description="Detailed write-ups are on the way. In the meantime, my professional work speaks through the experience page."
+          title="Things I've built"
+          description="Real products and systems — not placeholder demos. Start with LocalLaunch AI, a SaaS platform for generating publish-ready local business websites."
         />
 
-        <article className="glass-card space-y-4 p-8 text-center">
-          <p className="text-sm leading-relaxed text-[--muted-foreground]">
-            I&apos;m preparing case studies from real enterprise work — integration projects,
-            internal platforms, and .NET systems in production. No placeholder demos.
-          </p>
-          <Link href="/experience" className="btn-primary mx-auto">
-            View experience instead
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </article>
+        <div className="grid gap-5">
+          {items.map((project) => (
+            <ProjectCard key={project.slug ?? project.title} project={project} />
+          ))}
+        </div>
       </main>
     </AppShell>
   );

@@ -9,6 +9,7 @@ import { useLoaderBlocking } from "@/components/InitialLoader";
 
 const navLinks = [
   { href: "/experience", label: "Work" },
+  { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ] as const;
@@ -39,7 +40,7 @@ export function Topbar() {
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
           {navLinks.map(({ href, label }) => {
-            const active = pathname === href;
+            const active = pathname === href || pathname.startsWith(`${href}/`);
             return (
               <Link
                 key={href}

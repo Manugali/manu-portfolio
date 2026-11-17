@@ -1,6 +1,6 @@
 ---
 title: "The day you arrived"
-excerpt: "Happy birthday. That's really all I came here to say."
+excerpt: "A short birthday note. Nothing dramatic — just happy birthday."
 date: "2026-11-17"
 tags: ["life"]
 featured: true
@@ -8,10 +8,10 @@ featured: true
 
 Happy birthday.
 
-I don't usually write personal stuff on this site. Mostly work and code. But today I kept thinking about you, and it felt weird to say nothing.
+I don't usually put personal stuff on this site, but today felt like a good excuse.
 
-We don't know each other that well yet. I'm not going to pretend we do. Still — talking to you has been one of the better parts of my week lately. You make things feel lighter. I notice that.
+We don't know each other that well yet, and that's fine. Still, talking to you has been nice. Easy. I appreciate that.
 
-I hope your birthday is good. I hope you get some rest, eat something you like, and feel happy for no big reason.
+I hope your birthday is good — rest, food you like, whatever makes the day feel right.
 
-I'm glad you're in my life, even if it's early. Happy birthday again.
+Happy birthday. Glad we crossed paths.

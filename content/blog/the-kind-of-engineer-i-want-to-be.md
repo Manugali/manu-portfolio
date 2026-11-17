@@ -3,7 +3,6 @@ title: "The kind of engineer I want to be"
 excerpt: "Not the loudest in the room — the one who ships things that actually work for real people."
 date: "2025-06-12"
 tags: ["opinions", "building"]
-featured: true
 ---
 
 I used to think the best engineers were the ones who knew the most frameworks, talked the fastest in meetings, or had the sharpest takes on architecture Twitter. I still respect deep technical skill — but the people I admire most now are quieter about it.

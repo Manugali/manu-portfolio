@@ -1,17 +1,17 @@
 ---
 title: "The day you arrived"
-excerpt: "A birthday note for someone who made an ordinary stretch of my life feel different."
+excerpt: "Happy birthday. That's really all I came here to say."
 date: "2026-11-17"
 tags: ["life"]
 featured: true
 ---
 
-Most of what I write here is about code and work. Today isn't.
+Happy birthday.
 
-It's your birthday, and I wanted to leave something real for you somewhere you might find it.
+I don't usually write personal stuff on this site. Mostly work and code. But today I kept thinking about you, and it felt weird to say nothing.
 
-I don't know everything about you yet. We're still at the beginning. But I know that talking to you pulls me out of a long day. I know I look forward to hearing from you more than I expected to. That already means something.
+We don't know each other that well yet. I'm not going to pretend we do. Still — talking to you has been one of the better parts of my week lately. You make things feel lighter. I notice that.
 
-So: happy birthday. I hope the day is kind to you. And thank you for showing up when you did — it made this quiet corner of my life feel less empty.
+I hope your birthday is good. I hope you get some rest, eat something you like, and feel happy for no big reason.
 
-Maybe one day this will be more than a note on a page. For now, this is enough.
+I'm glad you're in my life, even if it's early. Happy birthday again.

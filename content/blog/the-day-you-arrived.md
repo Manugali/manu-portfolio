@@ -1,6 +1,6 @@
 ---
 title: "The day you arrived"
-excerpt: "A longer birthday note — early days, real feelings, nothing forced."
+excerpt: "Happy birthday. I wanted to say more than one line, so I did."
 date: "2026-11-17"
 tags: ["life"]
 featured: true
@@ -8,38 +8,14 @@ featured: true
 
 Happy birthday.
 
-I write on this site about work, systems, and the kind of engineer I'm trying to become. That still matters to me. But today I wanted to write about something else — someone else — without turning it into a speech.
+I almost left this as just those two words. Then I figured if I'm going to put it on my site, I should at least be honest about why.
 
-You.
+You're someone I recently got to know, and talking to you has been good. Not in a dramatic way. Just good. After work, when my brain is tired, it's nice knowing there's a conversation that doesn't feel forced. You get what I'm saying without me having to over-explain. That helps more than it sounds.
 
-## Early days
+I won't pretend we're further along than we are. We're not. There's still a lot of normal getting-to-know-you stuff ahead, and I'm fine with that. I don't need this to be bigger than it is right now.
 
-We don't know each other deeply yet. I'm not going to dress that up. There's a lot I still haven't learned, and a lot you haven't learned about me. That's normal. That's how beginnings work.
+What I can say is simple: I'm glad you ended up in my life. The days feel a little less flat when you're around in them. If that's all this is for now, that's still worth writing down.
 
-Still, since you came into my life, some ordinary days have felt a little better. Not because everything changed overnight. Just because talking to you is easy. You don't make things heavier. You don't turn simple moments into a performance. That alone is rare enough to notice.
+For your birthday, I hope you get a day that feels like yours. Do the things you like. Spend time with people who are easy to be around. Eat something good. Ignore anything that tries to make the day stressful.
 
-I don't need a big story about fate or timing. You showed up. We started talking. And somehow that became a part of my week I actually look forward to.
-
-## What I appreciate
-
-I appreciate that you're straightforward. That you can be funny without trying too hard. That conversations with you don't feel like work.
-
-I also appreciate that this doesn't have to be complicated to mean something. People sometimes wait until they have a perfect narrative before they say anything kind. I don't want to do that. If talking to you has been good for me, I can say that now — simply, while it's true.
-
-You don't owe me a version of this. I'm not writing to ask for anything. I'm writing because it's your birthday, and ignoring that felt worse than saying too little.
-
-## A real wish
-
-I hope today feels like yours. Not rushed. Not filled with noise you didn't ask for. I hope you get time with people who make you feel comfortable in your own skin. I hope you eat something you love. I hope something small and unexpected makes you laugh.
-
-And if the day is quiet, I hope the quiet feels peaceful instead of empty.
-
-More than that, I hope this next year is gentle with you in the ways you need — and sharp in the ways that help you grow. I hope you keep the parts of yourself that already feel solid, and that you don't have to shrink to fit anywhere that isn't worth it.
-
-## Closing
-
-I don't know exactly what we become from here. I don't need to force an answer today. Beginnings are allowed to stay beginnings for a while.
-
-What I do know is this: I'm glad you arrived when you did. Talking to you has been a good thing in my life, and I'm grateful for that.
-
-Happy birthday. I mean it.
+And if you're reading this — hi. I meant it. Happy birthday.
